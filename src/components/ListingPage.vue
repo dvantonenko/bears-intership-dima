@@ -12,13 +12,13 @@
      <span id="question_text">Why Ghost (& Figma) instead of Medium, WordPress or other options? </span>
      <hr/>
     </div>
-    
+
     <p id='articles'>All articles</p>
     
     <div id="cards_container" >
     <CardsList v-bind:images="images"/>
     </div>
-
+<Footer/>
 </div>
 
 </template>
@@ -26,11 +26,12 @@
 <script>
 import Navigation from './Navigation'
 import CardsList from './CardsList'
+import Footer from './Footer'
 export default {
     components :{
      Navigation,
      CardsList,
-
+     Footer
     }   ,
     data(){
         return {

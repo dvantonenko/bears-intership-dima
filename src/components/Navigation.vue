@@ -59,8 +59,8 @@ export default {
     height : 60%;
 }
 #link {
-padding : 10px;
-height : 60px;
+    padding : 10px 15px 10px 15px;
+    height : 60px;
  }
 #link:hover{
     border-bottom : 2px solid black;

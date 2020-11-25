@@ -31,7 +31,8 @@
     height: 464px;
     background: #000000;
     position:relative;
-    top:-20px;
+    top:1700px;
+
 width : 100%;
 }
 .label_normal{
