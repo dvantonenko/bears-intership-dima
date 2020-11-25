@@ -1,11 +1,11 @@
 <template>
   <div id="app">
 
-  <!-- <div id="nav">
+  <div id="nav">
       <router-link to='/home'>Home</router-link>&emsp;
       <router-link  to='/posts'>Posts</router-link>&emsp;
       <router-link  to='/listingpage'>Listingpage</router-link>
-    </div>  -->
+    </div> 
     <router-view>
   </router-view>
 <Footer/>
