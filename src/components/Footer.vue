@@ -1,39 +1,35 @@
 <template>
-  <div id="footer">
+  <div class="footer">
     <div>
-      <span class="label_weigth">Digital products design</span>
-      <span class="label_normal">Remote work</span>
-      <span class="label_weigth">UI design</span>
-      <span class="label_normal">Distribured teams</span>
-      <span class="label_weigth"> Creativity</span>
-      <span class="label_normal"> Strategy</span>
-      <span class="label_weigth"> suspense</span>
-      <span class="label_normal"> growth</span>
+      <span class="label_weigth font_sf">Digital products design</span>
+      <span class="label_normal font_sf">Remote work</span>
+      <span class="label_weigth font_sf">UI design</span>
+      <span class="label_normal font_sf">Distribured teams</span>
+      <span class="label_weigth font_sf"> Creativity</span>
+      <span class="label_normal font_sf"> Strategy</span>
+      <span class="label_weigth font_sf"> suspense</span>
+      <span class="label_normal font_sf"> growth</span>
     </div>
-    <div class="footer_info">
-      <h1>Nordic rose</h1>
-      <blockquote class="some_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eu velit tempus erat egestas efficitur. In hac habitasse platea dictumst. Fusce a nunc eget ligula suscipit finibus.</blockquote>
-      <div class="contacts">
-        <a class="contact">Twitter</a>
-        <a class="contact">LinkedIn</a>
-        <a class="contact">Rss</a>
+    <div class="footer_title1">
+      <h1 class="footer_title2 font_ny">Nordic rose</h1>
+      <blockquote class="footer_title3 font_ny">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eu velit tempus erat egestas efficitur. In hac habitasse platea dictumst. Fusce a nunc eget ligula suscipit finibus.</blockquote>
+      <div class="contacts_group">
+        <a class="contact_link font_sf">Twitter</a>
+        <a class="contact_link font_sf">LinkedIn</a>
+        <a class="contact_link font_sf">Rss</a>
       </div>
-      <div class="inc">© 2012–2020 Nordic Rose Co. All rights reserved.</div>
+      <div class="inc font_sf">© 2012–2020 Nordic Rose Co. All rights reserved.</div>
     </div>
   </div>
 </template>
 
 <style>
-#footer {
+.footer {
   height: 464px;
   background: #000000;
-  position: relative;
-  top: 1700px;
-
+  display: block;
 }
 .label_normal {
-  font-family: SF Pro Text;
-  font-style: normal;
   font-weight: normal;
   font-size: 20px;
   line-height: 28px;
@@ -46,8 +42,6 @@
   color: #ffffff;
 }
 .label_weigth {
-  font-family: SF Pro Text;
-  font-style: normal;
   font-weight: 800;
   font-size: 20px;
   line-height: 28px;
@@ -58,7 +52,7 @@
 
   color: #ffffff;
 }
-.footer_info {
+.footer_title1 {
   width: 488px;
   height: 300px;
   position: relative;
@@ -67,36 +61,32 @@
   transform: translate(-50%, -50%);
   background-color: black;
 }
-.footer_info h1 {
+.footer_title1 h1 {
   color: white;
 }
-.some_text {
-  font-family: New York Small;
+.footer_title2 {
+  letter-spacing: 10px;
+}
+.footer_title3 {
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 140%;
-  /* or 22px */
-
   text-align: center;
-
-  color: #ffffff;
+  color: white;
 }
-.contacts {
+.contacts_group {
   justify-content: space-around;
   color: white;
 }
-.contact {
+.contact_link {
   text-decoration: underline;
   padding: 10px;
 }
 .inc {
-  font-family: SF Pro Text;
-  font-style: normal;
   font-weight: 500;
   font-size: 12px;
   line-height: 140%;
-  /* or 17px */
   text-align: center;
   color: #ffffff;
   width: 159px;

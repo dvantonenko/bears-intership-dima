@@ -1,23 +1,22 @@
 <template>
-  <div id="container">
+  <div class="container">
     <Navigation />
 
-    <img id="main_image" src="../assets/image2.png" />
+    <img class="main_image" src="../assets/image2.png" />
 
-    <div id="block_1">
-      <span id="main_text">A few words about this blog platform, Ghost, and how this site was made</span>
+    <div class="block_main">
+      <span class="main_text font_ny">A few words about this blog platform, Ghost, and how this site was made</span>
     </div>
 
-    <div id="block_2">
-      <span id="question_text">Why Ghost (& Figma) instead of Medium, WordPress or other options? </span>
+    <div class="block_question">
+      <span class="question_text font_sf">Why Ghost (& Figma) instead of Medium, WordPress or other options? </span>
       <hr />
     </div>
 
-    <p id="articles">All articles</p>
+    <p class="articles font_ny">All articles</p>
 
-    <div id="cards_container">
-      <CardsList v-bind:images="images" />
-    </div>
+    <CardsList v-bind:images="images" />
+
     <Footer />
   </div>
 </template>
@@ -95,66 +94,47 @@ export default {
 </script>
 
 <style scoped>
-#container {
-  height: 100%;
-  position: absolute;
+.container {
+  display: block;
 }
 
-#main_image {
+.main_image {
   margin-top: 70px;
 }
 
-#block_1 {
+.block_main {
   width: 854px;
   margin: 0 auto;
   padding-top: 44px;
 }
-#main_text {
-  font-family: New York Extra Large;
-  font-style: normal;
-  font-weight: bold;
+.main_text {
   font-size: 54px;
   line-height: 100%;
-  /* or 54px */
   text-align: center;
   color: #000000;
 }
 
-#block_2 {
+.block_question {
   width: 592px;
   padding-top: 22px;
   margin: 0 auto;
   color: #000000;
 }
-#question_text {
-  font-family: SF Mono;
-  font-style: normal;
-  font-weight: normal;
+.question_text {
   font-size: 30px;
   line-height: 170%;
-  /* or 34px */
   text-align: center;
   color: #000000;
 }
 
-#articles {
+.articles {
   width: 225px;
   height: 53px;
   margin: 0 auto;
   padding-top: 50px;
-  font-family: New York Extra Large;
-  font-style: normal;
-  font-weight: bold;
   font-size: 44px;
   line-height: 53px;
-  /* identical to box height */
   text-align: center;
   color: #000000;
-}
-
-#cards_container {
-  width: 52%;
-  margin: 0 auto;
-  height: 200px;
 }
 </style>

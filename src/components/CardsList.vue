@@ -1,5 +1,5 @@
 <template>
-  <div id="box">
+  <div class="cards_container">
     <Card v-for="image of images" v-bind:image="image" v-bind:key="image.index" />
   </div>
 </template>
@@ -15,7 +15,9 @@ export default {
 </script>
 
 <style>
-#box {
+.cards_container {
+  width: 52%;
+  margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

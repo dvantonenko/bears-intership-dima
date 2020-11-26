@@ -1,9 +1,9 @@
 <template>
-  <div id="box">
+  <div class="card">
     <div>
-      <img :src="image.src" id="image" />
-      <div id="discription">
-        <span id="ff">{{ image.discription }}</span>
+      <img :src="image.src" class="image" />
+      <div class="discription_block">
+        <span class="discription_text font_sf">{{ image.discription }}</span>
       </div>
     </div>
   </div>
@@ -16,29 +16,27 @@ export default {
 </script>
 
 <style>
-#box {
+.card {
   padding: 5px;
   height: 300px;
 }
-#image {
+.image {
   height: 176px;
   width: 304px;
 }
-#discription {
+.discription_block {
   height: 124px;
   text-align: center;
   white-space: pre-wrap;
   max-width: 262px;
   margin: 0 auto;
 }
-#ff {
-  font-family: SF Pro Display;
-  font-style: normal;
-  font-weight: 500;
+.discription_text {
   font-size: 22px;
   line-height: 120%;
-  /* or 26px */
   text-align: center;
   color: #000000;
+  font-style: normal;
+  font-weight: 500;
 }
 </style>

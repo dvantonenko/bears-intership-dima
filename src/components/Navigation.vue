@@ -1,14 +1,14 @@
 <template>
-  <nav id="nav">
-    <div id="nordic">
-      <span id="nordicText">NORDIC ROSE</span>
+  <nav class="nav">
+    <div class="title">
+      <span class="title_text font_ny">Nordic rose</span>
     </div>
-    <div id="links">
-      <tr id="links-block">
-        <td id="link">Blog</td>
-        <td id="link">About</td>
-        <td id="link">Links</td>
-        <td id="link">Projects</td>
+    <div class="links">
+      <tr class="links_block">
+        <td class="link font_ny">Blog</td>
+        <td class="link font_ny">About</td>
+        <td class="link font_ny">Links</td>
+        <td class="link font_ny">Projects</td>
       </tr>
     </div>
   </nav>
@@ -19,47 +19,45 @@ export default {};
 </script>
 
 <style scoped>
-#nav {
+.nav {
   margin: 0;
   border-bottom: 1px solid grey;
-  position: relative;
   display: flex;
   width: 100%;
   height: 133px;
-  left: 0;
-  top: 0;
   background: #ffffff;
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.16);
 }
-#nordic {
+.title {
+  float: left;
   width: 50%;
-  height: 100%;
 }
-#nordicText {
-  position: absolute;
-  top: 40%;
-  left: 5%;
+.title_text {
+  float: left;
+  margin: 40px;
   font-size: 30px;
-  bottom: 32%;
+  letter-spacing: 10px;
+  color: black;
+  text-transform: uppercase;
 }
 
-#links {
+.links {
   display: flex;
+  float: left;
   width: 50%;
-  justify-content: right;
-  height: 133px;
 }
-#links-block {
-  position: absolute;
-  right: 5%;
-  top: 40%;
-  height: 60%;
+
+.links_block {
+  padding-left: 30%;
+  padding-top: 50px;
 }
-#link {
-  padding: 10px 15px 10px 15px;
-  height: 60px;
+.link {
+  padding: 0 30px 0 30px;
+  height: 82px;
+  text-transform: uppercase;
+  color: black;
 }
-#link:hover {
+.link:hover {
   border-bottom: 2px solid black;
 }
 </style>

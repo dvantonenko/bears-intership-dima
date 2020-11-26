@@ -1,0 +1,10 @@
+@import "new_york_font.css";
+@import "sf_font.css";
+
+.font_ny{
+    font-family: "New-York" , sans-serif;
+}
+
+.font_sf{
+    font-family: "SF-Pro" , sans-serif;
+}
