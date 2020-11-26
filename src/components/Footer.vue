@@ -22,6 +22,15 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      brands: ["Digital product design", "remote work", "UI design", "Distibuted teams", "Creativity", "Strategy", "suspense", "growth"],
+    };
+  },
+};
+</script>
 
 <style>
 .footer {
@@ -34,22 +43,17 @@
   font-size: 20px;
   line-height: 28px;
   padding: 4px;
-  /* identical to box height, or 140% */
-
   letter-spacing: 0.1em;
   text-transform: uppercase;
-
   color: #ffffff;
 }
 .label_weigth {
   font-weight: 800;
   font-size: 20px;
   line-height: 28px;
-  /* identical to box height, or 140% */
   padding: 4px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-
   color: #ffffff;
 }
 .footer_title1 {

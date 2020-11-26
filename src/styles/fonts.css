@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'New-York';
+    src: url("../assets/fonts/NY/NewYork.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'New-York-EL';
+    src: url("../assets/fonts/NY/NewYorkExtraLarge-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'New-York-L';
+    src: url("../assets/fonts/NY/NewYorkLarge-Regular_1.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'New-York-S';
+    src: url("../assets/fonts/NY/NewYorkSmall-Regular.ttf") format("truetype");
+}
+
+
+@font-face {
+    font-family: 'SF-Pro';
+    src: url("../assets/fonts/SF/SF-Pro-Display-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: 'SF-Pro-Display';
+    src: url("../assets/fonts/SF/SF-Pro.ttf") format("truetype");
+}
+@font-face {
+    font-family: 'SF-Pro-Text';
+    src: url("../assets/fonts/SF/SF-Pro-Text-Regular.ttf") format("truetype");
+}
