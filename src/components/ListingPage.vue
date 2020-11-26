@@ -5,11 +5,11 @@
     <img class="main_image" src="../assets/image2.png" />
 
     <div class="block_main">
-      <span class="main_text font_ny">A few words about this blog platform, Ghost, and how this site was made</span>
+      <span class="main_text font_ny_s">A few words about this blog platform, Ghost, and how this site was made</span>
     </div>
 
     <div class="block_question">
-      <span class="question_text font_sf">Why Ghost (& Figma) instead of Medium, WordPress or other options? </span>
+      <span class="question_text font_sf_mono">Why Ghost (& Figma) instead of Medium, WordPress or other options? </span>
       <hr />
     </div>
 

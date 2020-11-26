@@ -1,14 +1,14 @@
 <template>
   <div class="footer">
-    <div>
-      <span class="label_weigth font_sf">Digital products design</span>
-      <span class="label_normal font_sf">Remote work</span>
-      <span class="label_weigth font_sf">UI design</span>
-      <span class="label_normal font_sf">Distribured teams</span>
-      <span class="label_weigth font_sf"> Creativity</span>
-      <span class="label_normal font_sf"> Strategy</span>
-      <span class="label_weigth font_sf"> suspense</span>
-      <span class="label_normal font_sf"> growth</span>
+    <div class="labels">
+      <span class="label label_weigth font_sf">Digital products design</span>
+      <span class="label font_sf">Remote work</span>
+      <span class="label font_sf label_weigth">UI design</span>
+      <span class="label font_sf">Distribured teams</span>
+      <span class="label font_sf label_weigth"> Creativity</span>
+      <span class="label font_sf"> Strategy</span>
+      <span class="label font_sf label_weigth"> suspense</span>
+      <span class="label font_sf"> growth</span>
     </div>
     <div class="footer_title1">
       <h1 class="footer_title2 font_ny">Nordic rose</h1>
@@ -22,47 +22,40 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      brands: ["Digital product design", "remote work", "UI design", "Distibuted teams", "Creativity", "Strategy", "suspense", "growth"],
-    };
-  },
-};
-</script>
 
 <style>
 .footer {
   height: 464px;
   background: #000000;
   display: block;
+  width: 100vw;
 }
-.label_normal {
+.labels {
+  white-space: nowrap;
+  overflow: hidden;
+margin : 0;
+padding:0;
+}
+.label {
   font-weight: normal;
   font-size: 20px;
   line-height: 28px;
-  padding: 4px;
   letter-spacing: 0.1em;
+  padding: 20px;
   text-transform: uppercase;
   color: #ffffff;
+}
+
+.label:last-child {
+  padding-right: 0;
 }
 .label_weigth {
   font-weight: 800;
-  font-size: 20px;
-  line-height: 28px;
-  padding: 4px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #ffffff;
 }
 .footer_title1 {
-  width: 488px;
-  height: 300px;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  max-width: 488px;
+  margin: 0 auto;
+  padding-top:60px;
   background-color: black;
 }
 .footer_title1 h1 {
@@ -70,6 +63,7 @@ export default {
 }
 .footer_title2 {
   letter-spacing: 10px;
+  text-transform: uppercase;
 }
 .footer_title3 {
   font-style: normal;
