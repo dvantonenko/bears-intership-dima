@@ -28,7 +28,6 @@
   height: 464px;
   background: #000000;
   display: block;
-  width: 100vw;
 }
 .labels {
   white-space: nowrap;
