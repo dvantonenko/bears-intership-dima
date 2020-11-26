@@ -30,7 +30,6 @@
   position: relative;
   top: 1700px;
 
-  width: 100%;
 }
 .label_normal {
   font-family: SF Pro Text;

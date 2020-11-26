@@ -97,7 +97,7 @@ export default {
 <style scoped>
 #container {
   height: 100%;
-  overflow: scroll;
+  position: absolute;
 }
 
 #main_image {

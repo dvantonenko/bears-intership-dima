@@ -10,7 +10,6 @@ export default {
   props: ["images"],
   components: {
     Card,
-    Footer,
   },
 };
 </script>
