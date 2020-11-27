@@ -11,20 +11,20 @@
       </div>
 
       <img v-else-if="screenSize < 500" src="../assets/icons/Menu_icon_2_icon-icons.com_71856 (1).svg" class="menu_button" v-on:click="sideMenu = !sideMenu" />
-      <div v-if="sideMenu" class="menu_toggle">
-        <p>
-          <strong><router-link to="/about">About</router-link></strong>
-        </p>
-        <p>
-          <strong><router-link to="/blog">Blog</router-link></strong>
-        </p>
-        <p>
-          <strong><router-link to="/links">Links</router-link></strong>
-        </p>
-        <p>
-          <strong><router-link to="/projects">Projects</router-link></strong>
-        </p>
-      </div>
+    </div>
+    <div v-if="sideMenu" class="menu_toggle">
+      <p>
+        <strong><router-link to="/about">About</router-link></strong>
+      </p>
+      <p>
+        <strong><router-link to="/blog">Blog</router-link></strong>
+      </p>
+      <p>
+        <strong><router-link to="/links">Links</router-link></strong>
+      </p>
+      <p>
+        <strong><router-link to="/projects">Projects</router-link></strong>
+      </p>
     </div>
   </nav>
 </template>
@@ -56,7 +56,6 @@ export default {
 .nav {
   border-bottom: 1px solid grey;
   display: flex;
-  width: 100%;
   height: 133px;
   background: #ffffff;
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.16);
@@ -102,11 +101,10 @@ export default {
   margin-top: 10px;
 }
 .menu_toggle {
-  text-align: center;
   position: absolute;
   top: 75px;
   right: 0px;
- left:8px;
+  left: 8px;
   height: 200px;
   width: 375px;
   background: rgb(192, 192, 192, 0.5);
@@ -128,5 +126,6 @@ export default {
     font-size: 20px;
     letter-spacing: 5px;
   }
+
 }
 </style>

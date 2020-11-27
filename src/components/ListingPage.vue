@@ -1,16 +1,16 @@
 <template>
-  <div class="container">
-    <Navigation />
+ <div class="container">
+  <Navigation />
 
-    <div class="block_image center">
+    <div class="block_image center media_mobile">
       <img class="main_image" src="../assets/image2.png" />
     </div>
 
-    <div class="block_main center">
+    <div class="block_main center media_mobile">
       <span class="main_text font_ny_el font_bold">A few words about this blog platform, Ghost, and how this site was made</span>
     </div>
 
-    <div class="block_question center">
+    <div class="block_question center media_mobile">
       <span class="question_text font_sf_mono">Why Ghost (& Figma) instead of Medium, WordPress or other options? </span>
       <hr />
     </div>
@@ -21,6 +21,7 @@
 
     <Footer />
   </div>
+  
 </template>
 
 <script>
@@ -125,7 +126,6 @@ export default {
 .block_image {
   margin-top: 70px;
   width: 854px;
-
 }
 
 .block_main {
@@ -152,14 +152,8 @@ export default {
 }
 
 @media screen and (max-width: 500px) {
-  .block_image {
-    max-width: 375px;
-  }
-  .block_main {
-    max-width: 375px;
-  }
-  .block_question {
-    max-width: 375px;
+  .media_mobile{
+     max-width: 375px;
   }
 }
 </style>
