@@ -2,10 +2,12 @@
   <div class="container">
     <Navigation />
 
-    <img class="main_image" src="../assets/image2.png" />
+    <div class="block_image center">
+      <img class="main_image" src="../assets/image2.png" />
+    </div>
 
     <div class="block_main center">
-      <span class="main_text font_ny_el font_style_bold">A few words about this blog platform, Ghost, and how this site was made</span>
+      <span class="main_text font_ny_el font_bold">A few words about this blog platform, Ghost, and how this site was made</span>
     </div>
 
     <div class="block_question center">
@@ -97,12 +99,33 @@ export default {
 .container {
   display: block;
   text-align: center;
+  width: 100%;
 }
-.center{
-    margin: 0 auto;
+.center {
+  margin: 0 auto;
+}
+
+.articles {
+  width: 225px;
+  height: 53px;
+  padding-top: 50px;
+  font-size: 44px;
+  line-height: 53px;
+  text-align: center;
+  color: #000000;
+}
+.font_bold {
+  font-style: normal;
+  font-weight: bold;
 }
 .main_image {
+  width: 100%;
+}
+
+.block_image {
   margin-top: 70px;
+  width: 854px;
+
 }
 
 .block_main {
@@ -128,18 +151,15 @@ export default {
   color: #000000;
 }
 
-.articles {
-
-  width: 225px;
-  height: 53px;
-  padding-top: 50px;
-  font-size: 44px;
-  line-height: 53px;
-  text-align: center;
-  color: #000000;
-}
-.font_style_bold{
-font-style: normal;
-font-weight: bold;
+@media screen and (max-width: 500px) {
+  .block_image {
+    max-width: 375px;
+  }
+  .block_main {
+    max-width: 375px;
+  }
+  .block_question {
+    max-width: 375px;
+  }
 }
 </style>

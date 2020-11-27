@@ -34,12 +34,14 @@ export default {
   height: 464px;
   background: #000000;
   display: block;
+
 }
 .labels {
   white-space: nowrap;
   overflow: hidden;
-  margin: 0;
+  margin: 0 ;
   padding: 0;
+ width:100%;
 }
 .label {
   font-weight: normal;
@@ -49,6 +51,13 @@ export default {
   padding: 17px;
   text-transform: uppercase;
   color: #ffffff;
+
+}
+.label:first-child{
+  padding-left: 0;
+}
+.label:last-child{
+  padding-right: 0;
 }
 
 .label_weight {
