@@ -4,16 +4,16 @@
 
     <img class="main_image" src="../assets/image2.png" />
 
-    <div class="block_main">
-      <span class="main_text font_ny_s">A few words about this blog platform, Ghost, and how this site was made</span>
+    <div class="block_main center">
+      <span class="main_text font_ny_el font_style_bold">A few words about this blog platform, Ghost, and how this site was made</span>
     </div>
 
-    <div class="block_question">
+    <div class="block_question center">
       <span class="question_text font_sf_mono">Why Ghost (& Figma) instead of Medium, WordPress or other options? </span>
       <hr />
     </div>
 
-    <p class="articles font_ny">All articles</p>
+    <p class="articles font_ny font_style_bold center">All articles</p>
 
     <CardsList v-bind:images="images" />
 
@@ -96,15 +96,17 @@ export default {
 <style scoped>
 .container {
   display: block;
+  text-align: center;
 }
-
+.center{
+    margin: 0 auto;
+}
 .main_image {
   margin-top: 70px;
 }
 
 .block_main {
   width: 854px;
-  margin: 0 auto;
   padding-top: 44px;
 }
 .main_text {
@@ -117,7 +119,6 @@ export default {
 .block_question {
   width: 592px;
   padding-top: 22px;
-  margin: 0 auto;
   color: #000000;
 }
 .question_text {
@@ -128,13 +129,17 @@ export default {
 }
 
 .articles {
+
   width: 225px;
   height: 53px;
-  margin: 0 auto;
   padding-top: 50px;
   font-size: 44px;
   line-height: 53px;
   text-align: center;
   color: #000000;
+}
+.font_style_bold{
+font-style: normal;
+font-weight: bold;
 }
 </style>

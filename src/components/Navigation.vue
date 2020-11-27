@@ -5,15 +5,20 @@
     </div>
     <div class="links">
       <tr class="links_block">
-        <td class="link font_ny">Blog</td>
-        <td class="link font_ny">About</td>
-        <td class="link font_ny">Links</td>
-        <td class="link font_ny">Projects</td>
+        <td  class="link font_ny" v-for="link of links" v-bind:key="link">{{ link }}</td>
       </tr>
     </div>
   </nav>
 </template>
 
+<script>
+export default {
+data(){
+  return{
+    links:['blog','about','links','projects']
+  }
+}
+}</script>
 <style scoped>
 .nav {
   margin: 0;
