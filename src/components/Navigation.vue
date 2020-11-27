@@ -5,13 +5,9 @@
     </div>
     <div class="links">
       <div v-if="screenSize > 500" class="links_block">
-      <div>
-       <a 
-       :href="`#/listingpage/${link}/`"
-       class="link font_ny" 
-       v-for="link of links" 
-       v-bind:key="link">{{ link }}</a>
-</div>
+        <div>
+          <a :href="`#/listingpage/${link}/`" class="link font_ny" v-for="link of links" v-bind:key="link">{{ link }}</a>
+        </div>
       </div>
 
       <img v-else-if="screenSize < 500" src="../assets/icons/Menu_icon_2_icon-icons.com_71856 (1).svg" class="menu_button" v-on:click="sideMenu = !sideMenu" />
@@ -58,7 +54,6 @@ export default {
 </script>
 <style scoped>
 .nav {
-
   border-bottom: 1px solid grey;
   display: flex;
   width: 100%;
@@ -109,17 +104,18 @@ export default {
 .menu_toggle {
   text-align: center;
   position: absolute;
-  top: 65px;
+  top: 75px;
   right: 0px;
+ left:8px;
   height: 200px;
- width: 100%;
-
+  width: 375px;
   background: rgb(192, 192, 192, 0.5);
 }
 
 @media screen and (max-width: 500px) {
   .nav {
     height: 65px;
+    min-width: 375px;
   }
   .title {
     width: 80%;
