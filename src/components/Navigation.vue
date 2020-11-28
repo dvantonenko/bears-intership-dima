@@ -4,15 +4,13 @@
       <span class="title_text font_ny">Nordic rose</span>
     </div>
     <div class="links">
-      <div v-if="screenSize > 500" class="links_block">
-        <div>
-          <a :href="`#/listingpage/${link}/`" class="link font_ny" v-for="link of links" v-bind:key="link">{{ link }}</a>
-        </div>
+      <div v-if="screenSize > 645 && screenSize < 1980" class="links_block">
+        <a :href="`#/listingpage/${link}/`" class="link font_ny" v-for="link of links" v-bind:key="link">{{ link }}</a>
       </div>
 
-      <img v-else-if="screenSize < 500 && !sideMenu" src="../assets/icons/Menu_icon_2_icon-icons.com_71856 (1).svg" class="menu_button" v-on:click="sideMenu = !sideMenu" />
+      <img v-else-if="screenSize < 645 && !sideMenu" src="../assets/icons/Menu_icon_2_icon-icons.com_71856 (1).svg" class="menu_button" v-on:click="sideMenu = !sideMenu" />
 
-      <img v-else-if="screenSize < 500 && sideMenu" src="../assets/icons/cancel.svg" class="menu_button" v-on:click="sideMenu = !sideMenu" />
+      <img v-else-if="screenSize < 645 && sideMenu" src="../assets/icons/cancel.svg" class="menu_button" v-on:click="sideMenu = !sideMenu" />
     </div>
     <div v-if="sideMenu" class="menu_toggle">
       <p v-for="link of links" v-bind:key="link">
@@ -38,7 +36,7 @@ export default {
       this.screenSize = document.documentElement.clientWidth;
       // console.log(this.screenSize);
       // console.log(this.sideMenu)
-      if (this.screenSize > 500) this.sideMenu = false;
+      if (this.screenSize > 645) this.sideMenu = false;
     },
   },
   mounted() {
@@ -76,12 +74,15 @@ export default {
 }
 
 .links_block {
-  padding-left: 30%;
-  padding-top: 50px;
-  width: 100px;
+  margin-left: 30%;
+  margin-top: 50px;
+  width: 100%;
+  max-width: 500px;
 }
+
 .link {
-  padding: 0 30px 62px 30px;
+  padding-bottom: 62px;
+  margin-right: 10%;
   text-transform: uppercase;
   color: black;
   text-decoration: none;
@@ -105,7 +106,18 @@ export default {
   background: rgb(192, 192, 192, 0.5);
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 1070px) {
+  .links_block {
+    margin-left: 0%;
+  }
+}
+@media screen and (max-width: 760px) {
+.link {
+  margin-right: 5px;
+
+}
+}
+@media screen and (max-width: 660px) {
   .nav {
     height: 65px;
     min-width: 375px;
@@ -123,3 +135,10 @@ export default {
   }
 }
 </style>
+
+<!-- <div class="links">
+
+      <div v-if="screenSize > 500 && screenSize < 1440" class="links_block">
+          <a :href="`#/listingpage/${link}/`" class="link font_ny" v-for="link of links" v-bind:key="link">{{ link }}</a>
+   
+      </div> -->
