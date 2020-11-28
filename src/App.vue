@@ -1,7 +1,7 @@
 <template>
   <div id="app">
+  
     <router-view> </router-view>
-    <router-link to='/listingpage'>Listing page</router-link>
   </div>
 </template>
 
