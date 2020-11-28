@@ -44,7 +44,7 @@ export default {
   font-size: 20px;
   line-height: 28px;
   letter-spacing: 0.1em;
-  padding: 17px;
+  padding: 18px;
   text-transform: uppercase;
   color: #ffffff;
 }
