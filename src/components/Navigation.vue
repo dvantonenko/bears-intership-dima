@@ -136,9 +136,3 @@ export default {
 }
 </style>
 
-<!-- <div class="links">
-
-      <div v-if="screenSize > 500 && screenSize < 1440" class="links_block">
-          <a :href="`#/listingpage/${link}/`" class="link font_ny" v-for="link of links" v-bind:key="link">{{ link }}</a>
-   
-      </div> -->

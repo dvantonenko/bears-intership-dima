@@ -31,6 +31,7 @@ export default {
   height: 464px;
   background: #000000;
   display: block;
+  margin-top : 113px;
 }
 .labels {
   white-space: nowrap;
@@ -48,10 +49,11 @@ export default {
   color: #ffffff;
 }
 .label:first-child {
-  padding-left: 0;
+  margin-left: -20px;
 }
 .label:last-child {
-  padding-right: 0;
+  padding-right: 0px;
+
 }
 
 .label_weight {
