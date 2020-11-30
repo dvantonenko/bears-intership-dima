@@ -209,8 +209,7 @@ li {
   }
   .article_block,
   .block_question,
-  .block_topic,
-  .block_banner {
+  .block_topic {
     width: 335px;
   }
 }
