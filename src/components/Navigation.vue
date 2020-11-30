@@ -57,11 +57,10 @@ export default {
   display: flex;
   float: left;
   width: 50%;
-  height : 100%;
+  height: 100%;
   margin: 0;
 }
 .title_text {
- 
   margin: 40px;
   font-size: 30px;
   letter-spacing: 10px;
@@ -115,10 +114,9 @@ export default {
   }
 }
 @media screen and (max-width: 760px) {
-.link {
-  margin-right: 5px;
-
-}
+  .link {
+    margin-right: 5px;
+  }
 }
 @media screen and (max-width: 660px) {
   .nav {
@@ -138,4 +136,3 @@ export default {
   }
 }
 </style>
-

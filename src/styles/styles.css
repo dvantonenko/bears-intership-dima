@@ -1,5 +1,5 @@
 @import "fonts.css";
-
+@import "media.css";
 .container{
     display: block;
     width: 100%;
@@ -9,3 +9,4 @@
 .center {
     margin: 0 auto;
   }
+

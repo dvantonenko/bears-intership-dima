@@ -143,15 +143,6 @@ export default {
   color: #000000;
 }
 
-@media screen and (max-width: 880px) {
-  .media_mobile{
-     max-width: 550px;
-  }
-}
-@media screen and (max-width: 575px) {
-  .media_mobile{
-     max-width: 375px;
-  }
-}
+
 
 </style>

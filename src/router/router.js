@@ -1,10 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Posts from '../components/Posts.vue'
-import About  from '../views/About.vue'
-import Blog  from '../views/Blog.vue'
-import Links  from '../views/Links.vue'
-import Projects  from '../views/Projects.vue'
 
 Vue.use(Router)
 
@@ -18,29 +13,29 @@ let router = new Router({
         {
             path: '/posts',
             name: 'posts',
-            component: Posts
+            component: ()=> import('@/components/Posts')
         },
    
         {
             path: '/listingpage/about',
             name: 'about',
-            component: About
+            component: ()=> import('@/views/About')
         },        
         {
             path: '/listingpage/links',
             name: 'links',
-            component: Links
+            component: ()=> import('@/views/Links')
         },
         {
             path: '/listingpage/projects',
             name: 'projects',
-            component: Projects
+            component: ()=> import('@/views/Links')
         },
         ,
         {
             path: '/listingpage/blog',
             name: 'blog',
-            component: Blog
+            component: ()=> import('@/views/Blog')
         },
         { path : "/article",
         name : 'article',
