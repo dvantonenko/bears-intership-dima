@@ -25,6 +25,7 @@
   text-align: center;
   color: #090909;
   margin-bottom: 18px;
+  margin-top:62px;
 }
 .input_text {
   display: inline-block;

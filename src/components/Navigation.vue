@@ -54,11 +54,14 @@ export default {
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.16);
 }
 .title {
+  display: flex;
   float: left;
   width: 50%;
+  height : 100%;
+  margin: 0;
 }
 .title_text {
-  float: left;
+ 
   margin: 40px;
   font-size: 30px;
   letter-spacing: 10px;
