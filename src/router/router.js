@@ -13,20 +13,16 @@ Vue.use(Router)
 let router = new Router({
     routes: [
         {
-            path: '/home',
-            name: 'Home',
-            component: Home
+            path: '/',
+            name: '',
+            component: ListingPage
         },
         {
             path: '/posts',
             name: 'posts',
             component: Posts
         },
-        {
-            path: '/listingpage',
-            name: 'listingpage',
-            component: ListingPage
-        },
+   
         {
             path: '/listingpage/about',
             name: 'about',
