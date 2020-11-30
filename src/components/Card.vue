@@ -1,8 +1,7 @@
 <template>
   <div class="card">
-   <router-link to='/'>
+   <router-link to='/article'>
     <div>
-   
       <img :src="image.src" class="image" />
       <div class="discription_block">
         <span class="discription_text font_sf">{{ image.discription }}</span>

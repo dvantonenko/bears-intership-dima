@@ -18,7 +18,10 @@
     src: url("../assets/fonts/NY/NewYorkSmall-Regular.ttf") format("truetype");
 }
 
-
+@font-face {
+    font-family: 'New-York-M';
+    src: url("../assets/fonts/NY/NewYorkMedium-Medium.ttf") format("truetype");
+}
 @font-face {
     font-family: 'SF-Pro';
     src: url("../assets/fonts/SF/SF-Pro-Display-Regular.ttf") format("truetype");
@@ -37,8 +40,13 @@
     src: url("../assets/fonts/SF/SFMonoRegular.ttf") format("truetype");
 }
 
+
+
 .font_ny{
     font-family: "New-York" , sans-serif;
+}
+.font_ny_m{
+    font-family: "New-York-M" , sans-serif;
 }
 .font_ny_el{
     font-family: "New-York-EL" , sans-serif;

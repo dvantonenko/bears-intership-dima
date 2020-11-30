@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Posts from '../components/Posts.vue'
-import Home from '../components/Home.vue'
-import ListingPage from '../components/ListingPage.vue'
 import About  from '../views/About.vue'
 import Blog  from '../views/Blog.vue'
 import Links  from '../views/Links.vue'
@@ -14,8 +12,8 @@ let router = new Router({
     routes: [
         {
             path: '/',
-            name: '',
-            component: ListingPage
+            name: 'listingpage',
+            component: ()=> import('@/views/ListingPage')
         },
         {
             path: '/posts',
@@ -43,6 +41,10 @@ let router = new Router({
             path: '/listingpage/blog',
             name: 'blog',
             component: Blog
+        },
+        { path : "/article",
+        name : 'article',
+        component: ()=> import('@/views/Article')
         }
 
 

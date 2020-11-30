@@ -7,14 +7,12 @@
 
 <script>
 import Posts from "./components/Posts.vue";
-import Home from "./components/Home.vue";
-import ListingPage from "./components/ListingPage";
+import ListingPage from "@/views/ListingPage";
 import Footer from "./components/Footer";
 export default {
   name: "App",
   components: {
     Posts,
-    Home,
     Footer,
   },
 };
