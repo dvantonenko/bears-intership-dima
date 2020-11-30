@@ -1,28 +1,23 @@
 <template>
   <div id="app">
-  <div id="nav">
-      <router-link to='/home'>Home</router-link>&emsp;
-      <router-link  to='/posts'>Posts</router-link>
-      </div>
-  <hr/>
-    <router-view>
-  </router-view>
-
-   <!-- <Posts/> -->
+  
+    <router-view> </router-view>
   </div>
-
 </template>
 
 <script>
-
-import Posts from './components/Posts.vue'
-import Home from './components/Home'
+import Posts from "./components/Posts.vue";
+import Home from "./components/Home.vue";
+import ListingPage from "./components/ListingPage";
+import Footer from "./components/Footer";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-   Posts,
-  }
-}
+    Posts,
+    Home,
+    Footer,
+  },
+};
 </script>
 
 <style>
@@ -30,9 +25,10 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+margin: 0;
+padding: 0;
   color: #2c3e50;
-  margin-top: 60px;
-}
+  height: 100vh;
 
+}
 </style>
