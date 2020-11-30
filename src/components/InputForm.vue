@@ -90,7 +90,7 @@ export default {
 
 @media screen and (max-width: 660px) {
   .input_block {
-    width: 350px;
+    width: 380px;
   }
   .title {
     font-size: 29px;

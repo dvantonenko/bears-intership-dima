@@ -81,10 +81,8 @@
           Mika</span
         >
       </div>
-
-      <hr style="height: 12px; background-color: black; margin-top: 77px" />
     </div>
-
+ <hr style="height: 12px; background-color: black; margin-top: 77px ;min-width : 380px;max-width : 640px;" />
     <InputForm v-bind:screenSize="screenSize" />
 
     <Footer />
