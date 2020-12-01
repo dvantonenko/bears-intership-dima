@@ -26,7 +26,7 @@
 export default {
   data() {
     return {
-      links: ["Blog", "About", "Links", "Projects"],
+      links: ["Blog", "About", "Links", "Widgets"],
       screenSize: null,
       sideMenu: false,
     };

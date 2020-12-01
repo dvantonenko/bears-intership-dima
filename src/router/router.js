@@ -27,9 +27,9 @@ let router = new Router({
             component: ()=> import('@/views/Links')
         },
         {
-            path: '/listingpage/projects',
-            name: 'projects',
-            component: ()=> import('@/views/Projects')
+            path: '/listingpage/widgets',
+            name: 'widgets',
+            component: ()=> import('@/views/Widgets')
         },
         ,
         {
@@ -37,9 +37,9 @@ let router = new Router({
             name: 'blog',
             component: ()=> import('@/views/Blog')
         },
-        { path : "/article",
-        name : 'article',
-        component: ()=> import('@/views/Article')
+        {   path : "/article",
+            name : 'article',
+            component: ()=> import('@/views/Article')
         }
 
 
