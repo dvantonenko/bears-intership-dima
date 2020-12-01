@@ -212,15 +212,14 @@ li {
    width:100%;
     font-size: 13px;
   }
-  .article_block,
-  .block_question,
-  .block_topic {
+  .article_block{
     width: 335px;
     margin: 0 auto;
   }
   .block_topic,.block_question{
     width: 335px;
     margin-top:52px;
+    margin: 0 auto;
   }
 
 }
