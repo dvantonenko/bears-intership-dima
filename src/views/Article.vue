@@ -218,7 +218,7 @@ li {
     width: 335px;
     margin: 0 auto;
   }
-  .block_topic {
+  .block_topic,.block_question{
     width: 335px;
     margin-top:52px;
   }
