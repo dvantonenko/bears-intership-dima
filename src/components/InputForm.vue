@@ -1,5 +1,6 @@
 <template>
   <div class="input_block center">
+
     <p class="title font_bold fint_ny_el">Sign up for the newsletter</p>
     <div class="input_text font_normal">If you want relevant updates occasionally, sign up for the private newsletter. Your email is never shared.</div>
 
@@ -90,7 +91,7 @@ export default {
 
 @media screen and (max-width: 660px) {
   .input_block {
-    width: 380px;
+    width: 100%;
   }
   .title {
     font-size: 29px;

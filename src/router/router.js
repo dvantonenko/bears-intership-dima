@@ -29,7 +29,7 @@ let router = new Router({
         {
             path: '/listingpage/projects',
             name: 'projects',
-            component: ()=> import('@/views/Links')
+            component: ()=> import('@/views/Projects')
         },
         ,
         {

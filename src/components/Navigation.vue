@@ -106,6 +106,7 @@ export default {
   height: 200px;
   min-width: 375px;
   background: rgb(192, 192, 192, 0.5);
+  text-align: center;
 }
 
 @media screen and (max-width: 1070px) {
@@ -121,7 +122,6 @@ export default {
 @media screen and (max-width: 660px) {
   .nav {
     height: 65px;
-    min-width: 375px;
   }
   .title {
     width: 80%;

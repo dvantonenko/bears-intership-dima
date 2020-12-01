@@ -1,6 +1,6 @@
 <template>
  <div class="container">
-  <Navigation />
+<!--  <Navigation />-->
 
     <div class="block_banner center media_mobile">
       <img class="image_banner" src="../assets/image2.png" />
@@ -19,7 +19,7 @@
 
     <CardsList v-bind:images="images" />
 
-    <Footer />
+   <!-- <Footer />-->
   </div>
   
 </template>

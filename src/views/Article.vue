@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Navigation />
+    <!-- <Navigation /> -->
 
     <div class="block_topic center media_mobile">
       <span class="text_topic font_ny_el font_bold">A few words about this blog platform, Ghost, and how this site was made</span>
@@ -62,7 +62,7 @@
         >
       </div>
 
-      <div v-if="screenSize > 550" style="margin-top: 52px">
+      <div v-if="screenSize > 750" style="margin-top: 52px">
         <p class="article_text font_normal font_ny_m">A list looks like this:</p>
         <ul class="article_list">
           <li class="article_text font_normal font_ny_m"><p>First item in the list</p></li>
@@ -71,21 +71,21 @@
         </ul>
       </div>
 
-      <div v-if="screenSize > 550" class="article_block" style="margin-top: 52px">
+      <div v-if="screenSize > 750" class="article_block" style="margin-top: 52px">
         <span class="article_text font_normal font_ny_m">Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam quis posuere ligula.</span>
       </div>
 
-      <div v-if="screenSize > 550" class="article_block" style="margin-top: 52px">
+      <div v-if="screenSize > 750" class="article_block" style="margin-top: 52px">
         <span class="article_text font_normal font_ny_m">
           Thanks for reading, <br />
           Mika</span
         >
       </div>
     </div>
- <hr style="height: 12px; background-color: black; margin-top: 77px ;min-width : 380px;max-width : 640px;" />
+    <hr style="height: 12px; background-color: black; margin-top: 77px; min-width: 330px; max-width: 640px ;" />
     <InputForm v-bind:screenSize="screenSize" />
 
-    <Footer />
+    <!-- <Footer />-->
   </div>
 </template>
 
@@ -148,7 +148,7 @@ export default {
 
 .image_banner {
   width: 100%;
-  min-width: 375px;
+  min-width: 330px;
 }
 
 .article_block {
@@ -200,15 +200,28 @@ li {
   font-style: normal;
   font-weight: normal;
 }
+@media screen and (max-width: 600px) {
+  .text_topic {
+    font-size: 36px;
+    line-height: 43px;
+  }
+}
+
 @media screen and (max-width: 575px) {
   .caption_text {
-    max-width: 375px;
+   width:100%;
     font-size: 13px;
   }
   .article_block,
   .block_question,
   .block_topic {
     width: 335px;
+    margin: 0 auto;
   }
+  .block_topic {
+    width: 335px;
+    margin-top:52px;
+  }
+
 }
 </style>

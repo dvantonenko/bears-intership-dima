@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-  
+  <Navigation/>
     <router-view> </router-view>
+<Footer/>
   </div>
 </template>
 
@@ -9,11 +10,13 @@
 import Posts from "./components/Posts.vue";
 import ListingPage from "@/views/ListingPage";
 import Footer from "./components/Footer";
+import Navigation from './components/Navigation'
 export default {
   name: "App",
   components: {
     Posts,
     Footer,
+    Navigation
   },
 };
 </script>
