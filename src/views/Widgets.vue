@@ -71,7 +71,7 @@ export default {
   padding: 0;
   border-radius: 20px;
 }
-.card:hover {
+.card_widget:hover {
   transform: scale(1.2);
   transition: all 0.5s ease-in;
 }
