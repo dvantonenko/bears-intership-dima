@@ -1,12 +1,15 @@
 <template>
   <div class="container">
-    <button type="button" class="button24" style="margin-top: 10px" 
-    v-on:click="isOpen = !isOpen">
-    {{ isOpen ? "Cкрыть курс валют" : "Открыть курс валют" }}</button>
+    <router-link class="back" to="/">Назад на главную</router-link>
+    <button type="button" class="button24" style="margin-top: 10px" v-on:click="isOpen = !isOpen">
+      {{ isOpen ? "Cкрыть курс валют" : "Открыть курс валют" }}
+    </button>
     <table style="margin: 0 auto" v-bind:class="{ close: !isOpen }">
       <caption>
         Курс валют на сегодня :
-        {{ new Intl.DateTimeFormat("ru-RU").format(timeFormat)}}
+        {{
+          new Intl.DateTimeFormat("ru-RU").format(timeFormat)
+        }}
       </caption>
       <thead>
         <tr>
@@ -24,8 +27,8 @@
       </tbody>
     </table>
 
-    <div style="display: flex; flex-wrap: wrap ; justify-content:center">
-      <div class="card" v-for="post of allPosts" :key="post.id">
+    <div style="display: flex; flex-wrap: wrap; justify-content: center">
+      <div class="card_widget" v-for="post of allPosts" :key="post.id">
         <div class="card_title">
           <span class="title_text font_sf_text">{{ post.name }}</span>
           <span class="icon"><img :src="'http://openweathermap.org/img/w/' + post.weather[0].icon + '.png'" /></span>
@@ -54,12 +57,13 @@ export default {
   async mounted() {
     this.$store.dispatch("fetchWeather");
     this.$store.dispatch("fetchCurrency");
- 
+    console.log(this.allPosts);
   },
 };
 </script>
-<style>
-.card {
+
+<style >
+.card_widget {
   float: left;
   min-width: 20%;
   border: 1px solid grey;
@@ -135,5 +139,11 @@ table.close {
   position: absolute;
   left: 42%;
   transform: translateY(-600px);
+}
+
+.back {
+  position: absolute;
+  top: 140px;
+  left: 20px;
 }
 </style>

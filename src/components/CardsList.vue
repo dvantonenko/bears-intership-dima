@@ -3,7 +3,7 @@
     <Card v-for="image of images" v-bind:image="image" v-bind:key="image.index" />
   </div>
 </template>
-<script>
+<script scoped>
 import Card from "./Card";
 import Footer from "./Footer";
 export default {

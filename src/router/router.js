@@ -6,7 +6,7 @@ Vue.use(Router)
 let router = new Router({
     routes: [
         {
-            path: '/',
+            path: '/blog',
             name: 'listingpage',
             component: ()=> import('@/views/ListingPage')
         },
@@ -17,26 +17,21 @@ let router = new Router({
         },
    
         {
-            path: '/listingpage/about',
+            path: '/about',
             name: 'about',
             component: ()=> import('@/views/About')
         },        
         {
-            path: '/listingpage/links',
+            path: '/links',
             name: 'links',
             component: ()=> import('@/views/Links')
         },
         {
-            path: '/listingpage/widgets',
+            path: '/widgets',
             name: 'widgets',
             component: ()=> import('@/views/Widgets')
         },
         ,
-        {
-            path: '/listingpage/blog',
-            name: 'blog',
-            component: ()=> import('@/views/Blog')
-        },
         {   path : "/article",
             name : 'article',
             component: ()=> import('@/views/Article')

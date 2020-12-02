@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-   <router-link to='/article'>
+   <router-link to='/article' class='link'>
     <div>
       <img :src="image.src" class="image" />
       <div class="discription_block">
@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 export default {
   props: ["image"],
 };
@@ -40,5 +40,8 @@ export default {
   color: #000000;
   font-style: normal;
   font-weight: 500;
+}
+.link{
+  text-decoration: none;
 }
 </style>

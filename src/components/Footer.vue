@@ -26,7 +26,7 @@ export default {
   },
 };
 </script>
-<style>
+<style >
 .footer {
   height: 464px;
   background: #000000;
@@ -117,9 +117,6 @@ export default {
     min-width: 287px;
     max-height: 71px;
     margin: 0 auto;
-  }
-  .footer {
-
   }
 }
 </style>
