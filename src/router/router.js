@@ -9,13 +9,7 @@ let router = new Router({
             path: '/blog',
             name: 'listingpage',
             component: ()=> import('@/views/ListingPage')
-        },
-        {
-            path: '/posts',
-            name: 'posts',
-            component: ()=> import('@/components/Posts')
-        },
-   
+        }, 
         {
             path: '/about',
             name: 'about',

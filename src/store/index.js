@@ -6,16 +6,13 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     actions:{
        async fetchWeather({commit}){
-let data;
-           const cities = [ 'Dnipro', 'Kyiv','Zaporizhia','Kharkiv','London','Paris','Berlin','Rome']
-            const arr=[]
-            cities.map(async(item) => {
-                const res = await fetch(`http://api.openweathermap.org/data/2.5/find?q=${item}&type=like&APPID=41aca50fa598eeb6350321c2a6b727e3`)
-                const data = await res.json()
-
-                arr.push(data.list[0])
-            })
-            console.log(arr)
+        const arr=[]
+           const cities = ['Dnipro', 'Kyiv','Zaporizhia','Kharkiv','London','Paris','Berlin','Rome']
+           for (let city of cities){
+            const res = await fetch(`http://api.openweathermap.org/data/2.5/find?q=${city}&type=like&APPID=41aca50fa598eeb6350321c2a6b727e3`)
+            const fetched = await res.json()
+            arr.push(fetched.list[0])
+        }
             commit('updatePosts',arr)
         },
         async fetchCurrency({commit}){
@@ -33,8 +30,10 @@ let data;
             state.currency = fetched
         }
     },
-    state : { posts : [],
-    currency : []},
+    state : { 
+        posts : [],
+        currency : []
+    },
     getters:{
     allPosts(state){
         return state.posts
