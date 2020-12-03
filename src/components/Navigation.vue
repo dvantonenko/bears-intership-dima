@@ -54,11 +54,13 @@ export default {
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.16);
 }
 .title {
+  display: flex;
   float: left;
   width: 50%;
+  height: 100%;
+  margin: 0;
 }
 .title_text {
-  float: left;
   margin: 40px;
   font-size: 30px;
   letter-spacing: 10px;
@@ -104,6 +106,7 @@ export default {
   height: 200px;
   min-width: 375px;
   background: rgb(192, 192, 192, 0.5);
+  text-align: center;
 }
 
 @media screen and (max-width: 1070px) {
@@ -112,15 +115,13 @@ export default {
   }
 }
 @media screen and (max-width: 760px) {
-.link {
-  margin-right: 5px;
-
-}
+  .link {
+    margin-right: 5px;
+  }
 }
 @media screen and (max-width: 660px) {
   .nav {
     height: 65px;
-    min-width: 375px;
   }
   .title {
     width: 80%;
@@ -135,4 +136,3 @@ export default {
   }
 }
 </style>
-

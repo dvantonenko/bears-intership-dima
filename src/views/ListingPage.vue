@@ -1,17 +1,17 @@
 <template>
  <div class="container">
-  <Navigation />
+<!--  <Navigation />-->
 
-    <div class="block_image center media_mobile">
-      <img class="main_image" src="../assets/image2.png" />
+    <div class="block_banner center media_mobile">
+      <img class="image_banner" src="../assets/image2.png" />
     </div>
 
-    <div class="block_main center media_mobile">
-      <span class="main_text font_ny_el font_bold">A few words about this blog platform, Ghost, and how this site was made</span>
+    <div class="block_topic center media_mobile">
+      <span class="text_topic font_ny_el font_bold">A few words about this blog platform, Ghost, and how this site was made</span>
     </div>
 
     <div class="block_question center media_mobile">
-      <span class="question_text font_sf_mono">Why Ghost (& Figma) instead of Medium, WordPress or other options? </span>
+      <span class="text_question font_sf_mono">Why Ghost (& Figma) instead of Medium, WordPress or other options? </span>
       <hr />
     </div>
 
@@ -19,15 +19,15 @@
 
     <CardsList v-bind:images="images" />
 
-    <Footer />
+   <!-- <Footer />-->
   </div>
   
 </template>
 
 <script>
-import Navigation from "./Navigation";
-import CardsList from "./CardsList";
-import Footer from "./Footer";
+import Navigation from "@/components/Navigation";
+import CardsList from "@/components/CardsList";
+import Footer from "@/components/Footer";
 export default {
   components: {
     Navigation,
@@ -97,14 +97,6 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  display: block;
-  text-align: center;
-  width: 100%;
-}
-.center {
-  margin: 0 auto;
-}
 
 .articles {
   width: 225px;
@@ -119,20 +111,20 @@ export default {
   font-style: normal;
   font-weight: bold;
 }
-.main_image {
+.image_banner {
   width: 100%;
 }
 
-.block_image {
+.block_banner {
   margin-top: 70px;
   width: 854px;
 }
 
-.block_main {
+.block_topic {
   width: 854px;
   padding-top: 44px;
 }
-.main_text {
+.text_topic {
   font-size: 54px;
   line-height: 100%;
   text-align: center;
@@ -144,22 +136,13 @@ export default {
   padding-top: 22px;
   color: #000000;
 }
-.question_text {
+.text_question {
   font-size: 30px;
   line-height: 170%;
   text-align: center;
   color: #000000;
 }
 
-@media screen and (max-width: 880px) {
-  .media_mobile{
-     max-width: 550px;
-  }
-}
-@media screen and (max-width: 575px) {
-  .media_mobile{
-     max-width: 375px;
-  }
-}
+
 
 </style>

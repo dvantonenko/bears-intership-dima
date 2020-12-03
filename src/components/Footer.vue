@@ -7,7 +7,7 @@
     </div>
     
     <div class="footer_title1">
-      <h1 class="font_ny">Nordic rose</h1>
+      <h1 class="font_ny" >Nordic rose</h1>
       <blockquote class="footer_title2 font_ny_s">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eu velit tempus erat egestas efficitur. In hac habitasse platea dictumst.Fusce a nunc eget ligula..</blockquote>
       <div class="contacts_group">
         <a class="contact_link font_sf" v-for="link of links" v-bind:key="link">{{ link }}</a>
@@ -32,6 +32,8 @@ export default {
   background: #000000;
   display: block;
   margin-top : 113px;
+  width : 100%;
+      min-width : 330px;
 }
 .labels {
   white-space: nowrap;
@@ -65,6 +67,7 @@ export default {
   padding-top: 121px;
   max-height: 324px;
   background-color: black;
+  text-align:center;
 }
 .footer_title1 h1 {
   color: white;
@@ -79,6 +82,7 @@ export default {
   line-height: 140%;
   text-align: center;
   color: white;
+ 
 }
 .contacts_group {
   color: white;
@@ -113,6 +117,9 @@ export default {
     min-width: 287px;
     max-height: 71px;
     margin: 0 auto;
+  }
+  .footer {
+
   }
 }
 </style>

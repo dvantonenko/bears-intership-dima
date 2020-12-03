@@ -1,21 +1,22 @@
 <template>
   <div id="app">
-  
+  <Navigation/>
     <router-view> </router-view>
+<Footer/>
   </div>
 </template>
 
 <script>
 import Posts from "./components/Posts.vue";
-import Home from "./components/Home.vue";
-import ListingPage from "./components/ListingPage";
+import ListingPage from "@/views/ListingPage";
 import Footer from "./components/Footer";
+import Navigation from './components/Navigation'
 export default {
   name: "App",
   components: {
     Posts,
-    Home,
     Footer,
+    Navigation
   },
 };
 </script>

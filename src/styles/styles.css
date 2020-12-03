@@ -1,2 +1,12 @@
 @import "fonts.css";
+@import "media.css";
+.container{
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.center {
+    margin: 0 auto;
+  }
 

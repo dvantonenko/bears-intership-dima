@@ -4,7 +4,5 @@
   </div>
 </template>
 <style>
-.cantainer{
-    text-align: center;
-}
+
 </style>
