@@ -100,13 +100,14 @@ export default {
 }
 .menu_toggle {
   position: absolute;
-  top: 75px;
+  top: 65px;
   right: 0px;
-  left: 8px;
+
   height: 200px;
   min-width: 375px;
   background: rgb(192, 192, 192, 0.5);
   text-align: center;
+  width:100%;
 }
 
 @media screen and (max-width: 1070px) {
