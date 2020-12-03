@@ -111,11 +111,13 @@ export default {
 }
 .image_banner {
   width: 100%;
+  min-width: 330px
 }
 
 .block_banner {
   margin-top: 70px;
   width: 854px;
+  
 }
 
 .block_topic {
