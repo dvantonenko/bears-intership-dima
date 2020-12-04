@@ -6,40 +6,29 @@ Vue.use(Router)
 let router = new Router({
     routes: [
         {
-            path: '/',
+            path: '/blog',
             name: 'listingpage',
             component: ()=> import('@/views/ListingPage')
-        },
+        }, 
         {
-            path: '/posts',
-            name: 'posts',
-            component: ()=> import('@/components/Posts')
-        },
-   
-        {
-            path: '/listingpage/about',
+            path: '/about',
             name: 'about',
             component: ()=> import('@/views/About')
         },        
         {
-            path: '/listingpage/links',
+            path: '/links',
             name: 'links',
             component: ()=> import('@/views/Links')
         },
         {
-            path: '/listingpage/projects',
-            name: 'projects',
-            component: ()=> import('@/views/Projects')
+            path: '/widgets',
+            name: 'widgets',
+            component: ()=> import('@/views/Widgets')
         },
         ,
-        {
-            path: '/listingpage/blog',
-            name: 'blog',
-            component: ()=> import('@/views/Blog')
-        },
-        { path : "/article",
-        name : 'article',
-        component: ()=> import('@/views/Article')
+        {   path : "/article",
+            name : 'article',
+            component: ()=> import('@/views/Article')
         }
 
 

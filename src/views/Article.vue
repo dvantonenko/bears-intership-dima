@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <!-- <Navigation /> -->
 
     <div class="block_topic center media_mobile">
       <span class="text_topic font_ny_el font_bold">A few words about this blog platform, Ghost, and how this site was made</span>
@@ -84,19 +83,15 @@
     </div>
     <hr style="height: 12px; background-color: black; margin-top: 77px; min-width: 330px; max-width: 640px ;" />
     <InputForm v-bind:screenSize="screenSize" />
-
-    <!-- <Footer />-->
   </div>
 </template>
 
 <script>
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import InputForm from "../components/InputForm";
+import InputForm from "@/components/InputForm";
 export default {
   components: {
-    Navigation,
-    Footer,
     InputForm,
   },
   data() {

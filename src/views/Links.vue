@@ -1,8 +1,11 @@
 <template>
-  <div class='container'>
-    <h1> Links</h1>
+  <div class="container">
   </div>
 </template>
+
+<script>
+
+</script>
 <style>
 
 </style>
