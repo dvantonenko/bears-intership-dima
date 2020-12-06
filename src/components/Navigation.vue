@@ -5,7 +5,7 @@
     </div>
     <div class="links">
       <div v-if="screenSize > 645 && screenSize < 1980" class="links_block">
-        <a :href="`#/${link}/`" class="link font_ny" v-for="link of links" v-bind:key="link">{{ link }}</a>
+        <a :href="`#/${link}/`" class="link font_ny" v-for="link of links" v-bind:key="link">{{ link=="Addnewpost" ? "Add new post" : link }}</a>
       </div>
 
       <img v-else-if="screenSize < 645 && !sideMenu" src="../assets/icons/Menu_icon_2_icon-icons.com_71856 (1).svg" class="menu_button" v-on:click="sideMenu = !sideMenu" />
@@ -26,7 +26,7 @@
 export default {
   data() {
     return {
-      links: ["Blog", "About", "Links", "Widgets"],
+      links: ["Blog", "Addnewpost", "Widgets"],
       screenSize: null,
       sideMenu: false,
     };
