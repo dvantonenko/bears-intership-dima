@@ -45,6 +45,7 @@ import Navigation from "@/components/Navigation";
 import CardsList from "@/components/CardsList";
 import Footer from "@/components/Footer";
 import Post from "@/views/Poster";
+import { http } from "../http";
 export default {
   components: {
     Navigation,
@@ -112,6 +113,8 @@ export default {
   methods: {
     async deletePost(id) {
      let res =  this.posts.filter((item) => item.id !== id);
+  this.posts = res;
+
       let response = await fetch("/poster/delete", {
         method: "POST",
         headers: {
@@ -119,7 +122,7 @@ export default {
         },
         body: JSON.stringify({ id }),
       });
-      this.posts = res;
+    
     },
 
   },

@@ -80,6 +80,7 @@ export default {
   margin-top: 50px;
   width: 100%;
   max-width: 500px;
+  text-align: right;
 }
 
 .link {

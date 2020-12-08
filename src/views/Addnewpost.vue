@@ -46,7 +46,7 @@
         ></textarea>
       </div>
 
-      <div style="text-align: center; margin-bottom : 10px;">
+      <div style="text-align: center; margin-bottom: 10px">
         <label for="files" class="label_field label_block" type="file">
           Add post image</label
         >
@@ -64,12 +64,13 @@
 <script>
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import { http } from "../http";
 export default {
   data() {
     return {
       title: "",
       subtitle: "",
-       discription: "",
+      discription: "",
       url: null,
       id: uuidv4(),
     };
@@ -79,7 +80,7 @@ export default {
       const file = e.target.files[0];
       let reader = new FileReader();
       reader.readAsDataURL(file);
-    
+
       reader.onload = () => {
         this.url = reader.result;
       };
@@ -92,7 +93,7 @@ export default {
         url: this.url,
         id: this.id,
       };
-      console.log(task)
+
       let response = await fetch("/poster/add", {
         method: "POST",
         headers: {

@@ -59,10 +59,10 @@
 </template>
 
 <script>
+import { http } from "../http";
 export default {
   data() {
     return {
-      postUpdate: {},
       discription: "",
       title: "",
       subtitle: "",
@@ -72,16 +72,14 @@ export default {
   },
   async mounted() {
     const id = this.$route.params.id;
-    let response = await fetch(`/poster/${id}`, { method: "GET" })
-      .then((res) => res.json())
-      .then((result) => {
-        this.postUpdate = result.todo;
-        this.title = this.postUpdate.title;
-        this.discription = this.postUpdate.discription;
-        this.subtitle = this.postUpdate.subtitle;
-        this.url = this.postUpdate.url;
-        this.id = this.postUpdate.id;
-      });
+    const { request } = http();
+    const data = await request(`/poster/${id}`, "GET");
+    const {title, subtitle, discription, url} = data.todo
+        this.title = title;
+        this.discription = discription;
+        this.subtitle = subtitle;
+        this.url = url;
+        this.id = id;
   },
   methods: {
     async submitHandler() {
@@ -92,18 +90,9 @@ export default {
         url: this.url,
         id: this.id,
       };
-      try {
-        let response = await fetch("/poster/update", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json;charset=utf-8",
-          },
-          body: JSON.stringify(task),
-        });
-        this.$router.push("/blog");
-      } catch (e) {
-        console.log(e.message);
-      }
+      const { request } = http();
+      const data = await request("/poster/update", "POST", { ...task });
+      this.$router.push("/blog");
     },
   },
 };
