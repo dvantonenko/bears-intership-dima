@@ -60,6 +60,8 @@
 
 <script>
 import { http } from "../http";
+import axios from "axios";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -73,25 +75,28 @@ export default {
   async mounted() {
     const id = this.$route.params.id;
     const { request } = http();
-    const data = await request(`/poster/${id}`, "GET");
-    const {title, subtitle, discription, url} = data.todo
-        this.title = title;
-        this.discription = discription;
-        this.subtitle = subtitle;
-        this.url = url;
-        this.id = id;
+
+    // const data = await request(`/poster/${id}`, "GET");
+    const currentPoster = this.allPosters.find((item) => item.id === id);
+    const { title, subtitle, discription, url } = currentPoster
+    this.title = title;
+    this.discription = discription;
+    this.subtitle = subtitle;
+    this.url = url;
+    this.id = id;
   },
+  computed: mapGetters(["allPosters"]),
+
   methods: {
     async submitHandler() {
-      const task = {
+      const poster = {
         title: this.title,
         subtitle: this.subtitle,
         discription: this.discription,
         url: this.url,
         id: this.id,
       };
-      const { request } = http();
-      const data = await request("/poster/update", "POST", { ...task });
+      await this.$store.dispatch('updatePoster',poster)
       this.$router.push("/blog");
     },
   },

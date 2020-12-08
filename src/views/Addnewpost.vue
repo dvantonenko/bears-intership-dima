@@ -93,14 +93,7 @@ export default {
         url: this.url,
         id: this.id,
       };
-
-      let response = await fetch("/poster/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-        },
-        body: JSON.stringify(task),
-      });
+      await this.$store.dispatch("addPoster" , task);
       this.$router.push("/blog");
     },
   },

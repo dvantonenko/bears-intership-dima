@@ -55,7 +55,6 @@ export default {
 }
 .label:last-child {
   padding-right: 0px;
-
 }
 
 .label_weight {
@@ -101,6 +100,14 @@ export default {
   width: 159px;
   margin: 0 auto;
   padding-top: 64px;
+}
+
+@media screen and (min-width: 1700px) {
+
+.label {
+  padding: 48px;
+}
+
 }
 
 @media screen and (max-width: 575px) {

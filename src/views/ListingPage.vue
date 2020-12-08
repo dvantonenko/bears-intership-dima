@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="posts_block">
-      <div class="post" v-for="post of posts" v-bind:key="post.id">
+      <div class="post" v-for="post of allPosters" v-bind:key="post.id">
         <img class="post_image" v-if="post.url" :src="post.url" />
         <div class="post_title font_ny_s">{{ post.title }}</div>
         <div class="post_title font_ny_s">{{ post.subtitle }}</div>
@@ -46,6 +46,8 @@ import CardsList from "@/components/CardsList";
 import Footer from "@/components/Footer";
 import Post from "@/views/Poster";
 import { http } from "../http";
+import axios from "axios";
+import { mapGetters } from "vuex";
 export default {
   components: {
     Navigation,
@@ -106,33 +108,19 @@ export default {
             "How modern remote working tools get along with Old School Cowboy's methods",
         },
       ],
-      posts: [],
       postUpdate: null,
     };
   },
   methods: {
     async deletePost(id) {
-     let res =  this.posts.filter((item) => item.id !== id);
-  this.posts = res;
-
-      let response = await fetch("/poster/delete", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      });
-    
+      await this.$store.dispatch("deletePoster", id);
+      await this.$store.dispatch("getAllPosters");
     },
-
   },
   async mounted() {
-    let response = await fetch("/poster", { method: "GET" })
-      .then((res) => res.json())
-      .then((result) => {
-        this.posts = result.todos;
-      });
+    await this.$store.dispatch("getAllPosters");
   },
+  computed: mapGetters(["allPosters"]),
 };
 </script>
 
@@ -206,15 +194,15 @@ export default {
   font-size: 20px;
   font-weight: 100;
   line-height: 30px;
-  color : black;
+  color: black;
 }
 .post_disc {
   height: 95px;
 
   overflow: hidden;
   padding: 0 10px;
-  line-height : 25px;
-  color : black;
+  line-height: 25px;
+  color: black;
 }
 .btn_update {
   float: left;

@@ -79,7 +79,7 @@ export default {
   margin-left: 30%;
   margin-top: 50px;
   width: 100%;
-  max-width: 500px;
+  /* max-width: 500px; */
   text-align: right;
 }
 
