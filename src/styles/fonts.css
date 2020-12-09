@@ -1,4 +1,14 @@
 @font-face {
+    font-family: 'Inter-light';
+    src: url("../assets/fonts/Inter/Inter-Light-slnt=0.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'Inter-normal';
+    src: url("../assets/fonts/Inter/Inter-Regular-slnt=0.ttf") format("truetype");
+}
+
+@font-face {
     font-family: 'New-York';
     src: url("../assets/fonts/NY/NewYork.ttf") format("truetype");
 }
@@ -40,7 +50,13 @@
     src: url("../assets/fonts/SF/SFMonoRegular.ttf") format("truetype");
 }
 
+.font_inter_l{
+    font-family : "Inter-light" , sans-serif;
 
+}
+.font_inter_n{
+    font-family : "Inter-normal" , sans-serif;
+}
 
 .font_ny{
     font-family: "New-York" , sans-serif;

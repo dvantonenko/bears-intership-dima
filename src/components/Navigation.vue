@@ -3,14 +3,32 @@
     <div class="title">
       <span class="title_text font_ny">Nordic rose</span>
     </div>
+
     <div class="links">
       <div v-if="screenSize > 645 && screenSize < 1980" class="links_block">
-        <a :href="`#/${link}/`" class="link font_ny" v-for="link of links" v-bind:key="link">{{ link=="Addnewpost" ? "Add new post" : link }}</a>
+        <a
+          :href="`#/${link}/`"
+          class="link font_ny"
+          v-for="link of links"
+          v-bind:class="{ active: $route.name.toLowerCase() === link.toLowerCase() }"
+          v-bind:key="link"
+          >{{ link == "Addnewpost" ? "Add new post" : link }}</a
+        >
       </div>
 
-      <img v-else-if="screenSize < 645 && !sideMenu" src="../assets/icons/Menu_icon_2_icon-icons.com_71856 (1).svg" class="menu_button" v-on:click="sideMenu = !sideMenu" />
+      <img
+        v-else-if="screenSize < 645 && !sideMenu"
+        src="../assets/icons/Menu_icon_2_icon-icons.com_71856 (1).svg"
+        class="menu_button"
+        v-on:click="sideMenu = !sideMenu"
+      />
 
-      <img v-else-if="screenSize < 645 && sideMenu" src="../assets/icons/cancel.svg" class="menu_button" v-on:click="sideMenu = !sideMenu" />
+      <img
+        v-else-if="screenSize < 645 && sideMenu"
+        src="../assets/icons/cancel.svg"
+        class="menu_button"
+        v-on:click="sideMenu = !sideMenu"
+      />
     </div>
     <div v-if="sideMenu" class="menu_toggle">
       <p v-for="link of links" v-bind:key="link">
@@ -34,8 +52,6 @@ export default {
   methods: {
     onResize() {
       this.screenSize = document.documentElement.clientWidth;
-      // console.log(this.screenSize);
-      // console.log(this.sideMenu)
       if (this.screenSize > 645) this.sideMenu = false;
     },
   },
@@ -79,7 +95,6 @@ export default {
   margin-left: 30%;
   margin-top: 50px;
   width: 100%;
-  /* max-width: 500px; */
   text-align: right;
 }
 
@@ -93,6 +108,7 @@ export default {
 .link:hover {
   border-bottom: 2px solid black;
 }
+
 .menu_button {
   height: 40px;
   width: 40px;
@@ -108,7 +124,10 @@ export default {
   min-width: 375px;
   background: rgb(192, 192, 192, 0.5);
   text-align: center;
-  width:100%;
+  width: 100%;
+}
+.active {
+  border-bottom: 2px solid black;
 }
 
 @media screen and (max-width: 1070px) {

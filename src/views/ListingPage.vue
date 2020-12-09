@@ -1,22 +1,27 @@
 <template>
   <div class="container">
-    <div class="posts_block">
-      <div class="post" v-for="post of allPosters" v-bind:key="post.id">
-        <img class="post_image" v-if="post.url" :src="post.url" />
-        <div class="post_title font_ny_s">{{ post.title }}</div>
-        <div class="post_title font_ny_s">{{ post.subtitle }}</div>
-        <div class="post_disc">{{ post.discription }}</div>
-
-        <div class="post_button_block">
-          <router-link :to="`/poster/` + post.id">
-            <button class="btn_update">Update</button>
-          </router-link>
-          <router-link :to="'/blog/'">
-            <button class="btn_update" v-on:click="deletePost(post.id)">Delete</button>
-          </router-link>
+    
+    <div class="card_block">
+      <div class="card" v-for="post of allPosters" v-bind:key="post.id">
+        <img class="card-image" :src="post.url" />
+        <div class="card-text">
+          <h2>{{ post.title }}</h2>
+          <span>{{ post.subtitle }}</span>
+          <p>
+            {{ post.discription }}
+          </p>
+        </div>
+        <div class="card-stats">
+          <router-link tag="button" class="stat" :to="`/poster/` + post.id"
+            ><img src="../assets/icons/repeat.svg"
+          /></router-link>
+          <button v-on:click="deletePost(post.id)" class="stat" :to="`/blog/`">
+            <img src="../assets/icons/trash-2.svg" />
+          </button>
         </div>
       </div>
     </div>
+
     <div class="block_banner center media_mobile">
       <img class="image_banner" src="../assets/image2.png" />
     </div>
@@ -170,54 +175,74 @@ export default {
   text-align: center;
   color: #000000;
 }
-.posts_block {
-  display: flex;
-  flex-wrap: wrap;
-}
-.post {
+
+.card {
   float: left;
-  display: block;
-  margin: 10px;
-  width: 20%;
-  min-width: 255px;
-  height: 400px;
-  border: 1px solid grey;
+  width: 350px;
+  height: 550px;
+  outline: none;
+  border-radius: 20px;
+  padding: 0;
+  box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.25);
+  margin: 5px 10px;
 }
-
-.post_image {
+.card-image {
   width: 100%;
-  height: 200px;
+  border-radius: 20px 20px 0 0;
+  max-height: 230px;
 }
 
-.post_title {
-  height: 30px;
-  font-size: 20px;
-  font-weight: 100;
-  line-height: 30px;
-  color: black;
-}
-.post_disc {
-  height: 95px;
-
+.card-text {
+  padding-top: 20px;
+  height: 220px;
   overflow: hidden;
-  padding: 0 10px;
-  line-height: 25px;
+}
+.card-text p {
+  color: grey;
+  font-size: 15px;
+  font-weight: 300;
+  margin: 10px 20px 0 20px;
+  color: grey;
+  max-height: 88px;
+}
+.card-text span {
+  font-size: 20px;
   color: black;
 }
-.btn_update {
+.card-text h2 {
+  font-size: 28px;
+  margin: 10px 0;
+  color: black;
+}
+.card-stats {
+  display: flex;
+  height: 76px;
+}
+
+.stat {
   float: left;
   width: 50%;
-  height: 40px;
-  outline: none;
+  text-align: center;
+  line-height: 4.5rem;
+  background-color: rgb(0, 204, 167);
   border: none;
-  background: white;
-  color: black;
+  outline: none;
   cursor: pointer;
-
-  transition: all 0.5s ease-in;
 }
-.btn_update:hover {
-  color: white;
-  background: black;
+.stat:first-child {
+  border-radius: 0 0 0 20px;
+}
+
+.stat:last-child {
+  border-radius: 0 0 20px 0;
+}
+
+.stat:hover {
+  opacity: 50%;
+}
+.card_block {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
 }
 </style>

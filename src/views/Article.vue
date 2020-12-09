@@ -213,8 +213,7 @@ li {
   }
   .block_topic,.block_question{
     width: 335px;
-    margin-top:52px;
-    margin: 0 auto;
+
   }
 
 }

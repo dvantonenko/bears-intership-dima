@@ -7,7 +7,7 @@ let router = new Router({
     routes: [
         {
             path: '/blog',
-            name: 'listingpage',
+            name: 'blog',
             component: () => import('@/views/ListingPage')
         },
         {

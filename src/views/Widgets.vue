@@ -88,15 +88,6 @@ export default {
 .icon_widget {
   position: absolute;
 }
-.currency_block {
-  margin: 0 auto;
-  width: 400px;
-  height: 200px;
-  border: 1px solid black;
-  margin-top: 20px;
-  border-radius: 20px;
-  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, 0.2);
-}
 
 .thead_widget {
   background-color: rgba(238, 255, 0, 0.8);
