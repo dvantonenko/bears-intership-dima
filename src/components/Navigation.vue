@@ -7,9 +7,9 @@
     <div class="links">
       <div v-if="screenSize > 645 && screenSize < 1980" class="links_block">
         <a
-          :href="`#/${link}/`"
           class="link font_ny"
           v-for="link of links"
+          :href="link === `Blog` ? `#/` : `#/${link}/`"
           v-bind:class="{ active: $route.name.toLowerCase() === link.toLowerCase() }"
           v-bind:key="link"
           >{{ link == "Addnewpost" ? "Add new post" : link }}</a
@@ -33,7 +33,7 @@
     <div v-if="sideMenu" class="menu_toggle">
       <p v-for="link of links" v-bind:key="link">
         <strong
-          ><a :href="`#/${link}/`">{{ link }}</a></strong
+          ><a :href="link === `Blog` ? `#/` : `#/${link}/`">{{ link }}</a></strong
         >
       </p>
     </div>
@@ -119,12 +119,12 @@ export default {
   position: absolute;
   top: 65px;
   right: 0px;
-
   height: 200px;
   min-width: 375px;
   background: rgb(192, 192, 192, 0.5);
   text-align: center;
   width: 100%;
+  z-index:1;
 }
 .active {
   border-bottom: 2px solid black;

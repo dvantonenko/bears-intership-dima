@@ -6,7 +6,7 @@ Vue.use(Router)
 let router = new Router({
     routes: [
         {
-            path: '/blog',
+            path: '/',
             name: 'blog',
             component: () => import('@/views/ListingPage')
         },
