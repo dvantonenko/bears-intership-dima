@@ -8,27 +8,33 @@ let router = new Router({
         {
             path: '/blog',
             name: 'listingpage',
-            component: ()=> import('@/views/ListingPage')
-        }, 
+            component: () => import('@/views/ListingPage')
+        },
         {
-            path: '/about',
-            name: 'about',
-            component: ()=> import('@/views/About')
-        },        
+            path: '/addnewpost',
+            name: 'Addnewpost',
+            component: () => import('@/views/Addnewpost')
+        },
         {
             path: '/links',
             name: 'links',
-            component: ()=> import('@/views/Links')
+            component: () => import('@/views/Links')
         },
         {
             path: '/widgets',
             name: 'widgets',
-            component: ()=> import('@/views/Widgets')
+            component: () => import('@/views/Widgets')
         },
         ,
-        {   path : "/article",
-            name : 'article',
-            component: ()=> import('@/views/Article')
+        {
+            path: "/article",
+            name: 'article',
+            component: () => import('@/views/Article')
+        },
+        {
+            path: `/poster/:id`,
+            name: 'poster',
+            component: () => import('@/views/Poster')
         }
 
 
