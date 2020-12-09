@@ -94,7 +94,7 @@ export default {
         id: this.id,
       };
       await this.$store.dispatch("addPoster", task);
-      this.$router.push("/blog");
+      this.$router.push("/");
     },
   },
 };

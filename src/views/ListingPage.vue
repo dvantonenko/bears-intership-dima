@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    
     <div class="card_block">
       <div class="card" v-for="post of allPosters" v-bind:key="post.id">
         <img class="card-image" :src="post.url" />
@@ -189,7 +188,7 @@ export default {
 .card-image {
   width: 100%;
   border-radius: 20px 20px 0 0;
-  max-height: 230px;
+  height: 230px;
 }
 
 .card-text {
