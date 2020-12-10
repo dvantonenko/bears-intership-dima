@@ -6,11 +6,12 @@
 
     <div class="links">
       <div v-if="screenSize > 645 && screenSize < 1980" class="links_block">
+
         <a
           class="link font_ny"
           v-for="link of links"
           :href="link === `Blog` ? `#/` : `#/${link}/`"
-          v-bind:class="{ active: link.name && $route.name.toLowerCase() === link.toLowerCase() }"
+          v-bind:class="{ active: link && $route.name.toLowerCase() === link.toLowerCase() }"
           v-bind:key="link"
           >{{ link == "Addnewpost" ? "Add new post" : link }}</a
         >
