@@ -20,6 +20,11 @@ export default {
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  
+}
+@media screen and (max-width: 1275px) {
+  .cards_container {
+  justify-content: center; 
+ }
 }
 </style>

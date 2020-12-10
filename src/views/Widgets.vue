@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <router-link class="back" to="/blog">Назад на главную</router-link>
+    <router-link class="back" to="/">Назад на главную</router-link>
     <button type="button" class="button24" style="margin-top: 10px" v-on:click="isOpen = !isOpen">
       {{ isOpen ? "Cкрыть курс валют" : "Открыть курс валют" }}
     </button>

@@ -14,7 +14,7 @@
           <router-link tag="button" class="stat" :to="`/poster/` + post.id"
             ><img src="../assets/icons/repeat.svg"
           /></router-link>
-          <button v-on:click="deletePost(post.id)" class="stat" :to="`/blog/`">
+          <button v-on:click="deletePost(post.id, post.title)" class="stat" :to="`/blog/`">
             <img src="../assets/icons/trash-2.svg" />
           </button>
         </div>
@@ -40,6 +40,7 @@
 
     <p class="articles font_ny font_style_bold center">All articles</p>
 
+    <!-- <CardsList v-bind:images="allPosters" /> -->
     <CardsList v-bind:images="images" />
   </div>
 </template>
@@ -62,52 +63,52 @@ export default {
     return {
       images: [
         {
-          src: require("../assets/Rectangle 12.png"),
+          url: require("../assets/Rectangle 12.png"),
           discription: "Here are some things you should know regarding how we work",
         },
         {
-          src: require("../assets/Rectangle 13.png"),
+          url: require("../assets/Rectangle 13.png"),
           discription:
             "Granny gives everyone the finger, and other tips from OFFF Barcelona",
         },
         {
-          src: require("../assets/Rectangle 14.png"),
+          url: require("../assets/Rectangle 14.png"),
           discription: "Hello world, or, in other words, why this blog exists",
         },
         {
-          src: require("../assets/Rectangle 15.png"),
+          url: require("../assets/Rectangle 15.png"),
           discription: "Here are some things you should know regarding how we work",
         },
         {
-          src: require("../assets/Rectangle 16.png"),
+          url: require("../assets/Rectangle 16.png"),
           discription: "Connecting artificial intelligence with digital product design",
         },
         {
-          src: require("../assets/Rectangle 17.png"),
+          url: require("../assets/Rectangle 17.png"),
           discription: "It’s all about finding the perfect balance",
         },
         {
-          src: require("../assets/Rectangle 18.png"),
+          url: require("../assets/Rectangle 18.png"),
           discription: "I believe learning is the most important skill",
         },
         {
-          src: require("../assets/Rectangle 19.png"),
+          url: require("../assets/Rectangle 19.png"),
           discription: "Clients are part of the team",
         },
         {
-          src: require("../assets/Rectangle 20.png"),
+          url: require("../assets/Rectangle 20.png"),
           discription: "Clients are part of the team",
         },
         {
-          src: require("../assets/Rectangle 21.png"),
+          url: require("../assets/Rectangle 21.png"),
           discription: "Here are some things you should know regarding how we work",
         },
         {
-          src: require("../assets/Rectangle 22.png"),
+          url: require("../assets/Rectangle 22.png"),
           discription: "Connecting artificial intelligence with digital product design",
         },
         {
-          src: require("../assets/Rectangle 23.png"),
+          url: require("../assets/Rectangle 23.png"),
           discription:
             "How modern remote working tools get along with Old School Cowboy's methods",
         },
@@ -116,13 +117,19 @@ export default {
     };
   },
   methods: {
-    async deletePost(id) {
-      await this.$store.dispatch("deletePoster", id);
+    async deletePost(id, title) {
+      await this.$store.dispatch("deletePoster", {id ,title});
       await this.$store.dispatch("getAllPosters");
+      const index = this.images.findIndex((item) => item.id == id);
+      this.images.splice(index, 1);
     },
   },
   async mounted() {
     await this.$store.dispatch("getAllPosters");
+
+    for (let item of this.allPosters) {
+      this.images.unshift(item);
+    }
   },
   computed: mapGetters(["allPosters"]),
 };
