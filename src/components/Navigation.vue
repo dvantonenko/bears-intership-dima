@@ -11,7 +11,7 @@
           class="link font_ny"
           v-for="link of links"
           :href="link === `Blog` ? `#/` : `#/${link}/`"
-          v-bind:class="{ active: link && $route.name.toLowerCase() === link.toLowerCase() }"
+          v-bind:class="{ active: (link && $route.name) &&  $route.name.toLowerCase() === link.toLowerCase() }"
           v-bind:key="link"
           >{{ link == "Addnewpost" ? "Add new post" : link }}</a
         >
