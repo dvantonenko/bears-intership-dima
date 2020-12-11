@@ -2,7 +2,7 @@
   <div class="card">
    <router-link to='/article' class='link'>
     <div>
-      <img :src="image.src" class="image" />
+      <img :src="image.url" class="image" />
       <div class="discription_block">
         <span class="discription_text font_sf">{{ image.discription }}</span>
       </div>
@@ -21,6 +21,8 @@ export default {
 .card {
   padding: 5px;
   height: 300px;
+   float: left; 
+   margin : 0 9px;
 }
 .image {
   height: 176px;

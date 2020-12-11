@@ -1,22 +1,26 @@
 <template>
   <div class="container">
-    <div class="posts_block">
-      <div class="post" v-for="post of allPosters" v-bind:key="post.id">
-        <img class="post_image" v-if="post.url" :src="post.url" />
-        <div class="post_title font_ny_s">{{ post.title }}</div>
-        <div class="post_title font_ny_s">{{ post.subtitle }}</div>
-        <div class="post_disc">{{ post.discription }}</div>
-
-        <div class="post_button_block">
-          <router-link :to="`/poster/` + post.id">
-            <button class="btn_update">Update</button>
-          </router-link>
-          <router-link :to="'/blog/'">
-            <button class="btn_update" v-on:click="deletePost(post.id)">Delete</button>
-          </router-link>
+    <div class="card_block">
+      <div class="card" v-for="post of allPosters" v-bind:key="post.id">
+        <img class="card-image" :src="post.url" />
+        <div class="card-text">
+          <h2>{{ post.title }}</h2>
+          <span>{{ post.subtitle }}</span>
+          <p>
+            {{ post.discription }}
+          </p>
+        </div>
+        <div class="card-stats">
+          <router-link tag="button" class="stat" :to="`/poster/` + post.id"
+            ><img src="../assets/icons/repeat.svg"
+          /></router-link>
+          <button v-on:click="deletePost(post.id, post.title)" class="stat" :to="`/blog/`">
+            <img src="../assets/icons/trash-2.svg" />
+          </button>
         </div>
       </div>
     </div>
+
     <div class="block_banner center media_mobile">
       <img class="image_banner" src="../assets/image2.png" />
     </div>
@@ -36,6 +40,7 @@
 
     <p class="articles font_ny font_style_bold center">All articles</p>
 
+    <!-- <CardsList v-bind:images="allPosters" /> -->
     <CardsList v-bind:images="images" />
   </div>
 </template>
@@ -58,52 +63,52 @@ export default {
     return {
       images: [
         {
-          src: require("../assets/Rectangle 12.png"),
+          url: require("../assets/Rectangle 12.png"),
           discription: "Here are some things you should know regarding how we work",
         },
         {
-          src: require("../assets/Rectangle 13.png"),
+          url: require("../assets/Rectangle 13.png"),
           discription:
             "Granny gives everyone the finger, and other tips from OFFF Barcelona",
         },
         {
-          src: require("../assets/Rectangle 14.png"),
+          url: require("../assets/Rectangle 14.png"),
           discription: "Hello world, or, in other words, why this blog exists",
         },
         {
-          src: require("../assets/Rectangle 15.png"),
+          url: require("../assets/Rectangle 15.png"),
           discription: "Here are some things you should know regarding how we work",
         },
         {
-          src: require("../assets/Rectangle 16.png"),
+          url: require("../assets/Rectangle 16.png"),
           discription: "Connecting artificial intelligence with digital product design",
         },
         {
-          src: require("../assets/Rectangle 17.png"),
+          url: require("../assets/Rectangle 17.png"),
           discription: "It’s all about finding the perfect balance",
         },
         {
-          src: require("../assets/Rectangle 18.png"),
+          url: require("../assets/Rectangle 18.png"),
           discription: "I believe learning is the most important skill",
         },
         {
-          src: require("../assets/Rectangle 19.png"),
+          url: require("../assets/Rectangle 19.png"),
           discription: "Clients are part of the team",
         },
         {
-          src: require("../assets/Rectangle 20.png"),
+          url: require("../assets/Rectangle 20.png"),
           discription: "Clients are part of the team",
         },
         {
-          src: require("../assets/Rectangle 21.png"),
+          url: require("../assets/Rectangle 21.png"),
           discription: "Here are some things you should know regarding how we work",
         },
         {
-          src: require("../assets/Rectangle 22.png"),
+          url: require("../assets/Rectangle 22.png"),
           discription: "Connecting artificial intelligence with digital product design",
         },
         {
-          src: require("../assets/Rectangle 23.png"),
+          url: require("../assets/Rectangle 23.png"),
           discription:
             "How modern remote working tools get along with Old School Cowboy's methods",
         },
@@ -112,13 +117,19 @@ export default {
     };
   },
   methods: {
-    async deletePost(id) {
-      await this.$store.dispatch("deletePoster", id);
+    async deletePost(id, title) {
+      await this.$store.dispatch("deletePoster", {id ,title});
       await this.$store.dispatch("getAllPosters");
+      const index = this.images.findIndex((item) => item.id == id);
+      this.images.splice(index, 1);
     },
   },
   async mounted() {
     await this.$store.dispatch("getAllPosters");
+
+    for (let item of this.allPosters) {
+      this.images.unshift(item);
+    }
   },
   computed: mapGetters(["allPosters"]),
 };
@@ -170,54 +181,74 @@ export default {
   text-align: center;
   color: #000000;
 }
-.posts_block {
-  display: flex;
-  flex-wrap: wrap;
-}
-.post {
+
+.card {
   float: left;
-  display: block;
-  margin: 10px;
-  width: 20%;
-  min-width: 255px;
-  height: 400px;
-  border: 1px solid grey;
+  width: 350px;
+  height: 550px;
+  outline: none;
+  border-radius: 20px;
+  padding: 0;
+  box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.25);
+  margin: 5px 10px;
 }
-
-.post_image {
+.card-image {
   width: 100%;
-  height: 200px;
+  border-radius: 20px 20px 0 0;
+  height: 230px;
 }
 
-.post_title {
-  height: 30px;
-  font-size: 20px;
-  font-weight: 100;
-  line-height: 30px;
-  color: black;
-}
-.post_disc {
-  height: 95px;
-
+.card-text {
+  padding-top: 20px;
+  height: 220px;
   overflow: hidden;
-  padding: 0 10px;
-  line-height: 25px;
+}
+.card-text p {
+  color: grey;
+  font-size: 15px;
+  font-weight: 300;
+  margin: 10px 20px 0 20px;
+  color: grey;
+  max-height: 88px;
+}
+.card-text span {
+  font-size: 20px;
   color: black;
 }
-.btn_update {
+.card-text h2 {
+  font-size: 28px;
+  margin: 10px 0;
+  color: black;
+}
+.card-stats {
+  display: flex;
+  height: 76px;
+}
+
+.stat {
   float: left;
   width: 50%;
-  height: 40px;
-  outline: none;
+  text-align: center;
+  line-height: 4.5rem;
+  background-color: rgb(0, 204, 167);
   border: none;
-  background: white;
-  color: black;
+  outline: none;
   cursor: pointer;
-
-  transition: all 0.5s ease-in;
 }
-.btn_update:hover {
-  color: white;
-  background: black;
+.stat:first-child {
+  border-radius: 0 0 0 20px;
+}
+
+.stat:last-child {
+  border-radius: 0 0 20px 0;
+}
+
+.stat:hover {
+  opacity: 50%;
+}
+.card_block {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
 }
 </style>

@@ -7,12 +7,12 @@ export const Post = {
         async addPoster({}, task) {
             await axios.post("http://localhost:3000/poster/add", task);
         },
-        async deletePoster({}, id) {
-            await axios.post("http://localhost:3000/poster/delete", {id})
+        async deletePoster({}, obj ) {
+            const {id , title} = obj
+            await axios.post("http://localhost:3000/poster/delete", {id , title})
         },
         async getAllPosters({ commit }) {
             let response = await axios.get("http://localhost:3000/poster");
-
             commit('allPosters', response.data.posters)
         },
         async updatePoster({}, poster){

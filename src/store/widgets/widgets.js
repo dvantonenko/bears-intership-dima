@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 
-export const Index = {
+export const Widgets = {
     actions: {
             async fetchWeather({ commit }) {
                 const arr = []

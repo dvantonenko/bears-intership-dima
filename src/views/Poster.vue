@@ -21,12 +21,12 @@
     </div>
 
     <div>
-      <label for="title" class="label_field">Subtitle</label>
+      <label for="subtitle" class="label_field">Subtitle</label>
       <input
         v-model="subtitle"
         placeholder="Enter post subtitle..."
         name="Subtitle"
-        id="Subtitle"
+        id="subtitle"
         type="text"
         class="input_field"
         required
@@ -76,9 +76,8 @@ export default {
     const id = this.$route.params.id;
     const { request } = http();
 
-    // const data = await request(`/poster/${id}`, "GET");
     const currentPoster = this.allPosters.find((item) => item.id === id);
-    const { title, subtitle, discription, url } = currentPoster
+    const { title, subtitle, discription, url } = currentPoster;
     this.title = title;
     this.discription = discription;
     this.subtitle = subtitle;
@@ -96,8 +95,8 @@ export default {
         url: this.url,
         id: this.id,
       };
-      await this.$store.dispatch('updatePoster',poster)
-      this.$router.push("/blog");
+      await this.$store.dispatch("updatePoster", poster);
+      this.$router.push("/");
     },
   },
 };
@@ -106,8 +105,8 @@ export default {
 <style scoped>
 .input_form {
   width: 367px;
-  margin: 0 auto;
-  margin-top: 185px;
+  margin: 185px 0 0 50%;
+  transform: translateX(-50%);
 }
 .input_field {
   width: 100%;
@@ -117,6 +116,7 @@ export default {
   outline: none;
   padding: 0 0 0 16px;
   font-style: normal;
+  font-family: font_inter_n;
   font-weight: 600;
   font-size: 18px;
   line-height: 22px;
@@ -153,6 +153,7 @@ export default {
   margin: 12px 0 28px 0;
   font-style: normal;
   font-weight: 600;
+  font-family: font_inter_n;
   font-size: 18px;
   line-height: 22px;
   letter-spacing: -0.02em;

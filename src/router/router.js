@@ -6,8 +6,8 @@ Vue.use(Router)
 let router = new Router({
     routes: [
         {
-            path: '/blog',
-            name: 'listingpage',
+            path: '/',
+            name: 'blog',
             component: () => import('@/views/ListingPage')
         },
         {

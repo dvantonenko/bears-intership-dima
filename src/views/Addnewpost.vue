@@ -22,12 +22,12 @@
       </div>
 
       <div>
-        <label for="title" class="label_field">Subtitle</label>
+        <label for="subtitle" class="label_field">Subtitle</label>
         <input
           v-model="subtitle"
           placeholder="Enter post subtitle..."
           name="Subtitle"
-          id="Subtitle"
+          id="subtitle"
           type="text"
           class="input_field"
           required
@@ -93,8 +93,8 @@ export default {
         url: this.url,
         id: this.id,
       };
-      await this.$store.dispatch("addPoster" , task);
-      this.$router.push("/blog");
+      await this.$store.dispatch("addPoster", task);
+      this.$router.push("/");
     },
   },
 };
@@ -102,8 +102,8 @@ export default {
 <style scoped>
 .input_form {
   width: 367px;
-  margin: 0 auto;
-  margin-top: 185px;
+  margin: 185px 0 0 50%;
+  transform: translateX(-50%);
 }
 .input_field {
   width: 100%;
@@ -112,6 +112,8 @@ export default {
   border: none;
   outline: none;
   padding: 0 0 0 16px;
+  font-family: font_inter_n;
+  /* font-family : font_inter_l; */
   font-style: normal;
   font-weight: 600;
   font-size: 18px;
@@ -169,6 +171,7 @@ export default {
   color: #9c9898;
   padding: 10px 16px 10px 16px;
   box-sizing: border-box;
+  font-family: font_inter_n;
 }
 
 .image_field {
