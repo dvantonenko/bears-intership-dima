@@ -6,8 +6,8 @@
       class="input_form"
       method="POST"
     >
+      <label for="title" class="label_field">Title</label>
       <div>
-        <label for="title" class="label_field">Title</label>
         <input
           v-model="title"
           placeholder="Enter post Title..."
@@ -20,9 +20,8 @@
         />
         <span class="helper-text" data-error="Введите название"> </span>
       </div>
-
+      <label for="subtitle" class="label_field">Subtitle</label>
       <div>
-        <label for="subtitle" class="label_field">Subtitle</label>
         <input
           v-model="subtitle"
           placeholder="Enter post subtitle..."
@@ -36,8 +35,8 @@
         <span class="helper-text" data-error="Введите название"> </span>
       </div>
       <span style="float: right; font-size: 12px">{{ discription.length }}/2048</span>
+      <label for="discription" class="label_field">Text</label>
       <div>
-        <label for="discription" class="label_field">Text</label>
         <textarea
           placeholder="Enter post text..."
           v-model="discription"
@@ -53,7 +52,7 @@
         <input id="files" hidden name="imagefile" type="file" @change="onFileChange" />
       </div>
 
-      <img class="image_field" v-if="url" :src="url" />
+      <img class="image_field" v-if="src" :src="src" />
 
       <div class="btn_block">
         <button class="btn_publish" type="submit">Publish</button>
@@ -71,7 +70,7 @@ export default {
       title: "",
       subtitle: "",
       discription: "",
-      url: null,
+      src: null,
       id: uuidv4(),
     };
   },
@@ -82,7 +81,7 @@ export default {
       reader.readAsDataURL(file);
 
       reader.onload = () => {
-        this.url = reader.result;
+        this.src = reader.result;
       };
     },
     async submitHandler() {
@@ -90,7 +89,7 @@ export default {
         title: this.title,
         subtitle: this.subtitle,
         discription: this.discription,
-        url: this.url,
+        src: this.src,
         id: this.id,
       };
       await this.$store.dispatch("addPoster", task);
@@ -104,6 +103,7 @@ export default {
   width: 367px;
   margin: 185px 0 0 50%;
   transform: translateX(-50%);
+  height: 100%;
 }
 .input_field {
   width: 100%;
@@ -113,7 +113,6 @@ export default {
   outline: none;
   padding: 0 0 0 16px;
   font-family: font_inter_n;
-  /* font-family : font_inter_l; */
   font-style: normal;
   font-weight: 600;
   font-size: 18px;
@@ -138,7 +137,8 @@ export default {
   font-style: normal;
   font-weight: bold;
   font-size: 22px;
-  line-height: 27px;
+  line-height: 30px;
+
   letter-spacing: -0.02em;
   color: #000000;
 }
@@ -159,6 +159,7 @@ export default {
 }
 .textarea_field {
   width: 100%;
+  max-width: 367px;
   min-height: 222px;
   background-color: #dddedf;
   border-radius: 3px;
@@ -168,12 +169,17 @@ export default {
   font-size: 18px;
   line-height: 22px;
   letter-spacing: -0.02em;
-  color: #9c9898;
+  color: #000000;
   padding: 10px 16px 10px 16px;
   box-sizing: border-box;
   font-family: font_inter_n;
 }
 
+.textarea_field:focus {
+  background: #f9fafb;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+}
 .image_field {
   width: 100%;
   height: 210px;

@@ -1,6 +1,6 @@
 <template>
   <div class="cards_container">
-    <Card v-for="image of images" v-bind:image="image" v-bind:key="image.index" />
+    <Card v-for="(image, index) of images" v-bind:image="image" v-bind:key="index" />
   </div>
 </template>
 <script scoped>
@@ -20,11 +20,6 @@ export default {
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  
-}
-@media screen and (max-width: 1275px) {
-  .cards_container {
-  justify-content: center; 
- }
+  justify-content: center;
 }
 </style>

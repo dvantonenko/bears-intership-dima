@@ -1,12 +1,12 @@
 <template>
   <div class="card">
-   <router-link to='/article' class='link'>
-    <div>
-      <img :src="image.url" class="image" />
-      <div class="discription_block">
-        <span class="discription_text font_sf">{{ image.discription }}</span>
+    <router-link to="/article" class="link">
+      <div>
+        <img :src="image.src" class="image" />
+        <div class="discription_block">
+          <span class="discription_text font_sf">{{ image.discription }}</span>
+        </div>
       </div>
-    </div>
     </router-link>
   </div>
 </template>
@@ -21,8 +21,8 @@ export default {
 .card {
   padding: 5px;
   height: 300px;
-   float: left; 
-   margin : 0 9px;
+  float: left;
+  margin: 0 9px;
 }
 .image {
   height: 176px;
@@ -43,7 +43,7 @@ export default {
   font-style: normal;
   font-weight: 500;
 }
-.link{
+.link {
   text-decoration: none;
 }
 </style>

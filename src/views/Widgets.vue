@@ -1,7 +1,12 @@
 <template>
   <div class="container">
     <router-link class="back" to="/">Назад на главную</router-link>
-    <button type="button" class="button24" style="margin-top: 10px" v-on:click="isOpen = !isOpen">
+    <button
+      type="button"
+      class="button24"
+      style="margin-top: 10px"
+      v-on:click="isOpen = !isOpen"
+    >
       {{ isOpen ? "Cкрыть курс валют" : "Открыть курс валют" }}
     </button>
     <table class="table_widget" v-bind:class="{ close: !isOpen }">
@@ -30,14 +35,19 @@
     <div style="display: flex; flex-wrap: wrap; justify-content: center">
       <div class="card_widget" v-for="post of allPosts" :key="post.id">
         <div class="card_title">
-          <span class="title_text font_sf_text">{{ post.name }}</span>
-          <span class="icon_widget"><img :src="'http://openweathermap.org/img/w/' + post.weather[0].icon + '.png'" /></span>
+          <span class="title_text_widget font_sf_text">{{ post.name }}</span>
+          <span class="icon_widget"
+            ><img
+              :src="'http://openweathermap.org/img/w/' + post.weather[0].icon + '.png'"
+          /></span>
         </div>
         <p>Дата : {{ new Intl.DateTimeFormat("ru-RU").format(timeFormat) }}</p>
         <p>Температура : {{ Math.round(post.main.temp / 274.15) }}&#8451;</p>
         <p>Ощущается как : {{ Math.round(post.main.feels_like / 274.15) }}&#8451;</p>
         <p>Давление: {{ Math.round(post.main.pressure * 0.75) }} мм.рт.ст</p>
-        <p v-if="post.weather[0].description">Осадки : {{ post.weather[0].description }}</p>
+        <p v-if="post.weather[0].description">
+          Осадки : {{ post.weather[0].description }}
+        </p>
       </div>
     </div>
   </div>
@@ -81,10 +91,12 @@ export default {
   vertical-align: center;
   border-radius: 20px 20px 0 0;
 }
-.title_text {
+
+.title_text_widget {
   font-size: 22px;
   line-height: 250%;
 }
+
 .icon_widget {
   position: absolute;
 }
