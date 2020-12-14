@@ -1,55 +1,57 @@
 <template>
-  <form
-    @submit.prevent="submitHandler"
-    enctype="multipart/form-data"
-    class="input_form"
-    method="POST"
-  >
-    <label for="title" class="label_field">Title</label>
-    <div>
-      <input
-        v-model="title"
-        placeholder="Enter post Title..."
-        name="title"
-        id="title"
-        type="text"
-        class="input_field"
-        required
-        min="1"
-      />
-      <span class="helper-text" data-error="Введите название"> </span>
-    </div>
-    <label for="subtitle" class="label_field">Subtitle</label>
-    <div>
-      <input
-        v-model="subtitle"
-        placeholder="Enter post subtitle..."
-        name="Subtitle"
-        id="subtitle"
-        type="text"
-        class="input_field"
-        required
-        min="1"
-      />
-      <span class="helper-text" data-error="Введите название"> </span>
-    </div>
-    <span style="float: right; font-size: 12px">{{ discription.length }}/2048</span>
-    <label for="discription" class="label_field">Text</label>
-    <div>
-      <textarea
-        placeholder="Enter post text..."
-        v-model="discription"
-        id="discription"
-        class="textarea_field"
-      ></textarea>
-    </div>
+  <div>
+    <form
+      @submit.prevent="submitHandler"
+      enctype="multipart/form-data"
+      class="input_form"
+      method="POST"
+    >
+      <label for="title" class="label_field">Title</label>
+      <div>
+        <input
+          v-model="title"
+          placeholder="Enter post Title..."
+          name="title"
+          id="title"
+          type="text"
+          class="input_field"
+          required
+          min="1"
+        />
+        <span class="helper-text" data-error="Введите название"> </span>
+      </div>
+      <label for="subtitle" class="label_field">Subtitle</label>
+      <div>
+        <input
+          v-model="subtitle"
+          placeholder="Enter post subtitle..."
+          name="Subtitle"
+          id="subtitle"
+          type="text"
+          class="input_field"
+          required
+          min="1"
+        />
+        <span class="helper-text" data-error="Введите название"> </span>
+      </div>
+      <span style="float: right; font-size: 12px">{{ discription.length }}/2048</span>
+      <label for="discription" class="label_field">Text</label>
+      <div>
+        <textarea
+          placeholder="Enter post text..."
+          v-model="discription"
+          id="discription"
+          class="textarea_field"
+        ></textarea>
+      </div>
 
-    <img class="image_field" v-if="src" :src="src" />
+      <img class="image_field" v-if="src" :src="src" />
 
-    <div class="btn_block">
-      <button class="btn_publish" type="submit">Update</button>
-    </div>
-  </form>
+      <div class="btn_block">
+        <button class="btn_publish" type="submit">Update</button>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -69,8 +71,6 @@ export default {
     const id = this.$route.params.id;
 
     await this.$store.dispatch("getPosterById", id);
-    console.log(this.currentPoster);
-    // const currentPoster = this.allPosters.find((item) => item.id === id);
     const { title, subtitle, discription, src } = this.currentPoster;
     this.title = title;
     this.discription = discription;
@@ -101,7 +101,7 @@ export default {
   width: 367px;
   margin: 185px 0 0 50%;
   transform: translateX(-50%);
-  min-height: 100%;
+  height: 100%;
 }
 .input_field {
   width: 100%;

@@ -5,7 +5,7 @@ import axios from 'axios'
 export const Post = {
     actions: {
         async addPoster({ }, task) {
-            await axios.post("http://localhost:3000/poster/add", task);
+            await axios.post("http://localhost:3000/poster/add", task)
         },
         async deletePoster({ }, obj) {
             const { id, title } = obj
@@ -27,8 +27,8 @@ export const Post = {
         allPosters(state, response) {
             state.posters = response
         },
-        setCurrentPoster(state, currentPoster){
-            state.currentPoster=currentPoster
+        setCurrentPoster(state, currentPoster) {
+            state.currentPoster = currentPoster
         }
     },
     state: {
@@ -39,9 +39,9 @@ export const Post = {
         allPosters(state) {
             return state.posters
         },
-        currentPoster(state){
+        currentPoster(state) {
             if (state.currentPoster)
-            return state.currentPoster
+                return state.currentPoster
         }
     },
 }
