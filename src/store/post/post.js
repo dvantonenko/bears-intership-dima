@@ -33,7 +33,7 @@ export const Post = {
     },
     state: {
         posters: [],
-        currentPoster: null
+        currentPoster: null,
     },
     getters: {
         allPosters(state) {
@@ -42,6 +42,7 @@ export const Post = {
         currentPoster(state) {
             if (state.currentPoster)
                 return state.currentPoster
-        }
+        },
+
     },
 }

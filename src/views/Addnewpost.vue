@@ -34,13 +34,13 @@
         />
         <span class="helper-text" data-error="Введите название"> </span>
       </div>
-      <span style="float: right; font-size: 12px">{{ discription.length }}/2048</span>
-      <label for="discription" class="label_field">Text</label>
+      <span style="float: right; font-size: 12px">{{ description.length }}/2048</span>
+      <label for="description" class="label_field">Text</label>
       <div>
         <textarea
           placeholder="Enter post text..."
-          v-model="discription"
-          id="discription"
+          v-model="description"
+          id="description"
           class="textarea_field"
         ></textarea>
       </div>
@@ -69,7 +69,7 @@ export default {
     return {
       title: "",
       subtitle: "",
-      discription: "",
+      description: "",
       src: null,
       id: uuidv4(),
     };
@@ -88,7 +88,7 @@ export default {
       const task = {
         title: this.title,
         subtitle: this.subtitle,
-        discription: this.discription,
+        description: this.description,
         src: this.src,
         id: this.id,
       };

@@ -19,7 +19,28 @@
 
     <p class="articles font_ny font_style_bold center">All articles</p>
 
-    <CardsList v-bind:images="images" />
+    <CardsList v-if="images.length" v-bind:images="images" />
+
+    <div v-else>
+      <h2 class="font_ny">No posts yet</h2>
+      <router-link tag="button" :to="'/Addnewpost'" class="btn_create">
+        Create
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="40"
+          height="40"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="black"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-chevron-right icon_create"
+        >
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -38,58 +59,7 @@ export default {
   },
   data() {
     return {
-      images: [
-        {
-          src: require("../assets/Rectangle 12.png"),
-          discription: "Here are some things you should know regarding how we work",
-        },
-        {
-          src: require("../assets/Rectangle 13.png"),
-          discription:
-            "Granny gives everyone the finger, and other tips from OFFF Barcelona",
-        },
-        {
-          src: require("../assets/Rectangle 14.png"),
-          discription: "Hello world, or, in other words, why this blog exists",
-        },
-        {
-          src: require("../assets/Rectangle 15.png"),
-          discription: "Here are some things you should know regarding how we work",
-        },
-        {
-          src: require("../assets/Rectangle 16.png"),
-          discription: "Connecting artificial intelligence with digital product design",
-        },
-        {
-          src: require("../assets/Rectangle 17.png"),
-          discription: "It’s all about finding the perfect balance",
-        },
-        {
-          src: require("../assets/Rectangle 18.png"),
-          discription: "I believe learning is the most important skill",
-        },
-        {
-          src: require("../assets/Rectangle 19.png"),
-          discription: "Clients are part of the team",
-        },
-        {
-          src: require("../assets/Rectangle 20.png"),
-          discription: "Clients are part of the team",
-        },
-        {
-          src: require("../assets/Rectangle 21.png"),
-          discription: "Here are some things you should know regarding how we work",
-        },
-        {
-          src: require("../assets/Rectangle 22.png"),
-          discription: "Connecting artificial intelligence with digital product design",
-        },
-        {
-          src: require("../assets/Rectangle 23.png"),
-          discription:
-            "How modern remote working tools get along with Old School Cowboy's methods",
-        },
-      ],
+      images: [],
       postUpdate: null,
     };
   },
@@ -159,5 +129,38 @@ export default {
   line-height: 170%;
   text-align: center;
   color: #000000;
+}
+
+.btn_create {
+  width: 262px;
+  height: 48px;
+  background: white;
+  border-radius: 3px;
+  color: black;
+  transition: 0.5s ease-in;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 27px;
+  letter-spacing: -0.02em;
+  position: relative;
+  border: 2px solid black;
+  letter-spacing: 3px;
+  cursor: pointer;
+}
+.btn_create:hover {
+  background-color: black;
+  color: white;
+}
+.btn_create:hover .icon_create {
+  stroke: white;
+}
+
+.icon_create {
+  position: absolute;
+  top: 3px;
+  right: 20px;
+  stroke: black;
+  transition: 0.5s ease-in;
 }
 </style>
