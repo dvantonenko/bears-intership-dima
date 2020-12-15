@@ -92,6 +92,7 @@ export default {
       await this.$store.dispatch("updatePoster", poster);
       setTimeout(() => {
         this.$router.push("/");
+        console.log("done");
       });
     },
   },
