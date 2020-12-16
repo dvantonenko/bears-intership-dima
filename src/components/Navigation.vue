@@ -6,12 +6,14 @@
 
     <div class="links">
       <div v-if="screenSize > 645 && screenSize < 1980" class="links_block">
-
         <a
           class="link font_ny"
           v-for="link of links"
           :href="link === `Blog` ? `#/` : `#/${link}/`"
-          v-bind:class="{ active: (link && $route.name) &&  $route.name.toLowerCase() === link.toLowerCase() }"
+          v-bind:class="{
+            active:
+              link && $route.name && $route.name.toLowerCase() === link.toLowerCase(),
+          }"
           v-bind:key="link"
           >{{ link == "Addnewpost" ? "Add new post" : link }}</a
         >
@@ -78,12 +80,12 @@ export default {
   margin: 0;
 }
 .title_text {
-  margin: 40px;
   font-size: 30px;
   letter-spacing: 10px;
   color: black;
   text-transform: uppercase;
   white-space: nowrap;
+  margin: 40px;
 }
 
 .links {
@@ -125,7 +127,7 @@ export default {
   background: rgb(192, 192, 192, 0.5);
   text-align: center;
   width: 100%;
-  z-index:1;
+  z-index: 1;
 }
 .active {
   border-bottom: 2px solid black;

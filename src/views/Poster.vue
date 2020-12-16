@@ -1,102 +1,99 @@
 <template>
-  <form
-    @submit.prevent="submitHandler"
-    enctype="multipart/form-data"
-    class="input_form"
-    method="POST"
-  >
-    <div>
+  <div>
+    <form
+      @submit.prevent="submitHandler"
+      enctype="multipart/form-data"
+      class="input_form"
+      method="POST"
+    >
       <label for="title" class="label_field">Title</label>
-      <input
-        v-model="title"
-        placeholder="Enter post Title..."
-        name="title"
-        id="title"
-        type="text"
-        class="input_field"
-        required
-        min="1"
-      />
-      <span class="helper-text" data-error="Введите название"> </span>
-    </div>
-
-    <div>
+      <div>
+        <input
+          v-model="title"
+          placeholder="Enter post Title..."
+          name="title"
+          id="title"
+          type="text"
+          class="input_field"
+          required
+          min="1"
+        />
+        <span class="helper-text" data-error="Введите название"> </span>
+      </div>
       <label for="subtitle" class="label_field">Subtitle</label>
-      <input
-        v-model="subtitle"
-        placeholder="Enter post subtitle..."
-        name="Subtitle"
-        id="subtitle"
-        type="text"
-        class="input_field"
-        required
-        min="1"
-      />
-      <span class="helper-text" data-error="Введите название"> </span>
-    </div>
-    <span style="float: right; font-size: 12px">{{ discription.length }}/2048</span>
-    <div>
-      <label for="discription" class="label_field">Text</label>
-      <textarea
-        placeholder="Enter post text..."
-        v-model="discription"
-        id="discription"
-        class="textarea_field"
-      ></textarea>
-    </div>
+      <div>
+        <input
+          v-model="subtitle"
+          placeholder="Enter post subtitle..."
+          name="Subtitle"
+          id="subtitle"
+          type="text"
+          class="input_field"
+          required
+          min="1"
+        />
+        <span class="helper-text" data-error="Введите название"> </span>
+      </div>
+      <span style="float: right; font-size: 12px">{{ description.length }}/2048</span>
+      <label for="description" class="label_field">Text</label>
+      <div>
+        <textarea
+          placeholder="Enter post text..."
+          v-model="description"
+          id="description"
+          class="textarea_field"
+        ></textarea>
+      </div>
 
-    <!-- <div style="text-align: center">
-        <label for="files" class="label_field" type="file"> Add post image</label>
-        <input id="files" hidden name="imagefile" type="file"  @change="onFileChange" />
-      </div> -->
+      <img class="image_field" v-if="src" :src="src" />
 
-    <img class="image_field" v-if="url" :src="url" />
-
-    <div class="btn_block">
-      <button class="btn_publish" type="submit">Update</button>
-    </div>
-  </form>
+      <div class="btn_block">
+        <button class="btn_publish" type="submit">Update</button>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>
-import { http } from "../http";
 import axios from "axios";
 import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      discription: "",
+      description: "",
       title: "",
       subtitle: "",
-      url: null,
+      src: null,
       id: null,
     };
   },
   async mounted() {
     const id = this.$route.params.id;
-    const { request } = http();
 
-    const currentPoster = this.allPosters.find((item) => item.id === id);
-    const { title, subtitle, discription, url } = currentPoster;
+    await this.$store.dispatch("getPosterById", id);
+    const { title, subtitle, description, src } = this.currentPoster;
     this.title = title;
-    this.discription = discription;
+    this.description = description;
     this.subtitle = subtitle;
-    this.url = url;
+    this.src = src;
     this.id = id;
   },
-  computed: mapGetters(["allPosters"]),
+  computed: mapGetters(["allPosters", "currentPoster"]),
 
   methods: {
     async submitHandler() {
       const poster = {
         title: this.title,
         subtitle: this.subtitle,
-        discription: this.discription,
-        url: this.url,
+        description: this.description,
+        src: this.src,
         id: this.id,
       };
       await this.$store.dispatch("updatePoster", poster);
-      this.$router.push("/");
+      setTimeout(() => {
+        this.$router.push("/");
+        console.log("done");
+      });
     },
   },
 };
@@ -107,6 +104,7 @@ export default {
   width: 367px;
   margin: 185px 0 0 50%;
   transform: translateX(-50%);
+  height: 100%;
 }
 .input_field {
   width: 100%;

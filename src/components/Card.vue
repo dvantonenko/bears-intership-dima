@@ -1,12 +1,12 @@
 <template>
   <div class="card">
-   <router-link to='/article' class='link'>
-    <div>
-      <img :src="image.url" class="image" />
-      <div class="discription_block">
-        <span class="discription_text font_sf">{{ image.discription }}</span>
+    <router-link to="/article" class="link">
+      <div>
+        <img :src="image.src" class="image" />
+        <div class="description_block">
+          <span class="description_text font_sf">{{ image.description }}</span>
+        </div>
       </div>
-    </div>
     </router-link>
   </div>
 </template>
@@ -21,21 +21,22 @@ export default {
 .card {
   padding: 5px;
   height: 300px;
-   float: left; 
-   margin : 0 9px;
+  float: left;
+  margin: 0 9px;
 }
 .image {
   height: 176px;
   width: 304px;
 }
-.discription_block {
+.description_block {
   height: 124px;
   text-align: center;
   white-space: pre-wrap;
   max-width: 262px;
   margin: 0 auto;
+  overflow: hidden;
 }
-.discription_text {
+.description_text {
   font-size: 22px;
   line-height: 120%;
   text-align: center;
@@ -43,7 +44,7 @@ export default {
   font-style: normal;
   font-weight: 500;
 }
-.link{
+.link {
   text-decoration: none;
 }
 </style>
