@@ -27,7 +27,7 @@ let router = new Router({
         },
         ,
         {
-            path: "/article",
+            path: "/article/:id",
             name: 'article',
             component: () => import('@/views/Article')
         },

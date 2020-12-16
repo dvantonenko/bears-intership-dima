@@ -19,8 +19,19 @@
 
     <p class="articles font_ny font_style_bold center">All articles</p>
 
-    <CardsList v-if="images.length" v-bind:images="images" />
+    <div v-if="images.length">
+      <button type="button" class="btn_pages" v-on:click="postersPerPage += 1">+</button>
+      <input type="text" class="numberOfPages" v-model="postersPerPage" />
+      <button
+        type="button"
+        class="btn_pages"
+        v-on:click="postersPerPage > 1 ? (postersPerPage -= 1) : (postersPerPage = 1)"
+      >
+        -
+      </button>
+    </div>
 
+    <CardsList v-if="images.length" v-bind:images="currentPosters" />
     <div v-else>
       <h2 class="font_ny">No posts yet</h2>
       <router-link tag="button" :to="'/Addnewpost'" class="btn_create">
@@ -41,6 +52,13 @@
         </svg>
       </router-link>
     </div>
+    <Pagination
+      v-if="images.length"
+      v-bind:postersPerPage="postersPerPage"
+      v-bind:totalPosters="images.length"
+      v-bind:currentPage="currentPage"
+      v-on:paginate="changePage"
+    />
   </div>
 </template>
 
@@ -49,6 +67,7 @@ import Navigation from "@/components/Navigation";
 import CardsList from "@/components/CardsList";
 import Footer from "@/components/Footer";
 import Post from "@/views/Poster";
+import Pagination from "@/components/Pagination";
 import axios from "axios";
 import { mapGetters } from "vuex";
 export default {
@@ -56,11 +75,15 @@ export default {
     Navigation,
     CardsList,
     Footer,
+    Pagination,
   },
   data() {
     return {
       images: [],
       postUpdate: null,
+      postersPerPage: 4,
+      currentPosters: [],
+      currentPage: 1,
     };
   },
   methods: {
@@ -70,16 +93,34 @@ export default {
       const index = this.images.findIndex((item) => item.id == id);
       this.images.splice(index, 1);
     },
+    changePage(pageNumber) {
+      this.currentPage = pageNumber;
+    },
+    changePosters(currentPage, postersPerPage) {
+      const indexOfLastPoster = currentPage * postersPerPage;
+      const indexOfFirstPoster = indexOfLastPoster - postersPerPage;
+      this.currentPosters = this.images.slice(indexOfFirstPoster, indexOfLastPoster);
+    },
   },
   async mounted() {
     const res = await this.$store.dispatch("getAllPosters");
+
     for (let item of this.allPosters) {
-      this.images.unshift(item);
+      this.images.push(item);
+    }
+    if (this.images.length) {
+      this.currentPosters = this.images.slice(0, this.postersPerPage);
     }
   },
   computed: mapGetters(["allPosters"]),
   watch: {
     images() {},
+    currentPage() {
+      this.changePosters(this.currentPage, this.postersPerPage);
+    },
+    postersPerPage() {
+      this.changePosters(this.currentPage, this.postersPerPage);
+    },
   },
 };
 </script>
@@ -162,5 +203,28 @@ export default {
   right: 20px;
   stroke: black;
   transition: 0.5s ease-in;
+}
+.numberOfPages {
+  width: 100px;
+  height: 40px;
+  text-align: center;
+  box-sizing: border-box;
+  font-size: 20px;
+  border-radius: 5px;
+  border: 1px solid grey;
+}
+.btn_pages {
+  background: none;
+  height: 40px;
+  width: 30px;
+  text-align: center;
+  line-height: 30px;
+  border: 1px solid grey;
+  outline: none;
+  margin: 0 5px;
+  font-size: 20px;
+  border-radius: 5px;
+  color: white;
+  background-color: black;
 }
 </style>

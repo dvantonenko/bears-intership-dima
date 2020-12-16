@@ -1,21 +1,21 @@
 <template>
   <div id="app">
-  <Navigation/>
+    <Navigation />
     <router-view> </router-view>
-<Footer/>
+    <Footer />
   </div>
 </template>
 
 <script>
-
 import ListingPage from "@/views/ListingPage";
 import Footer from "./components/Footer";
-import Navigation from './components/Navigation'
+import Navigation from "./components/Navigation";
+
 export default {
   name: "App",
   components: {
     Footer,
-    Navigation
+    Navigation,
   },
 };
 </script>
@@ -25,10 +25,9 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-margin: 0;
-padding: 0;
+  margin: 0;
+  padding: 0;
   color: #2c3e50;
   height: 100vh;
-
 }
 </style>

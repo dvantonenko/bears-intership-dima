@@ -1,5 +1,7 @@
 @import "fonts.css";
 @import "media.css";
+
+
 .container{
     display: block;
     width: 100%;
@@ -26,3 +28,19 @@
   .button24:hover { background: linear-gradient(#f5ae00, #f59500) #f5ae00; }
   .button24:active { background: linear-gradient(#f59500, #f5ae00) #f59500; }
  
+.btn_action {
+  width: 139px;
+  height: 54px;
+    background-color: black;
+    color: white;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-style: normal;
+    font-weight: bold;
+    cursor: pointer;
+  }

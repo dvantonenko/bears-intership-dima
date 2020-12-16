@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <router-link to="/article" class="link">
+    <router-link :to="`/article/` + image.id" class="link">
       <div>
         <img :src="image.src" class="image" />
         <div class="description_block">
