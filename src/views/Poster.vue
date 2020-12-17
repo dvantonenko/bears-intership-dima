@@ -56,7 +56,8 @@
 
 <script>
 import axios from "axios";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
   data() {
     return {
@@ -78,7 +79,7 @@ export default {
     this.src = src;
     this.id = id;
   },
-  computed: mapGetters(["allPosters", "currentPoster"]),
+  computed: mapGetters(["allPosters", "currentPoster", "getAnswer"]),
 
   methods: {
     async submitHandler() {
@@ -90,11 +91,17 @@ export default {
         id: this.id,
       };
       await this.$store.dispatch("updatePoster", poster);
+      // console.log(this.getAnswer);
+      // if (this.getAnswer === "Post updated") {
+      //   this.clearAnswer();
+      //   this.$router.push("/");
+      // }
+
       setTimeout(() => {
         this.$router.push("/");
-        console.log("done");
-      });
+      }, 1000);
     },
+    ...mapMutations(["clearAnswer"]),
   },
 };
 </script>
@@ -155,11 +162,16 @@ export default {
   font-size: 18px;
   line-height: 22px;
   letter-spacing: -0.02em;
-  color: #9c9898;
+  color: black;
   padding: 10px 16px 10px 16px;
   box-sizing: border-box;
 }
 
+.textarea_field:focus {
+  background: #f9fafb;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+}
 .image_field {
   width: 100%;
   height: 210px;

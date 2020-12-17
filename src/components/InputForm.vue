@@ -1,12 +1,16 @@
 <template>
   <div class="input_block center">
-
     <p class="title font_bold fint_ny_el">Sign up for the newsletter</p>
-    <div class="input_text font_normal">If you want relevant updates occasionally, sign up for the private newsletter. Your email is never shared.</div>
+    <div class="input_text font_normal">
+      If you want relevant updates occasionally, sign up for the private newsletter. Your
+      email is never shared.
+    </div>
 
     <form class="input_form">
       <input placeholder="Enter your email..." type="text" class="input font_normal" />
-      <button v-if="screenSize > 660" type="button" style="" class="input_btn font_bold">SIGN UP</button>
+      <button v-if="screenSize > 660" type="button" style="" class="btn_action font_bold">
+        SIGN UP
+      </button>
     </form>
   </div>
 </template>
@@ -66,20 +70,6 @@ export default {
   font-family: SF-Pro-Text;
 }
 
-.input_btn {
-  border: none;
-  outline: none;
-  width: 139px;
-  height: 54px;
-  background-color: black;
-  padding: 15px;
-  font-size: 20px;
-  line-height: 24px;
-  text-align: center;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: #ffffff;
-}
 .font_normal {
   font-style: normal;
   font-weight: normal;

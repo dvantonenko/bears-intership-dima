@@ -1,19 +1,21 @@
 <template>
   <div class="container">
     <div class="block_topic center media_mobile">
-      <span class="text_topic font_ny_el font_bold"
-        >A few words about this blog platform, Ghost, and how this site was made</span
-      >
+      <span class="text_topic font_ny_el font_bold">{{ currentPoster.title }}</span>
     </div>
 
     <div class="block_question center media_mobile">
-      <span class="text_question font_sf_mono font_normal"
-        >Why Ghost (& Figma) instead of Medium, WordPress or other options?
+      <span class="text_question font_ny_el font_normal"
+        >{{ currentPoster.subtitle }}
       </span>
     </div>
 
-    <div class="block_banner center media_mobile">
-      <img class="image_banner" src="../assets/image2.png" />
+    <div class="article_image center">
+      <img class="image_banner media_mobile" :src="currentPoster.src" />
+      <figcaption class="caption_text font_sf_text">
+        Image caption centered this way and I’ll make this a bit longer to indicate the
+        amount of line-height.
+      </figcaption>
     </div>
 
     <div class="article_block center media_mobile">
@@ -26,109 +28,9 @@
           margin-bottom: 35px;
         "
       />
-      <span v-if="screenSize > 550" class="article_text font_normal font_ny_m">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eu velit tempus erat
-        egestas efficitur. In hac habitasse platea dictumst. Fusce a nunc eget ligula
-        suscipit finibus. Aenean pharetra quis lacus at viverra.
-        <p></p>
-        Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-        himenaeos. Aliquam quis posuere ligula. In eu dui molestie, molestie lectus eu,
-        semper lectus.
+      <span class="article_text font_normal font_ny_m">
+        <p>{{ currentPoster.description }}</p>
       </span>
-
-      <span v-else class="font_ny_m font_normal article_text_mobile">
-        This lovely web is full of everything which is created I don't know what in mind,
-        considering that sometimes totally bonkers stuff might be highly relevant if it
-        has the right kind of thinking behind it. 
-      </span>
-
-      <p
-        class="font_bold"
-        style="font-size: 32px; line-height: 160%; color: #000000; margin: 57px 0 24px 0"
-      >
-        Next on the pipeline
-      </p>
-
-      <span v-if="screenSize > 550" class="article_text font_normal font_ny_m">
-        Duis eu velit tempus erat egestas efficitur. In hac habitasse platea dictumst.
-        Fusce a nunc eget ligula suscipit finibus. Aenean pharetra quis lacus at viverra.
-        Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-        himenaeos.
-        <p></p>
-        Morbi efficitur auctor metus, id mollis lorem pellentesque id. Nullam posuere
-        maximus dui et fringilla.</span
-      >
-
-      <span v-else class="font_ny_m font_normal article_text_mobile">
-        This lovely web is full of everything which is created I don't know what in mind,
-        considering that sometimes totally bonkers stuff might be highly relevant if it
-        has the right kind of thinking behind it.</span
-      >
-    </div>
-
-    <div class="article_image center">
-      <img class="image_banner media_mobile" src="../assets/gargoyle.png" />
-      <figcaption class="caption_text font_sf_text">
-        Image caption centered this way and I’ll make this a bit longer to indicate the
-        amount of line-height.
-      </figcaption>
-    </div>
-
-    <div class="article_block center media_mobile">
-      <div style="margin-top: 52px">
-        <span v-if="screenSize > 550" class="article_text font_normal font_ny_m">
-          Aenean pharetra quis lacus at viverra. Class aptent taciti sociosqu ad litora
-          torquent per conubia nostra, per inceptos himenaeos. Aliquam quis posuere
-          ligula.
-          <br />
-          <br />
-          In eu dui molestie, molestie lectus eu, semper lectus. Proin at justo lacinia,
-          auctor nisl et, consequat ante. Donec sit amet nisi arcu. Morbi efficitur auctor
-          metus, id mollis lorem pellentesque id. Nullam posuere maximus dui et fringilla.
-          Nulla non volutpat leo.
-        </span>
-
-        <span v-else class="article_text_mobile font_normal font_ny_m">
-          This lovely web is full of everything which is created I don't know what in
-          mind, considering that sometimes totally bonkers stuff might be highly relevant
-          if it has the right kind of thinking behind it. <br /><br />
-          Luckily, in the middle of all that, there are some pockets of content that offer
-          delightfully valuable contrast to cursory wisdom in some of the established
-          channels</span
-        >
-      </div>
-
-      <div v-if="screenSize > 750" style="margin-top: 52px">
-        <p class="article_text font_normal font_ny_m">A list looks like this:</p>
-        <ul class="article_list">
-          <li class="article_text font_normal font_ny_m">
-            <p>First item in the list</p>
-          </li>
-          <li class="article_text font_normal font_ny_m">
-            <p>
-              Second item in the list lorem ipsum dolor sit amet nunc felis dolor lorem
-              ipsum sit ametd
-            </p>
-          </li>
-          <li class="article_text font_normal font_ny_m">
-            <p>Third item in the list</p>
-          </li>
-        </ul>
-      </div>
-
-      <div v-if="screenSize > 750" class="article_block" style="margin-top: 52px">
-        <span class="article_text font_normal font_ny_m"
-          >Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-          inceptos himenaeos. Aliquam quis posuere ligula.</span
-        >
-      </div>
-
-      <div v-if="screenSize > 750" class="article_block" style="margin-top: 52px">
-        <span class="article_text font_normal font_ny_m">
-          Thanks for reading, <br />
-          Mika</span
-        >
-      </div>
     </div>
     <hr
       style="
@@ -139,6 +41,29 @@
         max-width: 640px;
       "
     />
+
+    <div class="btn_group">
+      <div>
+        <router-link
+          tag="button"
+          :to="`/poster/` + this.$route.params.id"
+          class="btn_action"
+          style="margin-top: 25px"
+        >
+          Update
+        </router-link>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn_action"
+          style="margin-top: 25px"
+          v-on:click="deletePoster"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
     <InputForm v-bind:screenSize="screenSize" />
   </div>
 </template>
@@ -147,6 +72,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import InputForm from "@/components/InputForm";
+import { mapGetters } from "vuex";
 export default {
   components: {
     InputForm,
@@ -154,6 +80,7 @@ export default {
   data() {
     return {
       screenSize: null,
+      id: "",
     };
   },
   methods: {
@@ -161,11 +88,20 @@ export default {
       this.screenSize = document.documentElement.clientWidth;
       if (this.screenSize > 645) this.sideMenu = false;
     },
+    async deletePoster() {
+      await this.$store.dispatch("deletePoster", this.id);
+      setTimeout(() => {
+        this.$router.push("/");
+      }, 1000);
+    },
   },
-  mounted() {
+  async mounted() {
     window.addEventListener("resize", this.onResize);
     this.onResize();
+    this.id = this.$route.params.id;
+    await this.$store.dispatch("getPosterById", this.id);
   },
+  computed: mapGetters(["currentPoster"]),
 };
 </script>
 
@@ -192,15 +128,10 @@ export default {
   color: #000000;
 }
 
-.block_banner {
-  margin-top: 52px;
-  width: 100%;
-  margin-bottom: 32px;
-}
-
 .image_banner {
   width: 100%;
   min-width: 330px;
+  max-height: 570px;
 }
 
 .article_block {
@@ -212,12 +143,7 @@ export default {
   font-size: 20px;
   line-height: 170%;
   color: #000000;
-}
-.article_text_mobile {
-  font-size: 16px;
-  line-height: 170%;
-  color: #000000;
-  width: 335px;
+  text-align: center;
 }
 .article_image {
   margin-top: 52px;
@@ -235,14 +161,6 @@ export default {
   width: 480px;
   margin: 0 auto;
 }
-.article_list {
-  width: 588px;
-}
-
-li {
-  list-style-type: square;
-}
-
 .font_bold {
   font-style: normal;
   font-weight: bold;
@@ -252,6 +170,14 @@ li {
   font-style: normal;
   font-weight: normal;
 }
+.btn_group {
+  display: flex;
+  width: 50%;
+  margin: 0 auto;
+  height: 100px;
+  justify-content: space-around;
+}
+
 @media screen and (max-width: 600px) {
   .text_topic {
     font-size: 36px;
