@@ -19,7 +19,7 @@
 
     <p class="articles font_ny font_style_bold center">All articles</p>
 
-    <div v-if="images.length">
+    <div v-if="currentPosters.length">
       <button type="button" class="btn_pages" v-on:click="postersPerPage += 1">+</button>
       <input type="text" class="numberOfPages" v-model="postersPerPage" />
       <button
@@ -30,8 +30,12 @@
         -
       </button>
     </div>
+    <div v-if="getLoading" class="loader">
+      <Loader />
+    </div>
 
-    <CardsList v-if="images.length" v-bind:images="currentPosters" />
+    <CardsList v-else-if="getLength" v-bind:images="currentPosters" />
+
     <div v-else>
       <h2 class="font_ny">No posts yet</h2>
       <router-link tag="button" :to="'/Addnewpost'" class="btn_create">
@@ -53,9 +57,8 @@
       </router-link>
     </div>
     <Pagination
-      v-if="images.length"
+      v-if="currentPosters.length"
       v-bind:postersPerPage="postersPerPage"
-      v-bind:totalPosters="images.length"
       v-bind:currentPage="currentPage"
       v-on:paginate="changePage"
     />
@@ -68,6 +71,7 @@ import CardsList from "@/components/CardsList";
 import Footer from "@/components/Footer";
 import Post from "@/views/Poster";
 import Pagination from "@/components/Pagination";
+import Loader from "@/components/Loader";
 import axios from "axios";
 import { mapGetters } from "vuex";
 export default {
@@ -76,50 +80,46 @@ export default {
     CardsList,
     Footer,
     Pagination,
+    Loader,
   },
   data() {
     return {
-      images: [],
       postUpdate: null,
-      postersPerPage: 4,
-      currentPosters: [],
+      postersPerPage: 1,
       currentPage: 1,
     };
   },
   methods: {
-    async deletePost(id, title) {
-      await this.$store.dispatch("deletePoster", { id, title });
-      await this.$store.dispatch("getAllPosters");
-      const index = this.images.findIndex((item) => item.id == id);
-      this.images.splice(index, 1);
-    },
     changePage(pageNumber) {
       this.currentPage = pageNumber;
     },
-    changePosters(currentPage, postersPerPage) {
-      const indexOfLastPoster = currentPage * postersPerPage;
-      const indexOfFirstPoster = indexOfLastPoster - postersPerPage;
-      this.currentPosters = this.images.slice(indexOfFirstPoster, indexOfLastPoster);
+    async refresh() {
+      console.log(this.currentPosters);
+      console.log(this.currentPage);
+
+      this.$store.dispatch("setLoading", true);
+      const res = await this.$store.dispatch("getCurrentPosters", {
+        currentPage:
+          this.currentPage !== 1 &&
+          this.getLength / this.postersPerPage < this.currentPage
+            ? Math.ceil(this.getLength / this.postersPerPage)
+            : this.currentPage,
+        postersPerPage: this.postersPerPage,
+      });
+      this.$store.dispatch("setLoading", false);
+      console.log(this.currentPage, this.postersPerPage);
     },
   },
   async mounted() {
-    const res = await this.$store.dispatch("getAllPosters");
-
-    for (let item of this.allPosters) {
-      this.images.push(item);
-    }
-    if (this.images.length) {
-      this.currentPosters = this.images.slice(0, this.postersPerPage);
-    }
+    this.refresh();
   },
-  computed: mapGetters(["allPosters"]),
+  computed: mapGetters(["currentPosters", "getLength", "getLoading"]),
   watch: {
-    images() {},
     currentPage() {
-      this.changePosters(this.currentPage, this.postersPerPage);
+      this.refresh();
     },
     postersPerPage() {
-      this.changePosters(this.currentPage, this.postersPerPage);
+      this.refresh();
     },
   },
 };
@@ -226,5 +226,9 @@ export default {
   border-radius: 5px;
   color: white;
   background-color: black;
+}
+.loader {
+  height: 300px;
+  margin: 0 auto;
 }
 </style>

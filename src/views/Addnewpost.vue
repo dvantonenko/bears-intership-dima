@@ -93,7 +93,9 @@ export default {
         id: this.id,
       };
       await this.$store.dispatch("addPoster", task);
-      this.$router.push("/");
+      setTimeout(() => {
+        this.$router.push("/");
+      }, 2000);
     },
   },
 };

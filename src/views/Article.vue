@@ -3,7 +3,7 @@
     <div class="block_topic center media_mobile">
       <span class="text_topic font_ny_el font_bold">{{ currentPoster.title }}</span>
     </div>
-
+    <Poster v-if="visible" v-bind:visible="visible" v-on:closeModal="closeModal" />
     <div class="block_question center media_mobile">
       <span class="text_question font_ny_el font_normal"
         >{{ currentPoster.subtitle }}
@@ -44,14 +44,23 @@
 
     <div class="btn_group">
       <div>
-        <router-link
-          tag="button"
-          :to="`/poster/` + this.$route.params.id"
+        <button
+          type="button"
           class="btn_action"
           style="margin-top: 25px"
+          v-on:click="visible = true"
         >
           Update
-        </router-link>
+        </button>
+        <!-- <router-link
+          tag="button"
+          :to="`/update/` + id"
+          class="btn_action"
+          style="margin-top: 25px"
+          v-on:click="deletePoster"
+        >
+          Update
+        </router-link> -->
       </div>
       <div>
         <button
@@ -72,15 +81,18 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import InputForm from "@/components/InputForm";
+import Poster from "./Poster";
 import { mapGetters } from "vuex";
 export default {
   components: {
     InputForm,
+    Poster,
   },
   data() {
     return {
       screenSize: null,
       id: "",
+      visible: false,
     };
   },
   methods: {
@@ -93,6 +105,9 @@ export default {
       setTimeout(() => {
         this.$router.push("/");
       }, 1000);
+    },
+    closeModal() {
+      this.visible = false;
     },
   },
   async mounted() {
