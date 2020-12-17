@@ -94,20 +94,16 @@ export default {
       this.currentPage = pageNumber;
     },
     async refresh() {
-      console.log(this.currentPosters);
-      console.log(this.currentPage);
-
       this.$store.dispatch("setLoading", true);
       const res = await this.$store.dispatch("getCurrentPosters", {
         currentPage:
-          this.currentPage !== 1 &&
-          this.getLength / this.postersPerPage < this.currentPage
+          this.getLength !== 0 && this.getLength / this.postersPerPage < this.currentPage
             ? Math.ceil(this.getLength / this.postersPerPage)
             : this.currentPage,
         postersPerPage: this.postersPerPage,
       });
+
       this.$store.dispatch("setLoading", false);
-      console.log(this.currentPage, this.postersPerPage);
     },
   },
   async mounted() {

@@ -12,6 +12,7 @@ export const Post = {
         },
         async getCurrentPosters({ commit }, obj) {
             const { currentPage, postersPerPage } = obj
+            console.log(obj)
             let response = await axios.get("http://localhost:3000/poster", { params: { currentPage, postersPerPage } });
             commit('currentPosters', response.data.posters)
         },
@@ -49,7 +50,7 @@ export const Post = {
         posters: [],
         currentPoster: { title: '', subtitle: '', description: '', src: '', id: null },
         answer: '',
-        postersLength: 1,
+        postersLength: 0,
         isLoading: false
     },
     getters: {
