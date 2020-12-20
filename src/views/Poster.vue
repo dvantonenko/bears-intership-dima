@@ -85,7 +85,6 @@ export default {
   },
   async mounted() {
     const id = this.$route.params.id;
-
     await this.$store.dispatch("getPosterById", id);
     const { title, subtitle, description, src } = this.currentPoster;
     this.title = title;

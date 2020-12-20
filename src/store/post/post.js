@@ -4,15 +4,14 @@ import axios from 'axios'
 
 export const Post = {
     actions: {
-        async addPoster({ }, task) {
-            await axios.post("http://localhost:3000/poster/add", task)
+        async addPoster({ }, obj) {
+            await axios.post("http://localhost:3000/poster/add", obj)
         },
         async deletePoster({ }, id) {
             await axios.post("http://localhost:3000/poster/delete", { id })
         },
         async getCurrentPosters({ commit }, obj) {
             const { currentPage, postersPerPage } = obj
-            console.log(obj)
             let response = await axios.get("http://localhost:3000/poster", { params: { currentPage, postersPerPage } });
             commit('currentPosters', response.data.posters)
         },

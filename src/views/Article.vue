@@ -52,15 +52,6 @@
         >
           Update
         </button>
-        <!-- <router-link
-          tag="button"
-          :to="`/update/` + id"
-          class="btn_action"
-          style="margin-top: 25px"
-          v-on:click="deletePoster"
-        >
-          Update
-        </router-link> -->
       </div>
       <div>
         <button
