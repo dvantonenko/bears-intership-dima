@@ -64,38 +64,56 @@
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { http } from "../http";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
       title: "",
       subtitle: "",
       description: "",
-      src: null,
+      key: "",
       id: uuidv4(),
+      file: null,
+      src: null,
     };
   },
   methods: {
     onFileChange(e) {
+      let unit8Array = null;
       const file = e.target.files[0];
       let reader = new FileReader();
-      reader.readAsDataURL(file);
+      reader.readAsArrayBuffer(file);
+      reader.onloadend = () => {
+        unit8Array = new Uint8Array(reader.result);
+        this.key = file.name;
+        this.file = [...unit8Array];
+      };
 
-      reader.onload = () => {
-        this.src = reader.result;
+      let imageSrc = new FileReader();
+      imageSrc.readAsDataURL(file);
+      imageSrc.onloadend = () => {
+        this.src = imageSrc.result;
+        console.log(this.src);
       };
     },
-    async submitHandler() {
+    async submitHandler(e) {
       const task = {
         title: this.title,
         subtitle: this.subtitle,
         description: this.description,
-        src: this.src,
+        key: this.key,
         id: this.id,
+        indexPoster: this.getLength == 0 ? 1 : this.getLength + 1,
       };
-      await this.$store.dispatch("addPoster", task);
-      this.$router.push("/");
+      const file = [...this.file];
+
+      await this.$store.dispatch("addPoster", { task, file });
+      setTimeout(() => {
+        this.$router.push("/");
+      }, 1000);
     },
   },
+  computed: mapGetters(["getLength"]),
 };
 </script>
 <style scoped>

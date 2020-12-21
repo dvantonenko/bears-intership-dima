@@ -23,7 +23,7 @@ export default {
   flex-wrap: wrap;
 }
 
-@media screen and (max-width: 1294px) {
+@media screen and (max-width: 1981px) {
   .cards_container {
     justify-content: center;
   }

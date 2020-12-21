@@ -1,12 +1,20 @@
 <template>
-  <div>
+  <div class="modal_back">
     <form
       @submit.prevent="submitHandler"
       enctype="multipart/form-data"
       class="input_form"
       method="POST"
     >
-      <label for="title" class="label_field">Title</label>
+      <img
+        src="../assets/icons/minimize-2.svg"
+        v-on:click="$emit('closeModal')"
+        class="close_icon"
+      />
+      <div style="text-align: left">
+        <label for="title" class="label_field">Title</label>
+      </div>
+
       <div>
         <input
           v-model="title"
@@ -20,7 +28,10 @@
         />
         <span class="helper-text" data-error="Введите название"> </span>
       </div>
-      <label for="subtitle" class="label_field">Subtitle</label>
+      <div style="text-align: left">
+        <label for="subtitle" class="label_field">Subtitle</label>
+      </div>
+
       <div>
         <input
           v-model="subtitle"
@@ -35,7 +46,10 @@
         <span class="helper-text" data-error="Введите название"> </span>
       </div>
       <span style="float: right; font-size: 12px">{{ description.length }}/2048</span>
-      <label for="description" class="label_field">Text</label>
+
+      <div style="text-align: left">
+        <label for="description" class="label_field">Text</label>
+      </div>
       <div>
         <textarea
           placeholder="Enter post text..."
@@ -59,6 +73,7 @@ import axios from "axios";
 import { mapGetters, mapMutations } from "vuex";
 
 export default {
+  props: ["visible"],
   data() {
     return {
       description: "",
@@ -70,7 +85,6 @@ export default {
   },
   async mounted() {
     const id = this.$route.params.id;
-
     await this.$store.dispatch("getPosterById", id);
     const { title, subtitle, description, src } = this.currentPoster;
     this.title = title;
@@ -79,7 +93,7 @@ export default {
     this.src = src;
     this.id = id;
   },
-  computed: mapGetters(["allPosters", "currentPoster", "getAnswer"]),
+  computed: mapGetters(["currentPoster", "getAnswer"]),
 
   methods: {
     async submitHandler() {
@@ -91,11 +105,6 @@ export default {
         id: this.id,
       };
       await this.$store.dispatch("updatePoster", poster);
-      // console.log(this.getAnswer);
-      // if (this.getAnswer === "Post updated") {
-      //   this.clearAnswer();
-      //   this.$router.push("/");
-      // }
 
       setTimeout(() => {
         this.$router.push("/");
@@ -107,11 +116,26 @@ export default {
 </script>
 
 <style scoped>
+.modal_back {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  z-index: 5;
+}
+
 .input_form {
   width: 367px;
-  margin: 185px 0 0 50%;
+  margin: 20px 0 0 50%;
   transform: translateX(-50%);
-  height: 100%;
+  height: 90%;
+  background-color: white;
+  padding: 10px;
+  overflow: auto;
+  border-radius: 10px;
 }
 .input_field {
   width: 100%;
@@ -148,6 +172,7 @@ export default {
   line-height: 27px;
   letter-spacing: -0.02em;
   color: #000000;
+  margin-left: 10px;
 }
 
 .textarea_field {
@@ -200,5 +225,13 @@ export default {
 .btn_block {
   width: 262px;
   margin: 0 auto;
+}
+.close_icon {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 15px;
 }
 </style>

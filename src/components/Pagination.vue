@@ -12,8 +12,9 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
-  props: ["postersPerPage", "totalPosters", "currentPage"],
+  props: ["postersPerPage", "currentPage"],
   data() {
     return {
       pageNumbers: [],
@@ -21,7 +22,7 @@ export default {
   },
   methods: {
     countPage() {
-      for (let i = 1; i <= Math.ceil(this.totalPosters / this.postersPerPage); i++) {
+      for (let i = 1; i <= Math.ceil(this.getLength / this.postersPerPage); i++) {
         this.pageNumbers.push(i);
       }
     },
@@ -34,7 +35,12 @@ export default {
       this.pageNumbers = [];
       this.countPage();
     },
+    getLength() {
+      this.pageNumbers = [];
+      this.countPage();
+    },
   },
+  computed: mapGetters(["getLength"]),
 };
 </script>
 

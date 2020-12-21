@@ -32,7 +32,7 @@ let router = new Router({
             component: () => import('@/views/Article')
         },
         {
-            path: `/poster/:id`,
+            path: `/update/:id`,
             name: 'poster',
             component: () => import('@/views/Poster')
         }
