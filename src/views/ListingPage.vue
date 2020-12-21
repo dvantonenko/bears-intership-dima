@@ -62,6 +62,7 @@
       v-bind:currentPage="currentPage"
       v-on:paginate="changePage"
     />
+    <Alert />
   </div>
 </template>
 
@@ -73,6 +74,7 @@ import Post from "@/views/Poster";
 import Pagination from "@/components/Pagination";
 import Loader from "@/components/Loader";
 import axios from "axios";
+import Alert from "@/components/Alert";
 import { mapGetters } from "vuex";
 export default {
   components: {
@@ -81,6 +83,7 @@ export default {
     Footer,
     Pagination,
     Loader,
+    Alert,
   },
   data() {
     return {
@@ -102,7 +105,6 @@ export default {
             : this.currentPage,
         postersPerPage: this.postersPerPage,
       });
-
       this.$store.dispatch("setLoading", false);
     },
   },

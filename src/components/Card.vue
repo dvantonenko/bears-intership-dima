@@ -2,7 +2,11 @@
   <div class="card">
     <router-link :to="`/article/` + image.id" class="link">
       <div>
-        <img :src="image.src" class="image" />
+        <!-- <img :src="image.src" class="image" /> -->
+        <img
+          :src="`https://s3.us-east-2.amazonaws.com/posters.images/${image.key}`"
+          class="image"
+        />
         <div class="description_block">
           <span class="description_text font_sf">{{ image.description }}</span>
         </div>
