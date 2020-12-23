@@ -35,7 +35,6 @@
     </div>
 
     <CardsList v-else-if="getLength" v-bind:images="currentPosters" />
-
     <div v-else>
       <h2 class="font_ny">No posts yet</h2>
       <router-link tag="button" :to="'/Addnewpost'" class="btn_create">
@@ -100,7 +99,6 @@ export default {
       this.$store.dispatch("setLoading", true);
       const res = await this.$store.dispatch("getCurrentPosters", {
         currentPage:
-          // this.currentPage,
           this.getLength !== 0 && this.getLength / this.postersPerPage < this.currentPage
             ? Math.ceil(this.getLength / this.postersPerPage)
             : this.currentPage,
@@ -110,7 +108,7 @@ export default {
     },
   },
   async mounted() {
-    this.refresh();
+    if (localStorage.getItem("listId")) this.refresh();
   },
   computed: mapGetters(["currentPosters", "getLength", "getLoading", "getListId"]),
   watch: {
