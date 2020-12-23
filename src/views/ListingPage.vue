@@ -100,6 +100,7 @@ export default {
       this.$store.dispatch("setLoading", true);
       const res = await this.$store.dispatch("getCurrentPosters", {
         currentPage:
+          // this.currentPage,
           this.getLength !== 0 && this.getLength / this.postersPerPage < this.currentPage
             ? Math.ceil(this.getLength / this.postersPerPage)
             : this.currentPage,
@@ -111,7 +112,7 @@ export default {
   async mounted() {
     this.refresh();
   },
-  computed: mapGetters(["currentPosters", "getLength", "getLoading"]),
+  computed: mapGetters(["currentPosters", "getLength", "getLoading", "getListId"]),
   watch: {
     currentPage() {
       this.refresh();

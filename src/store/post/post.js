@@ -14,15 +14,30 @@ export const Post = {
     actions: {
         async addPoster({ commit }, obj) {
             const response = await axios.post("http://localhost:3000/poster/add", obj)
+            let storage = JSON.parse(localStorage.getItem('listId')) || []
+            storage.push(obj.task.id)
+            localStorage.setItem('listId', JSON.stringify(storage))
+            commit('addToListId', obj.task.id)
             setAlert(response, commit)
         },
-        async deletePoster({commit }, obj) {
+        async deletePoster({ commit }, obj) {
             const response = await axios.post("http://localhost:3000/poster/delete", obj)
+            console.log(obj)
+            console.log(JSON.parse(localStorage.getItem('listId')) || [])
+            function removeLocalStorageValues() {
+                var storage = JSON.parse(localStorage.getItem("listId"));
+                const index = storage.findIndex(item => item === Number(obj.id))
+                storage.splice(index , 1 )
+                localStorage.setItem('listId', JSON.stringify(storage))
+            }
+            removeLocalStorageValues()
             setAlert(response, commit)
         },
         async getCurrentPosters({ commit }, obj) {
+
             const { currentPage, postersPerPage } = obj
-            let response = await axios.get("http://localhost:3000/poster", { params: { currentPage, postersPerPage } });
+            let listId = JSON.parse(localStorage.getItem('listId')) || []
+            let response = await axios.get("http://localhost:3000/poster", { params: { currentPage, postersPerPage, listId } });
             commit('currentPosters', response.data.posters)
         },
         async updatePoster({ commit }, poster) {
@@ -33,6 +48,7 @@ export const Post = {
         },
         async getPosterById({ commit }, id) {
             const response = await axios.get(`http://localhost:3000/poster/update/${id}`);
+
             commit('setCurrentPoster', response.data.Item)
         },
         setLoading({ commit }, status) {
@@ -68,6 +84,10 @@ export const Post = {
         clearMessages(state) {
             state.successMessage = ''
             state.errorMessage = ''
+        },
+        addToListId(state, id) {
+            console.log(id)
+            state.listId.push(id)
         }
     },
     state: {
@@ -77,7 +97,8 @@ export const Post = {
         postersLength: 0,
         isLoading: false,
         successMessage: '',
-        errorMessage: ''
+        errorMessage: '',
+        listId: []
     },
     getters: {
         currentPosters(state) {
@@ -102,6 +123,9 @@ export const Post = {
         },
         getErrorMessage(state) {
             return state.errorMessage
+        },
+        getListId(state) {
+            return state.listId
         }
 
     },

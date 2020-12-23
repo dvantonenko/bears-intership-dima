@@ -101,15 +101,13 @@ export default {
         subtitle: this.subtitle,
         description: this.description,
         key: this.key,
-        id: this.id,
+        id: Date.now(),
         indexPoster: this.getLength == 0 ? 1 : this.getLength + 1,
       };
       const file = [...this.file];
       await this.$store.dispatch("addPoster", { task, file });
       if (!this.getErrorMessage) {
-        setTimeout(() => {
-          this.$router.push("/");
-        }, 1000);
+        this.$router.push("/");
       }
     },
   },
