@@ -22,8 +22,6 @@ export const Post = {
         },
         async deletePoster({ commit }, obj) {
             const response = await axios.post("http://localhost:3000/poster/delete", obj)
-            console.log(obj)
-            console.log(JSON.parse(localStorage.getItem('listId')) || [])
             function removeLocalStorageValues() {
                 var storage = JSON.parse(localStorage.getItem("listId"));
                 const index = storage.findIndex(item => item === Number(obj.id))
@@ -86,7 +84,6 @@ export const Post = {
             state.errorMessage = ''
         },
         addToListId(state, id) {
-            console.log(id)
             state.listId.push(id)
         }
     },

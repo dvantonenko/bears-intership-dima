@@ -104,11 +104,12 @@ export default {
             : this.currentPage,
         postersPerPage: this.postersPerPage,
       });
+
       this.$store.dispatch("setLoading", false);
     },
   },
   async mounted() {
-    if (localStorage.getItem("listId")) this.refresh();
+    this.refresh();
   },
   computed: mapGetters(["currentPosters", "getLength", "getLoading", "getListId"]),
   watch: {
@@ -117,6 +118,9 @@ export default {
     },
     postersPerPage() {
       this.refresh();
+    },
+    currentPosters() {
+      console.log(this.currentPosters);
     },
   },
 };
