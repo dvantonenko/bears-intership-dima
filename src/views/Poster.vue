@@ -6,6 +6,7 @@
       class="input_form"
       method="POST"
     >
+      <Alert v-if="getErrorMessage" />
       <img
         src="../assets/icons/minimize-2.svg"
         v-on:click="$emit('closeModal')"
@@ -23,8 +24,6 @@
           id="title"
           type="text"
           class="input_field"
-          required
-          min="1"
         />
         <span class="helper-text" data-error="Введите название"> </span>
       </div>
@@ -40,8 +39,6 @@
           id="subtitle"
           type="text"
           class="input_field"
-          required
-          min="1"
         />
         <span class="helper-text" data-error="Введите название"> </span>
       </div>
@@ -71,8 +68,13 @@
 <script>
 import axios from "axios";
 import { mapGetters, mapMutations } from "vuex";
+import Alert from "../components/Alert";
 
 export default {
+  watch: {
+    getErrorMessage() {},
+  },
+  components: { Alert },
   props: ["visible"],
   data() {
     return {
@@ -90,10 +92,10 @@ export default {
     this.title = title;
     this.description = description;
     this.subtitle = subtitle;
-    this.src = src;
     this.id = id;
+    this.src = src;
   },
-  computed: mapGetters(["currentPoster", "getAnswer"]),
+  computed: mapGetters(["currentPoster", "getAnswer", "getErrorMessage"]),
 
   methods: {
     async submitHandler() {
@@ -101,14 +103,12 @@ export default {
         title: this.title,
         subtitle: this.subtitle,
         description: this.description,
-        src: this.src,
         id: this.id,
       };
       await this.$store.dispatch("updatePoster", poster);
-
-      setTimeout(() => {
+      if (!this.getErrorMessage) {
         this.$router.push("/");
-      }, 1000);
+      }
     },
     ...mapMutations(["clearAnswer"]),
   },

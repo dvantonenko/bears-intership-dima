@@ -15,8 +15,6 @@
           id="title"
           type="text"
           class="input_field"
-          required
-          min="1"
         />
         <span class="helper-text" data-error="Введите название"> </span>
       </div>
@@ -29,8 +27,6 @@
           id="subtitle"
           type="text"
           class="input_field"
-          required
-          min="1"
         />
         <span class="helper-text" data-error="Введите название"> </span>
       </div>
@@ -44,7 +40,6 @@
           class="textarea_field"
         ></textarea>
       </div>
-
       <div style="text-align: center; margin-bottom: 10px">
         <label for="files" class="label_field label_block" type="file">
           Add post image</label
@@ -58,6 +53,7 @@
         <button class="btn_publish" type="submit">Publish</button>
       </div>
     </form>
+    <Alert v-if="getErrorMessage" />
   </div>
 </template>
 <script>
@@ -65,7 +61,11 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { http } from "../http";
 import { mapGetters } from "vuex";
+import Alert from "../components/Alert.vue";
 export default {
+  components: {
+    Alert,
+  },
   data() {
     return {
       title: "",
@@ -93,7 +93,6 @@ export default {
       imageSrc.readAsDataURL(file);
       imageSrc.onloadend = () => {
         this.src = imageSrc.result;
-        console.log(this.src);
       };
     },
     async submitHandler(e) {
@@ -106,14 +105,15 @@ export default {
         indexPoster: this.getLength == 0 ? 1 : this.getLength + 1,
       };
       const file = [...this.file];
-
       await this.$store.dispatch("addPoster", { task, file });
-      setTimeout(() => {
-        this.$router.push("/");
-      }, 1000);
+      if (!this.getErrorMessage) {
+        setTimeout(() => {
+          this.$router.push("/");
+        }, 1000);
+      }
     },
   },
-  computed: mapGetters(["getLength"]),
+  computed: mapGetters(["getLength", "getErrorMessage"]),
 };
 </script>
 <style scoped>
