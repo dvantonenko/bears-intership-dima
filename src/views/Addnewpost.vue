@@ -72,7 +72,7 @@ export default {
       subtitle: "",
       description: "",
       key: "",
-      id: uuidv4(),
+      id: Date.now(),
       file: null,
       src: null,
     };
@@ -101,7 +101,7 @@ export default {
         subtitle: this.subtitle,
         description: this.description,
         key: this.key,
-        id: Date.now(),
+        id: this.id,
         indexPoster: this.getLength == 0 ? 1 : this.getLength + 1,
       };
       const file = [...this.file];

@@ -18,7 +18,6 @@
     </div>
 
     <p class="articles font_ny font_style_bold center">All articles</p>
-
     <div v-if="currentPosters.length">
       <button type="button" class="btn_pages" v-on:click="postersPerPage += 1">+</button>
       <input type="text" class="numberOfPages" v-model="postersPerPage" />
@@ -34,7 +33,10 @@
       <Loader />
     </div>
 
-    <CardsList v-else-if="getLength" v-bind:images="currentPosters" />
+    <div v-else-if="currentPosters" ref="cardsList">
+      <CardsList v-bind:images="currentPosters" />
+    </div>
+
     <div v-else>
       <h2 class="font_ny">No posts yet</h2>
       <router-link tag="button" :to="'/Addnewpost'" class="btn_create">
@@ -55,12 +57,6 @@
         </svg>
       </router-link>
     </div>
-    <Pagination
-      v-if="currentPosters.length"
-      v-bind:postersPerPage="postersPerPage"
-      v-bind:currentPage="currentPage"
-      v-on:paginate="changePage"
-    />
     <Alert />
   </div>
 </template>
@@ -87,7 +83,7 @@ export default {
   data() {
     return {
       postUpdate: null,
-      postersPerPage: 1,
+      postersPerPage: 4,
       currentPage: 1,
     };
   },
@@ -96,22 +92,35 @@ export default {
       this.currentPage = pageNumber;
     },
     async refresh() {
-      this.$store.dispatch("setLoading", true);
-      const res = await this.$store.dispatch("getCurrentPosters", {
-        currentPage:
-          this.getLength !== 0 && this.getLength / this.postersPerPage < this.currentPage
-            ? Math.ceil(this.getLength / this.postersPerPage)
-            : this.currentPage,
-        postersPerPage: this.postersPerPage,
-      });
-
-      this.$store.dispatch("setLoading", false);
+      if (this.getLastElemKey !== 0) {
+        this.$store.dispatch("setLoading", true);
+        const res = await this.$store.dispatch("getCurrentPosters", {
+          currentPage: this.currentPage,
+          postersPerPage: this.postersPerPage,
+          lastElemKey: this.getLastElemKey ? this.getLastElemKey : undefined,
+        });
+        this.$store.dispatch("setLoading", false);
+      }
+    },
+    moreItems() {
+      if (this.getLastElemKey !== 0) {
+        this.$nextTick(function () {
+          window.addEventListener("scroll", (e) => {
+            let list = this.$refs.cardsList;
+            if (list) {
+              if (list.getBoundingClientRect().bottom <= 490) {
+                this.currentPage += 1;
+              }
+            }
+          });
+        });
+      }
     },
   },
   async mounted() {
-    this.refresh();
+    this.moreItems();
   },
-  computed: mapGetters(["currentPosters", "getLength", "getLoading", "getListId"]),
+  computed: mapGetters(["currentPosters", "getLength", "getLoading", "getLastElemKey"]),
   watch: {
     currentPage() {
       this.refresh();
@@ -119,9 +128,8 @@ export default {
     postersPerPage() {
       this.refresh();
     },
-    currentPosters() {
-      console.log(this.currentPosters);
-    },
+    currentPosters() {},
+    getLastElemKey() {},
   },
 };
 </script>

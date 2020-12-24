@@ -14,29 +14,21 @@ export const Post = {
     actions: {
         async addPoster({ commit }, obj) {
             const response = await axios.post("http://localhost:3000/poster/add", obj)
-            let storage = JSON.parse(localStorage.getItem('listId')) || []
-            storage.push(obj.task.id)
-            localStorage.setItem('listId', JSON.stringify(storage))
-            commit('addToListId', obj.task.id)
             setAlert(response, commit)
         },
         async deletePoster({ commit }, obj) {
             const response = await axios.post("http://localhost:3000/poster/delete", obj)
-            function removeLocalStorageValues() {
-                var storage = JSON.parse(localStorage.getItem("listId"));
-                const index = storage.findIndex(item => item === Number(obj.id))
-                storage.splice(index , 1 )
-                localStorage.setItem('listId', JSON.stringify(storage))
-            }
-            removeLocalStorageValues()
             setAlert(response, commit)
         },
         async getCurrentPosters({ commit }, obj) {
-
-            const { currentPage, postersPerPage } = obj
-            let listId = JSON.parse(localStorage.getItem('listId')) || []
-            let response = await axios.get("http://localhost:3000/poster", { params: { currentPage, postersPerPage, listId } });
-            commit('currentPosters', response.data.posters)
+            const { currentPage, postersPerPage, lastElemKey } = obj
+            let response = await axios.get("http://localhost:3000/poster", { params: { currentPage, postersPerPage, lastElemKey } });
+            if (response.data.posters.queryResult.length && response.data.posters.lastElemKey) {
+                commit('currentPosters', response.data.posters)
+                commit('setLastKey', response.data.posters.lastElemKey)
+            } else if (!response.data.posters.lastElemKey) {
+                commit('setLastKey', response.data.posters.lastElemKey)
+            }
         },
         async updatePoster({ commit }, poster) {
             const response = await axios.post("http://localhost:3000/poster/update", poster);
@@ -54,12 +46,14 @@ export const Post = {
         },
         clearMessages({ commit }) {
             commit('clearMessages')
-        }
+        },
     },
     mutations: {
         currentPosters(state, obj) {
-            state.posters = obj.queryResult
-            state.postersLength = obj.postersLength
+            if (obj.queryResult) {
+                state.posters = state.posters.concat(obj.queryResult)
+            } else { return }
+
         },
         setCurrentPoster(state, currentPoster) {
             state.currentPoster = currentPoster
@@ -83,8 +77,14 @@ export const Post = {
             state.successMessage = ''
             state.errorMessage = ''
         },
-        addToListId(state, id) {
-            state.listId.push(id)
+        setLastKey(state, lastElemKey) {
+            if (lastElemKey.id) {
+                state.lastElemKey = lastElemKey.id
+            } else {
+                console.log(lastElemKey)
+                state.lastElemKey = lastElemKey
+            }
+
         }
     },
     state: {
@@ -95,12 +95,11 @@ export const Post = {
         isLoading: false,
         successMessage: '',
         errorMessage: '',
-        listId: []
+        lastElemKey: null
     },
     getters: {
         currentPosters(state) {
-            if (state.posters)
-                return state.posters
+            return state.posters
         },
         currentPoster(state) {
             if (state.currentPoster)
@@ -121,8 +120,8 @@ export const Post = {
         getErrorMessage(state) {
             return state.errorMessage
         },
-        getListId(state) {
-            return state.listId
+        getLastElemKey(state) {
+            return state.lastElemKey
         }
 
     },
