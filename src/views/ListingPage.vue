@@ -18,22 +18,8 @@
     </div>
 
     <p class="articles font_ny font_style_bold center">All articles</p>
-    <div v-if="currentPosters.length">
-      <button type="button" class="btn_pages" v-on:click="postersPerPage += 1">+</button>
-      <input type="text" class="numberOfPages" v-model="postersPerPage" />
-      <button
-        type="button"
-        class="btn_pages"
-        v-on:click="postersPerPage > 1 ? (postersPerPage -= 1) : (postersPerPage = 1)"
-      >
-        -
-      </button>
-    </div>
-    <div v-if="getLoading" class="loader">
-      <Loader />
-    </div>
 
-    <div v-else-if="currentPosters" ref="cardsList">
+    <div v-if="currentPosters" ref="cardsList">
       <CardsList v-bind:images="currentPosters" />
     </div>
 
@@ -56,6 +42,9 @@
           <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
       </router-link>
+    </div>
+    <div v-if="getLoading" class="loader">
+      <Loader />
     </div>
     <Alert />
   </div>
