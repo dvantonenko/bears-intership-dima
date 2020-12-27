@@ -16,10 +16,9 @@
       </span>
       <hr />
     </div>
-
     <p class="articles font_ny font_style_bold center">All articles</p>
 
-    <div v-if="currentPosters" ref="cardsList">
+    <div v-if="currentPosters.length" ref="listofcards" id="listofcards">
       <CardsList v-bind:images="currentPosters" />
     </div>
 
@@ -43,6 +42,8 @@
         </svg>
       </router-link>
     </div>
+    <h3 v-if="getLastElemKey == 0">Постов больше нет</h3>
+
     <div v-if="getLoading" class="loader">
       <Loader />
     </div>
@@ -73,7 +74,7 @@ export default {
     return {
       postUpdate: null,
       postersPerPage: 4,
-      currentPage: 1,
+      currentPage: 0,
     };
   },
   methods: {
@@ -84,42 +85,38 @@ export default {
       if (this.getLastElemKey !== 0) {
         this.$store.dispatch("setLoading", true);
         const res = await this.$store.dispatch("getCurrentPosters", {
-          currentPage: this.currentPage,
+          currentPage: this.currentPage == 0 ? 1 : this.currentPage,
           postersPerPage: this.postersPerPage,
           lastElemKey: this.getLastElemKey ? this.getLastElemKey : undefined,
         });
         this.$store.dispatch("setLoading", false);
+      } else {
+        return;
       }
     },
-    moreItems() {
-      if (this.getLastElemKey !== 0) {
-        this.$nextTick(function () {
-          window.addEventListener("scroll", (e) => {
-            let list = this.$refs.cardsList;
-            if (list) {
-              if (list.getBoundingClientRect().bottom <= 490) {
-                this.currentPage += 1;
-              }
+    moreItems(e) {
+      this.$nextTick(function () {
+        let list = this.$refs.listofcards;
+        if (list) {
+          if (list.getBoundingClientRect().bottom <= 490) {
+            if (!this.getLoading) {
+              this.currentPage + 1;
+              this.refresh();
+            } else {
+              return;
             }
-          });
-        });
-      }
+          }
+        }
+      });
     },
   },
   async mounted() {
+    this.refresh();
+    window.addEventListener("scroll", this.moreItems);
     this.moreItems();
   },
   computed: mapGetters(["currentPosters", "getLength", "getLoading", "getLastElemKey"]),
-  watch: {
-    currentPage() {
-      this.refresh();
-    },
-    postersPerPage() {
-      this.refresh();
-    },
-    currentPosters() {},
-    getLastElemKey() {},
-  },
+  watch: {},
 };
 </script>
 

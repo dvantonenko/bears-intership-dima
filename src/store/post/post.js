@@ -23,7 +23,8 @@ export const Post = {
         async getCurrentPosters({ commit }, obj) {
             const { currentPage, postersPerPage, lastElemKey } = obj
             let response = await axios.get("http://localhost:3000/poster", { params: { currentPage, postersPerPage, lastElemKey } });
-            if (response.data.posters.queryResult.length && response.data.posters.lastElemKey) {
+            console.log(response.data.posters)
+            if (response.data.posters.queryResult.length ) {
                 commit('currentPosters', response.data.posters)
                 commit('setLastKey', response.data.posters.lastElemKey)
             } else if (!response.data.posters.lastElemKey) {
@@ -50,8 +51,13 @@ export const Post = {
     },
     mutations: {
         currentPosters(state, obj) {
-            if (obj.queryResult) {
+            if (obj.queryResult) {                
                 state.posters = state.posters.concat(obj.queryResult)
+                function sortByDate(arr) {
+                    arr.sort((a, b) => a.id > b.id ? 1 : -1);
+                    return arr
+                  }
+                  state.posters= sortByDate(state.posters)
             } else { return }
 
         },
@@ -81,7 +87,6 @@ export const Post = {
             if (lastElemKey.id) {
                 state.lastElemKey = lastElemKey.id
             } else {
-                console.log(lastElemKey)
                 state.lastElemKey = lastElemKey
             }
 
