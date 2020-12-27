@@ -17,7 +17,6 @@
       <hr />
     </div>
     <p class="articles font_ny font_style_bold center">All articles</p>
-
     <div v-if="currentPosters.length" ref="listofcards" id="listofcards">
       <CardsList v-bind:images="currentPosters" />
     </div>

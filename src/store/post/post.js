@@ -22,8 +22,8 @@ export const Post = {
         },
         async getCurrentPosters({ commit }, obj) {
             const { currentPage, postersPerPage, lastElemKey } = obj
+            console.log(obj)
             let response = await axios.get("http://localhost:3000/poster", { params: { currentPage, postersPerPage, lastElemKey } });
-            console.log(response.data.posters)
             if (response.data.posters.queryResult.length ) {
                 commit('currentPosters', response.data.posters)
                 commit('setLastKey', response.data.posters.lastElemKey)

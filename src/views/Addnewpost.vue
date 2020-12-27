@@ -121,6 +121,7 @@ export default {
         key: this.key,
         id: this.id,
         indexPoster: this.getLength == 0 ? 1 : this.getLength + 1,
+        Posts: "posts",
       };
       const base64 = document.querySelector("#preview_image_field").src;
       function bufferFromBase(url) {
