@@ -17,6 +17,7 @@
       <hr />
     </div>
     <p class="articles font_ny font_style_bold center">All articles</p>
+    <p>{{ getLastElemKey }}</p>
     <div v-if="currentPosters.length" ref="listofcards" id="listofcards">
       <CardsList v-bind:images="currentPosters" />
     </div>
@@ -72,7 +73,7 @@ export default {
   data() {
     return {
       postUpdate: null,
-      postersPerPage: 4,
+      postersPerPage: 2,
       currentPage: 0,
     };
   },
@@ -81,7 +82,7 @@ export default {
       this.currentPage = pageNumber;
     },
     async refresh() {
-      if (this.getLastElemKey !== 0) {
+      if (this.getLastElemKey !== 0 || this.getLastElemKey == undefined) {
         this.$store.dispatch("setLoading", true);
         const res = await this.$store.dispatch("getCurrentPosters", {
           currentPage: this.currentPage == 0 ? 1 : this.currentPage,
@@ -115,7 +116,9 @@ export default {
     this.moreItems();
   },
   computed: mapGetters(["currentPosters", "getLength", "getLoading", "getLastElemKey"]),
-  watch: {},
+  watch: {
+    currentPosters() {},
+  },
 };
 </script>
 

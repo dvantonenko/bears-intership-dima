@@ -96,7 +96,6 @@ export default {
         id: this.id,
         currentPoster: this.currentPoster,
       });
-
       setTimeout(() => {
         this.$router.push("/");
       }, 1000);
