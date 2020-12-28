@@ -53,11 +53,6 @@ export const Post = {
         currentPosters(state, obj) {
             if (obj.queryResult) {                
                 state.posters = state.posters.concat(obj.queryResult)
-                // function sortByDate(arr) {
-                //     arr.sort((a, b) => a.id > b.id ? 1 : -1);
-                //     return arr
-                //   }
-                //   state.posters= sortByDate(state.posters)
             } else { return }
 
         },
