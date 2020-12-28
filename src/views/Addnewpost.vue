@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="padding-bottom: 113px">
     <form
       @submit.prevent="submitHandler"
       enctype="multipart/form-data"

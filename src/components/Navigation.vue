@@ -47,7 +47,7 @@
 export default {
   data() {
     return {
-      links: ["Blog", "Addnewpost", "Widgets"],
+      links: ["Blog", "Addnewpost", "Widgets", "Log out"] || ["Sign in", "Sign up"],
       screenSize: null,
       sideMenu: false,
     };

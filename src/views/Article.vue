@@ -73,7 +73,8 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import InputForm from "@/components/InputForm";
 import Poster from "./Poster";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
   components: {
     InputForm,
@@ -96,6 +97,7 @@ export default {
         id: this.id,
         currentPoster: this.currentPoster,
       });
+
       setTimeout(() => {
         this.$router.push("/");
       }, 1000);
@@ -103,6 +105,7 @@ export default {
     closeModal() {
       this.visible = false;
     },
+    ...mapMutations(["setLastKey", "clearPosters"]),
   },
   async mounted() {
     window.addEventListener("resize", this.onResize);

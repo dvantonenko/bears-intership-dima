@@ -22,12 +22,12 @@ export const Post = {
         },
         async getCurrentPosters({ commit }, obj) {
             const { currentPage, postersPerPage, lastElemKey } = obj
-
             let response = await axios.get("http://localhost:3000/poster", { params: { currentPage, postersPerPage, lastElemKey } });
 
             if (response.data.posters.queryResult.length) {
                 commit('currentPosters', response.data.posters)
                 commit('setLastKey', response.data.posters.lastElemKey)
+
             } else {
                 commit('setLastKey', response.data.posters.lastElemKey)
             }
@@ -55,7 +55,6 @@ export const Post = {
             if (obj.queryResult) {
                 state.posters = state.posters.concat(obj.queryResult)
             } else { return }
-
         },
         setCurrentPoster(state, currentPoster) {
             state.currentPoster = currentPoster
@@ -82,11 +81,11 @@ export const Post = {
         setLastKey(state, lastElemKey) {
             if (lastElemKey.id) {
                 state.lastElemKey = lastElemKey.id
-            } else {
-                state.lastElemKey = lastElemKey
-            }
-
+            } else if (lastElemKey == 0) { state.lastElemKey = 0 }
         },
+        clearPosters(state) {
+            state.posters = []
+        }
     },
     state: {
         posters: [],
