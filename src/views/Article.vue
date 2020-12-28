@@ -93,6 +93,7 @@ export default {
       if (this.screenSize > 645) this.sideMenu = false;
     },
     async deletePoster() {
+      this.clearPosters();
       await this.$store.dispatch("deletePoster", {
         id: this.id,
         currentPoster: this.currentPoster,

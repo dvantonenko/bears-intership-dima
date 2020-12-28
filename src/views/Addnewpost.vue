@@ -61,7 +61,7 @@
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { http } from "../http";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import Alert from "../components/Alert.vue";
 export default {
   components: {
@@ -141,11 +141,13 @@ export default {
       });
       let uint8Array = new Uint8Array(data);
       let file = [...uint8Array];
+      this.clearPosters();
       await this.$store.dispatch("addPoster", { task, file });
       if (!this.getErrorMessage) {
         this.$router.push("/");
       }
     },
+    ...mapMutations(["clearPosters"]),
   },
   computed: mapGetters(["getLength", "getErrorMessage"]),
 };

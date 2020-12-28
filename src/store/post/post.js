@@ -85,6 +85,7 @@ export const Post = {
         },
         clearPosters(state) {
             state.posters = []
+            state.lastElemKey=null
         }
     },
     state: {
