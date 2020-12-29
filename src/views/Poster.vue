@@ -59,7 +59,7 @@
       <img class="image_field" v-if="src" :src="src" />
 
       <div class="btn_block">
-        <button class="btn_publish" type="submit">Update</button>
+        <button href="/" class="btn_publish" type="submit">Update</button>
       </div>
     </form>
   </div>

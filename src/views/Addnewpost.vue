@@ -47,7 +47,8 @@
         <input id="files" hidden name="imagefile" type="file" @change="onFileChange" />
       </div>
 
-      <img class="image_field" v-if="src" :src="src" />
+      <img :src="src" id="preview_image_field" />
+      <img id="preview_image" src="" />
 
       <div class="btn_block">
         <button class="btn_publish" type="submit">Publish</button>
@@ -72,9 +73,10 @@ export default {
       subtitle: "",
       description: "",
       key: "",
-      id: uuidv4(),
+      id: Date.now(),
       file: null,
       src: null,
+      compressedData: null,
     };
   },
   methods: {
@@ -89,10 +91,26 @@ export default {
         this.file = [...unit8Array];
       };
 
-      let imageSrc = new FileReader();
-      imageSrc.readAsDataURL(file);
-      imageSrc.onloadend = () => {
-        this.src = imageSrc.result;
+      let compressReader = new FileReader();
+      compressReader.readAsDataURL(file);
+      compressReader.onloadend = (event) => {
+        let imgElement = document.createElement("img");
+        imgElement.src = event.target.result;
+        imgElement.onload = function (e) {
+          function resizeElement() {
+            const canvas = document.createElement("canvas");
+            const maxWidth = 400;
+            const scaleSize = maxWidth / e.target.width;
+            canvas.width = maxWidth;
+            canvas.height = e.target.height * scaleSize;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(e.target, 0, 0, canvas.width, canvas.height);
+            const srcEncoded = ctx.canvas.toDataURL(e.target, "image/jpg", 0.7);
+            document.querySelector("#preview_image_field").src = srcEncoded;
+            return srcEncoded;
+          }
+          resizeElement();
+        };
       };
     },
     async submitHandler(e) {
@@ -103,13 +121,29 @@ export default {
         key: this.key,
         id: this.id,
         indexPoster: this.getLength == 0 ? 1 : this.getLength + 1,
+        Posts: "posts",
       };
-      const file = [...this.file];
+      const base64 = document.querySelector("#preview_image_field").src;
+      function bufferFromBase(url) {
+        return new Promise(function (resolve, reject) {
+          let xhr = new XMLHttpRequest();
+          xhr.open("GET", url, true);
+          xhr.responseType = "arraybuffer";
+          xhr.onload = function () {
+            resolve(this.response);
+          };
+          xhr.onerror = reject;
+          xhr.send();
+        });
+      }
+      const data = await bufferFromBase(base64).then((result) => {
+        return result;
+      });
+      let uint8Array = new Uint8Array(data);
+      let file = [...uint8Array];
       await this.$store.dispatch("addPoster", { task, file });
       if (!this.getErrorMessage) {
-        setTimeout(() => {
-          this.$router.push("/");
-        }, 1000);
+        this.$router.push("/");
       }
     },
   },

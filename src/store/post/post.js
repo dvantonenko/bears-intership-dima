@@ -16,14 +16,20 @@ export const Post = {
             const response = await axios.post("http://localhost:3000/poster/add", obj)
             setAlert(response, commit)
         },
-        async deletePoster({commit }, obj) {
+        async deletePoster({ commit }, obj) {
             const response = await axios.post("http://localhost:3000/poster/delete", obj)
             setAlert(response, commit)
         },
         async getCurrentPosters({ commit }, obj) {
-            const { currentPage, postersPerPage } = obj
-            let response = await axios.get("http://localhost:3000/poster", { params: { currentPage, postersPerPage } });
-            commit('currentPosters', response.data.posters)
+            const { currentPage, postersPerPage, lastElemKey } = obj
+            console.log(obj)
+            let response = await axios.get("http://localhost:3000/poster", { params: { currentPage, postersPerPage, lastElemKey } });
+            if (response.data.posters.queryResult.length ) {
+                commit('currentPosters', response.data.posters)
+                commit('setLastKey', response.data.posters.lastElemKey)
+            } else if (!response.data.posters.lastElemKey) {
+                commit('setLastKey', response.data.posters.lastElemKey)
+            }
         },
         async updatePoster({ commit }, poster) {
             const response = await axios.post("http://localhost:3000/poster/update", poster);
@@ -33,6 +39,7 @@ export const Post = {
         },
         async getPosterById({ commit }, id) {
             const response = await axios.get(`http://localhost:3000/poster/update/${id}`);
+
             commit('setCurrentPoster', response.data.Item)
         },
         setLoading({ commit }, status) {
@@ -40,12 +47,14 @@ export const Post = {
         },
         clearMessages({ commit }) {
             commit('clearMessages')
-        }
+        },
     },
     mutations: {
         currentPosters(state, obj) {
-            state.posters = obj.queryResult
-            state.postersLength = obj.postersLength
+            if (obj.queryResult) {                
+                state.posters = state.posters.concat(obj.queryResult)
+            } else { return }
+
         },
         setCurrentPoster(state, currentPoster) {
             state.currentPoster = currentPoster
@@ -68,6 +77,14 @@ export const Post = {
         clearMessages(state) {
             state.successMessage = ''
             state.errorMessage = ''
+        },
+        setLastKey(state, lastElemKey) {
+            if (lastElemKey.id) {
+                state.lastElemKey = lastElemKey.id
+            } else {
+                state.lastElemKey = lastElemKey
+            }
+
         }
     },
     state: {
@@ -77,12 +94,12 @@ export const Post = {
         postersLength: 0,
         isLoading: false,
         successMessage: '',
-        errorMessage: ''
+        errorMessage: '',
+        lastElemKey: null
     },
     getters: {
         currentPosters(state) {
-            if (state.posters)
-                return state.posters
+            return state.posters
         },
         currentPoster(state) {
             if (state.currentPoster)
@@ -102,6 +119,9 @@ export const Post = {
         },
         getErrorMessage(state) {
             return state.errorMessage
+        },
+        getLastElemKey(state) {
+            return state.lastElemKey
         }
 
     },
