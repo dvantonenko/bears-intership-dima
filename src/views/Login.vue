@@ -1,13 +1,24 @@
 <template>
   <div class="container back_auth">
     <div class="head_auth"><span class="font_koho_r">Sign In</span></div>
-    <form>
+    <form
+      @submit.prevent="submitHandler"
+      enctype="multipart/form-data"
+      class="input_form"
+      method="POST"
+    >
       <div class="input_block_auth">
-        <input type="Email" placeholder="email" class="input_field_auth font_lato_r" />
+        <input
+          type="Email"
+          placeholder="email"
+          class="input_field_auth font_lato_r"
+          v-model="email"
+        />
         <input
           type="Password"
           placeholder="password"
           class="input_field_auth font_lato_r"
+          v-model="password"
         />
       </div>
 
@@ -21,3 +32,31 @@
     </div>
   </div>
 </template>
+<script>
+import { Auth } from "aws-amplify";
+import { mapMutations, mapGetters } from "vuex";
+export default {
+  methods: {
+    async submitHandler() {
+      try {
+        const user = await Auth.signIn(this.email, this.password);
+        console.log(user);
+        if (user.username) {
+          this.setAuth(true);
+        }
+        console.log(this.getAuth);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    ...mapMutations(["setAuth"]),
+  },
+  computed: mapGetters(["getAuth"]),
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+};
+</script>

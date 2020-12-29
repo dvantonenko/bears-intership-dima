@@ -3,7 +3,6 @@
     <div class="title">
       <span class="title_text font_ny">Nordic rose</span>
     </div>
-
     <div class="links">
       <div v-if="screenSize > 645 && screenSize < 1980" class="links_block">
         <a
@@ -44,10 +43,11 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      links: ["Blog", "Addnewpost", "Widgets", "Log out"] || ["Sign in", "Sign up"],
+      links: ["Blog", "Addnewpost", "Widgets"],
       screenSize: null,
       sideMenu: false,
     };
@@ -58,9 +58,14 @@ export default {
       if (this.screenSize > 645) this.sideMenu = false;
     },
   },
+
   mounted() {
     window.addEventListener("resize", this.onResize);
     this.onResize();
+  },
+  computed: mapGetters(["getAuth"]),
+  watch: {
+    getAuth() {},
   },
 };
 </script>
@@ -91,7 +96,7 @@ export default {
 .links {
   display: flex;
   float: left;
-  width: 50%;
+  width: 60%;
 }
 
 .links_block {

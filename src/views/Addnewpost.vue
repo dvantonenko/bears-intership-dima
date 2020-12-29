@@ -40,15 +40,28 @@
           class="textarea_field"
         ></textarea>
       </div>
+
       <div style="text-align: center; margin-bottom: 10px">
         <label for="files" class="label_field label_block" type="file">
           Add post image</label
         >
-        <input id="files" hidden name="imagefile" type="file" @change="onFileChange" />
+        <image-uploader
+          id="files"
+          :debug="1"
+          :maxWidth="400"
+          :quality="0.9"
+          :autoRotate="true"
+          outputFormat="blob"
+          :preview="true"
+          :capture="false"
+          accept="video/*,image/*"
+          doNotResize="['gif', 'svg']"
+          @input="setImage"
+          hidden
+        ></image-uploader>
       </div>
 
       <img :src="src" id="preview_image_field" />
-      <img id="preview_image" src="" />
 
       <div class="btn_block">
         <button class="btn_publish" type="submit">Publish</button>
@@ -63,9 +76,11 @@ import { v4 as uuidv4 } from "uuid";
 import { http } from "../http";
 import { mapGetters, mapMutations } from "vuex";
 import Alert from "../components/Alert.vue";
+import imageCompressor from "vue-image-compressor";
 export default {
   components: {
     Alert,
+    imageCompressor,
   },
   data() {
     return {
@@ -80,37 +95,19 @@ export default {
     };
   },
   methods: {
-    onFileChange(e) {
-      let unit8Array = null;
-      const file = e.target.files[0];
+    setImage(output) {
+      this.key = (Math.floor(Math.random() * 100) + 1).toString() + ".jpg";
       let reader = new FileReader();
-      reader.readAsArrayBuffer(file);
-      reader.onloadend = () => {
-        unit8Array = new Uint8Array(reader.result);
-        this.key = file.name;
-        this.file = [...unit8Array];
+      reader.readAsArrayBuffer(output);
+      reader.onloadend = (e) => {
+        const uint8Array = new Uint8Array(reader.result);
+        this.file = [...uint8Array];
       };
 
-      let compressReader = new FileReader();
-      compressReader.readAsDataURL(file);
-      compressReader.onloadend = (event) => {
-        let imgElement = document.createElement("img");
-        imgElement.src = event.target.result;
-        imgElement.onload = function (e) {
-          function resizeElement() {
-            const canvas = document.createElement("canvas");
-            const maxWidth = 400;
-            const scaleSize = maxWidth / e.target.width;
-            canvas.width = maxWidth;
-            canvas.height = e.target.height * scaleSize;
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(e.target, 0, 0, canvas.width, canvas.height);
-            const srcEncoded = ctx.canvas.toDataURL(e.target, "image/jpg", 0.7);
-            document.querySelector("#preview_image_field").src = srcEncoded;
-            return srcEncoded;
-          }
-          resizeElement();
-        };
+      let createSrc = new FileReader();
+      createSrc.readAsDataURL(output);
+      createSrc.onloadend = () => {
+        this.src = createSrc.result;
       };
     },
     async submitHandler(e) {
@@ -123,24 +120,7 @@ export default {
         indexPoster: this.getLength == 0 ? 1 : this.getLength + 1,
         Posts: "posts",
       };
-      const base64 = document.querySelector("#preview_image_field").src;
-      function bufferFromBase(url) {
-        return new Promise(function (resolve, reject) {
-          let xhr = new XMLHttpRequest();
-          xhr.open("GET", url, true);
-          xhr.responseType = "arraybuffer";
-          xhr.onload = function () {
-            resolve(this.response);
-          };
-          xhr.onerror = reject;
-          xhr.send();
-        });
-      }
-      const data = await bufferFromBase(base64).then((result) => {
-        return result;
-      });
-      let uint8Array = new Uint8Array(data);
-      let file = [...uint8Array];
+      let file = this.file;
       this.clearPosters();
       await this.$store.dispatch("addPoster", { task, file });
       if (!this.getErrorMessage) {
