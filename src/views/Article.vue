@@ -73,7 +73,8 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import InputForm from "@/components/InputForm";
 import Poster from "./Poster";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
   components: {
     InputForm,
@@ -92,6 +93,7 @@ export default {
       if (this.screenSize > 645) this.sideMenu = false;
     },
     async deletePoster() {
+      this.clearPosters();
       await this.$store.dispatch("deletePoster", {
         id: this.id,
         currentPoster: this.currentPoster,
@@ -104,6 +106,7 @@ export default {
     closeModal() {
       this.visible = false;
     },
+    ...mapMutations(["setLastKey", "clearPosters"]),
   },
   async mounted() {
     window.addEventListener("resize", this.onResize);

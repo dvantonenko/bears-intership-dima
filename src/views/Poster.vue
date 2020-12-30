@@ -105,12 +105,13 @@ export default {
         description: this.description,
         id: this.id,
       };
+      this.clearPosters();
       await this.$store.dispatch("updatePoster", poster);
       if (!this.getErrorMessage) {
         this.$router.push("/");
       }
     },
-    ...mapMutations(["clearAnswer"]),
+    ...mapMutations(["clearAnswer", "clearPosters"]),
   },
 };
 </script>

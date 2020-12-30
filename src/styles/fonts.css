@@ -1,3 +1,12 @@
+@font-face{
+    font-family : "Lato-Regular";
+    src : url("../assets/fonts/Lato/Lato-Regular.ttf") format("truetype")
+}
+@font-face{
+    font-family : "KoHo-Regular";
+    src : url("../assets/fonts/KoHo/KoHo-Regular.ttf") format("truetype")
+}
+
 @font-face {
     font-family: 'Inter-light';
     src: url("../assets/fonts/Inter/Inter-Light-slnt=0.ttf") format("truetype");
@@ -50,6 +59,12 @@
     src: url("../assets/fonts/SF/SFMonoRegular.ttf") format("truetype");
 }
 
+.font_koho_r{
+    font-family : "KoHo-Regular" , sans-serif;
+}
+.font_lato_r{
+    font-family : "Lato-Regular" , sans-serif;
+}
 .font_inter_l{
     font-family : "Inter-light" , sans-serif;
 

@@ -17,6 +17,7 @@
       <hr />
     </div>
     <p class="articles font_ny font_style_bold center">All articles</p>
+
     <div v-if="currentPosters.length" ref="listofcards" id="listofcards">
       <CardsList v-bind:images="currentPosters" />
     </div>
@@ -72,7 +73,7 @@ export default {
   data() {
     return {
       postUpdate: null,
-      postersPerPage: 4,
+      postersPerPage: 2,
       currentPage: 0,
     };
   },
@@ -115,7 +116,9 @@ export default {
     this.moreItems();
   },
   computed: mapGetters(["currentPosters", "getLength", "getLoading", "getLastElemKey"]),
-  watch: {},
+  watch: {
+    currentPosters() {},
+  },
 };
 </script>
 

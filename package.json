@@ -7,6 +7,9 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@aws-amplify/ui-vue": "^0.2.32",
+    "aws-amplify": "^3.3.13",
+    "aws-amplify-vue": "^0.2.12-beta.0",
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.21.0",
@@ -15,6 +18,8 @@
     "request": "^2.79.0",
     "uuid": "^8.3.1",
     "vue": "^2.6.11",
+    "vue-image-compressor": "^1.0.3",
+    "vue-image-upload-resize": "^2.3.0",
     "vue-router": "^3.4.9",
     "vue-sweetalert2": "^4.1.1",
     "vuex": "^3.6.0"
