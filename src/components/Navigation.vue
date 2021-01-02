@@ -8,13 +8,15 @@
         <a
           class="link font_ny"
           v-for="link of links"
-          :href="link === `Blog` ? `#/` : `#/${link}/`"
+          :name="link"
+          :href="link === `Blog` ? `#/` : `#/${link.replace(/\s+/g, '')}/`"
           v-bind:class="{
             active:
               link && $route.name && $route.name.toLowerCase() === link.toLowerCase(),
           }"
           v-bind:key="link"
-          >{{ link == "Addnewpost" ? "Add new post" : link }}</a
+          v-on:click="clickHandler"
+          >{{ link }}</a
         >
       </div>
 
@@ -43,11 +45,11 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 export default {
   data() {
     return {
-      links: ["Blog", "Addnewpost", "Widgets"],
+      links: ["Sign In", "Sign Up"],
       screenSize: null,
       sideMenu: false,
     };
@@ -57,6 +59,14 @@ export default {
       this.screenSize = document.documentElement.clientWidth;
       if (this.screenSize > 645) this.sideMenu = false;
     },
+    clickHandler(e) {
+      if (e.target.name == "Logout") {
+        e.preventDefault();
+        this.setAuth(false);
+        this.$router.push("/SignIn");
+      }
+    },
+    ...mapMutations(["setAuth"]),
   },
 
   mounted() {
@@ -65,7 +75,13 @@ export default {
   },
   computed: mapGetters(["getAuth"]),
   watch: {
-    getAuth() {},
+    getAuth() {
+      if (!!this.getAuth) {
+        this.links = ["Blog", "Add new post", "Widgets", "Logout"];
+      } else {
+        this.links = ["SignIn", "SignUp"];
+      }
+    },
   },
 };
 </script>
@@ -96,7 +112,7 @@ export default {
 .links {
   display: flex;
   float: left;
-  width: 60%;
+  width: 100%;
 }
 
 .links_block {

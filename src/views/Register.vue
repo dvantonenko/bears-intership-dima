@@ -1,12 +1,12 @@
 <template>
   <div class="container back_auth">
-    <div class="head_auth" style="color: #bedfbd">
-      <span class="font_koho_r"> Sign Up</span>
+    <div class="head_auth">
+      <span class="font_koho_r" style="background-color: #54b44b"> Sign Up</span>
     </div>
     <form
       @submit.prevent="submitHandler"
       enctype="multipart/form-data"
-      class="input_form"
+      class="input_form_auth"
       method="POST"
     >
       <div class="input_block_auth">
@@ -37,10 +37,16 @@
       </div>
 
       <button type="submit" class="btn_check_auth font_lato_r">Sign up</button>
+      <div class="helper_text_auth">
+        <span
+          >Already have account?
+          <router-link tag="a" to="/signin" style="color: #bedfbd"
+            >Sign in</router-link
+          ></span
+        >
+      </div>
     </form>
-    <div class="helper_text_auth">
-      <span>Already have account? <a href="#" style="color: #bedfbd">Sing in</a></span>
-    </div>
+
     <Alert v-if="getSuccessMessage || getErrorMessage" />
   </div>
 </template>
@@ -54,20 +60,17 @@ export default {
   methods: {
     async submitHandler() {
       try {
-        const signUpResponse = await Auth.signUp({
-          username: this.name,
+        const response = await this.$store.dispatch("registerHandler", {
+          username: this.email,
           password: this.password,
           surename: this.surename,
-          attributes: {
-            email: this.email,
-          },
+          email: this.email,
         });
 
-        console.log(signUpResponse);
-        this.setSuccessAlert("User was created successfully");
         this.username = this.password = this.surename = this.email = "";
+        this.setSuccessAlert("User was created successfully");
       } catch (e) {
-        this.setErrorAlert(e.message.toString());
+        console.log(e);
       }
     },
 

@@ -26,7 +26,7 @@
     background: linear-gradient(#F3AE0F, #E38916) #E38916;
     transition: 0.2s;
   } 
-  .button24:hover { background: linear-gradient(#f5ae00, #f59500) #f5ae00; }
+  .button24:hover { background: linear-gradient(#54b44b, #f59500) #f5ae00; }
   .button24:active { background: linear-gradient(#f59500, #f5ae00) #f59500; }
  
 .btn_action {
@@ -47,24 +47,35 @@
   }
 
   .head_auth {
-    width: 50%;
-    height: 210px;
+    width: 25%;
+    min-width : 320px;
+    height: 105px;
     margin: 0 auto;
     background: linear-gradient(134.17deg, #eef0f5 4.98%, #e6e9ef 94.88%);
     box-shadow: -12px -12px 20px rgba(255, 255, 255, 0.8),
       10px 10px 24px rgba(166, 180, 200, 0.7);
     border-radius: 40px;
-    line-height: 210px;
     font-family: KoHo;
     font-style: normal;
     font-weight: bold;
-    font-size: 130px;
-    line-height: 169px;
-  
-    color: #ffb4bb;
+    font-size: 75px;
+    color : #FFB4BB;
   }
+
+  .head_auth span {
+         background-color: #fa0068;    
+        -webkit-background-clip: text; 
+        -moz-background-clip: text;
+        background-clip: text; 
+        color: transparent;
+        text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;
+  }
+
   .input_block_auth {
-    width: 50%;
+    display : block;
+    white-space: normal;
+    width: 25%;
+    min-width : 320px;
     margin: 0 auto;
   }
   
@@ -82,14 +93,15 @@
     box-sizing: border-box;
     font-style: normal;
     font-weight: normal;
-    font-size: 28px;
+    font-size: 22px;
     line-height: 34px;
     letter-spacing: 0.02em;
     color: #686868;
   }
   
   .btn_check_auth {
-    width: 30%;
+    width: 15%;
+    min-width : 190px;
     margin-top: 68px;
     background: linear-gradient(134.17deg, #eef0f5 4.98%, #e6e9ef 94.88%);
     box-shadow: -12px -12px 20px rgba(255, 255, 255, 0.8),
@@ -110,14 +122,15 @@
   .helper_text_auth {
     font-style: normal;
     font-weight: normal;
-    font-size: 28px;
+    font-size: 22px;
     line-height: 34px;
     letter-spacing: 0.02em;
     color: #686868;
-    margin-top: 33px;
+    padding-top: 33px;
   }
 
   .back_auth{
     background-color: #eef0f5; 
-    padding-top: 83px
-  }
+    padding-top: 83px;
+    height: 130%;
+    }

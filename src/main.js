@@ -11,12 +11,11 @@ import '@aws-amplify/ui-vue';
 import ImageUploader from 'vue-image-upload-resize'
 
 Vue.use(ImageUploader);
-
 Amplify.configure({
   Auth: {
     mandatorySignIn: true,
     region: "us-east-2",
-    userPoolId: "us-east-2_01glTZJsL" ,
+    userPoolId: "us-east-2_01glTZJsL",
     userPoolWebClientId: "6bttq2iufsqmjdp0dmpjnsr3bu"
   }
 })

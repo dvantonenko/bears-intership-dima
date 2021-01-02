@@ -37,12 +37,12 @@ let router = new Router({
             component: () => import('@/views/Poster')
         },
         {
-            path: `/auth/login`,
+            path: `/signin`,
             name: 'login',
             component: () => import('@/views/Login')
         },
         {
-            path: `/auth/register`,
+            path: `/signup`,
             name: 'register',
             component: () => import('@/views/Register')
         }
