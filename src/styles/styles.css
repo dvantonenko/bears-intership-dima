@@ -118,6 +118,12 @@
     letter-spacing: 0.02em;
     color: #686868;
   }
+
+  .btn_check_auth:active{
+    transform: scale(0.8);
+    background:white;
+    border : 1px solid black;
+  }
   
   .helper_text_auth {
     font-style: normal;

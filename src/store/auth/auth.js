@@ -16,7 +16,7 @@ export const Auth = {
             if (errorMessage) {
                 commit("setErrorAlert", errorMessage)
             }
-            const token = response.data.idToken.jwtToken
+            const token = response.data
             if (token) {
                 commit('setAuth', token)
             }
