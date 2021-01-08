@@ -117,7 +117,7 @@ export default {
 }
 
 .links_block {
-  margin-left: 30%;
+  margin-right: 30px;
   margin-top: 50px;
   width: 100%;
   text-align: right;
@@ -125,7 +125,7 @@ export default {
 
 .link {
   padding-bottom: 62px;
-  margin-right: 10%;
+  margin-right: 5%;
   text-transform: uppercase;
   color: black;
   text-decoration: none;
@@ -160,9 +160,9 @@ export default {
     margin-left: 0%;
   }
 }
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 830px) {
   .link {
-    margin-right: 5px;
+    margin-right: 0;
   }
 }
 @media screen and (max-width: 660px) {

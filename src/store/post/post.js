@@ -11,16 +11,20 @@ function setAlert(response, commit) {
 export const Post = {
     actions: {
         async addPoster({ commit }, obj) {
-            const response = await axios.post("http://localhost:3000/poster/add", obj)
+            const response = await axios.post("http://localhost:3000/poster/add", obj,
+                { headers: { accessToken: this.state.Auth.isAuthenticated } })
             setAlert(response, commit)
         },
         async deletePoster({ commit }, obj) {
-            const response = await axios.post("http://localhost:3000/poster/delete", obj)
+            const response = await axios.post("http://localhost:3000/poster/delete", obj,
+                { headers: { accessToken: this.state.Auth.isAuthenticated } })
             setAlert(response, commit)
         },
         async getCurrentPosters({ commit }, obj) {
             const { currentPage, postersPerPage, lastElemKey } = obj
-            let response = await axios.get("http://localhost:3000/poster", { params: { currentPage, postersPerPage, lastElemKey } });
+
+            let response = await axios.get("http://localhost:3000/poster",
+                { params: { currentPage, postersPerPage, lastElemKey } });
 
             if (response.data.posters.queryResult.length) {
                 commit('currentPosters', response.data.posters)
@@ -31,7 +35,7 @@ export const Post = {
             }
         },
         async updatePoster({ commit }, poster) {
-            const response = await axios.post("http://localhost:3000/poster/update", poster);
+            const response = await axios.post("http://localhost:3000/poster/update", poster ,  { headers: { accessToken: this.state.Auth.isAuthenticated } });
             setAlert(response, commit)
             commit('setAnswer', response.data.message)
 
@@ -83,7 +87,7 @@ export const Post = {
         },
         clearPosters(state) {
             state.posters = []
-            state.lastElemKey=null
+            state.lastElemKey = null
         }
     },
     state: {

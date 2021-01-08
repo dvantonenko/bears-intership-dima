@@ -12,13 +12,11 @@ export const Auth = {
         },
         async loginHandler({ commit }, obj) {
             const response = await axios.post("http://localhost:3000/auth/login", obj)
-            console.log(response)
             const errorMessage = response.data.message
             if (errorMessage) {
                 commit("setErrorAlert", errorMessage)
             }
             const token = response.data.accessToken
-            console.log(token)
             if (token.length) {
                 commit('setAuth', token)
             }
