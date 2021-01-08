@@ -12,15 +12,21 @@ export const Auth = {
         },
         async loginHandler({ commit }, obj) {
             const response = await axios.post("http://localhost:3000/auth/login", obj)
+            console.log(response)
             const errorMessage = response.data.message
             if (errorMessage) {
                 commit("setErrorAlert", errorMessage)
             }
-            const token = response.data
-            if (token) {
+            const token = response.data.accessToken
+            console.log(token)
+            if (token.length) {
                 commit('setAuth', token)
             }
             return response
+        },
+        async logoutHandler({commit} , obj){
+
+            const response = await axios.post("http://localhost:3000/auth/logout", obj)
         }
     },
     mutations: {
@@ -34,6 +40,7 @@ export const Auth = {
         }
     },
     state: {
-        isAuthenticated: false
+        isAuthenticated: false,
+
     }
 }

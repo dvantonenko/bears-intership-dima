@@ -62,6 +62,7 @@ export default {
     clickHandler(e) {
       if (e.target.name == "Logout") {
         e.preventDefault();
+
         this.setAuth(false);
         this.$router.push("/SignIn");
       }
