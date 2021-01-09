@@ -17,28 +17,36 @@ export const Auth = {
                 commit("setErrorAlert", errorMessage)
             }
             const token = response.data.accessToken
+            const username = response.data.username
             if (token.length) {
                 commit('setAuth', token)
+                commit('setUsername',username)
             }
             return response
         },
-        async logoutHandler({commit} , obj){
-
-            const response = await axios.post("http://localhost:3000/auth/logout", obj)
+        async logoutHandler({commit} ){
+            const response = await axios.post("http://localhost:3000/auth/logout")
         }
     },
     mutations: {
         setAuth(state, token) {
             state.isAuthenticated = token
+        },
+        setUsername(state , username){
+            state.username = username
         }
     },
     getters: {
         getAuth(state) {
             return state.isAuthenticated
+        },
+        getUsername(state){
+            return state.username
         }
     },
     state: {
         isAuthenticated: false,
+        username : ''
 
     }
 }

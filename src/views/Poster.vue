@@ -95,23 +95,27 @@ export default {
     this.id = id;
     this.src = src;
   },
-  computed: mapGetters(["currentPoster", "getAnswer", "getErrorMessage"]),
+  computed: mapGetters(["currentPoster", "getAnswer", "getErrorMessage", "getUsername"]),
 
   methods: {
     async submitHandler() {
-      const poster = {
-        title: this.title,
-        subtitle: this.subtitle,
-        description: this.description,
-        id: this.id,
-      };
-      this.clearPosters();
-      await this.$store.dispatch("updatePoster", poster);
-      if (!this.getErrorMessage) {
-        this.$router.push("/");
+      if (this.currentPoster.owner !== this.getUsername) {
+        this.setErrorAlert("You don't have permissions to update post");
+      } else {
+        const poster = {
+          title: this.title,
+          subtitle: this.subtitle,
+          description: this.description,
+          id: this.id,
+        };
+        this.clearPosters();
+        await this.$store.dispatch("updatePoster", poster);
+        if (!this.getErrorMessage) {
+          this.$router.push("/");
+        }
       }
     },
-    ...mapMutations(["clearAnswer", "clearPosters"]),
+    ...mapMutations(["clearAnswer", "clearPosters", "setErrorAlert"]),
   },
 };
 </script>

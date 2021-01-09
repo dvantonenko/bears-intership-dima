@@ -11,6 +11,7 @@ function setAlert(response, commit) {
 export const Post = {
     actions: {
         async addPoster({ commit }, obj) {
+            obj.task.owner = this.state.Auth.username
             const response = await axios.post("http://localhost:3000/poster/add", obj,
                 { headers: { accessToken: this.state.Auth.isAuthenticated } })
             setAlert(response, commit)
@@ -22,7 +23,6 @@ export const Post = {
         },
         async getCurrentPosters({ commit }, obj) {
             const { currentPage, postersPerPage, lastElemKey } = obj
-
             let response = await axios.get("http://localhost:3000/poster",
                 { params: { currentPage, postersPerPage, lastElemKey } });
 
@@ -35,7 +35,8 @@ export const Post = {
             }
         },
         async updatePoster({ commit }, poster) {
-            const response = await axios.post("http://localhost:3000/poster/update", poster ,  { headers: { accessToken: this.state.Auth.isAuthenticated } });
+            const response = await axios.post("http://localhost:3000/poster/update", poster,
+                { headers: { accessToken: this.state.Auth.isAuthenticated } });
             setAlert(response, commit)
             commit('setAnswer', response.data.message)
 
