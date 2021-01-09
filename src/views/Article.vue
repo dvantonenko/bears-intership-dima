@@ -104,7 +104,7 @@ export default {
       if (this.screenSize > 645) this.sideMenu = false;
     },
     async deletePoster() {
-      if (this.currentPoster.owner !== this.getUsername) {
+      if (this.getUsername && this.currentPoster.owner !== this.getUsername) {
         this.setErrorAlert("You don't have permissions to delete post");
       } else {
         this.clearPosters();
