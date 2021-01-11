@@ -95,7 +95,6 @@ export default {
   computed: mapGetters(["getSuccessMessage", "getErrorMessage"]),
   watch: {
     getSuccessMessage() {},
-    getErrorMessage() {},
   },
 };
 </script>

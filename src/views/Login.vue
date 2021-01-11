@@ -3,7 +3,6 @@
     <div class="head_auth">
       <span class="font_koho_r">Sign In</span>
     </div>
-    <Alert v-if="getSuccessMessage" />
     <form
       @submit.prevent="submitHandler"
       enctype="multipart/form-data"
@@ -45,9 +44,7 @@
 </template>
 <script>
 import { mapMutations, mapGetters } from "vuex";
-import Alert from "../components/Alert";
 export default {
-  components: { Alert },
   methods: {
     async submitHandler() {
       try {
@@ -75,9 +72,8 @@ export default {
       password: "",
     };
   },
-  computed: mapGetters(["getSuccessMessage", "getErrorMessage"]),
+  computed: mapGetters(["getErrorMessage"]),
   watch: {
-    getSuccessMessage() {},
     getErrorMessage() {},
   },
 };
