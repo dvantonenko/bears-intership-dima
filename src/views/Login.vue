@@ -3,7 +3,7 @@
     <div class="head_auth">
       <span class="font_koho_r">Sign In</span>
     </div>
-    <Alert v-if="getSuccessMessage || getErrorMessage" />
+    <Alert v-if="getSuccessMessage" />
     <form
       @submit.prevent="submitHandler"
       enctype="multipart/form-data"
@@ -11,12 +11,16 @@
       method="POST"
     >
       <div class="input_block_auth">
+        <div class="valid_message" v-if="getErrorMessage">
+          {{ getErrorMessage }}
+        </div>
         <input
           type="text"
           placeholder="email"
           class="input_field_auth font_lato_r"
           v-model="email"
         />
+
         <input
           type="Password"
           placeholder="password"
@@ -31,14 +35,15 @@
         <span class="font_lato_r">Don't have an account yet?</span><br />
         <span class="font_lato_r"
           >Sign up now
-          <router-link to="/signup" style="color: #ffb4bb">Register</router-link></span
-        >
+          <span v-on:click="clearMessages">
+            <router-link to="/signup" style="color: #ffb4bb">Register</router-link></span
+          >
+        </span>
       </div>
     </form>
   </div>
 </template>
 <script>
-import { Auth } from "aws-amplify";
 import { mapMutations, mapGetters } from "vuex";
 import Alert from "../components/Alert";
 export default {
@@ -50,15 +55,18 @@ export default {
           email: this.email,
           password: this.password,
         });
-
-        this.setSuccessAlert("You are loged in success");
-        this.$router.push("/");
+        if (response.data.message) {
+          return;
+        } else {
+          this.clearMessages("");
+          this.setSuccessAlert("You are loged in success");
+          this.$router.push("/");
+        }
       } catch (e) {
         console.log(e.message);
       }
     },
-
-    ...mapMutations(["setAuth", "setErrorAlert", "setSuccessAlert"]),
+    ...mapMutations(["setAuth", "setErrorAlert", "setSuccessAlert", "clearMessages"]),
   },
   computed: mapGetters(["getAuth"]),
   data() {

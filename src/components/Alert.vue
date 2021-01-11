@@ -29,7 +29,7 @@ export default {
       } else return;
       setTimeout(() => {
         this.$store.dispatch("clearMessages");
-      }, 1000);
+      });
     },
   },
   mounted() {

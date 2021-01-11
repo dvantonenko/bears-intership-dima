@@ -66,8 +66,11 @@ export default {
         this.setUsername("");
         this.$router.push("/SignIn");
       }
+      if (e.target.name == "Sign In" || "Sign Up") {
+        this.clearMessages("");
+      }
     },
-    ...mapMutations(["setAuth", "setUsername"]),
+    ...mapMutations(["setAuth", "setUsername", "clearMessages"]),
   },
 
   mounted() {

@@ -5,6 +5,7 @@ export const Auth = {
         async registerHandler({ commit }, obj) {
             const response = await axios.post("http://localhost:3000/auth/register", obj)
             const errorMessage = response.data.message
+            console.log(response)
             if (errorMessage) {
                 commit("setErrorAlert", errorMessage)
             }
