@@ -26,10 +26,7 @@ export default {
             timer: 2000,
           });
         }
-      } else
-        setTimeout(() => {
-          this.$store.dispatch("clearMessages");
-        });
+      }
     },
   },
   mounted() {
