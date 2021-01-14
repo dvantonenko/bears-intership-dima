@@ -3,16 +3,16 @@ import axios from 'axios'
 export const Auth = {
     actions: {
         async registerHandler({ commit }, obj) {
-            const response = await axios.post("http://localhost:3000/auth/register", obj)
+            const response = await axios.post("https://vh1mrjibjd.execute-api.us-east-2.amazonaws.com/dev/auth/register", obj)
             const errorMessage = response.data.message
-            console.log(response)
+
             if (errorMessage) {
                 commit("setErrorAlert", errorMessage)
             }
             return response
         },
         async loginHandler({ commit }, obj) {
-            const response = await axios.post("http://localhost:3000/auth/login", obj)
+            const response = await axios.post("https://vh1mrjibjd.execute-api.us-east-2.amazonaws.com/dev/auth/login", obj)
             const errorMessage = response.data.message
             if (errorMessage) {
                 commit("setErrorAlert", errorMessage)
