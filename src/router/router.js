@@ -35,6 +35,16 @@ let router = new Router({
             path: `/update/:id`,
             name: 'poster',
             component: () => import('@/views/Poster')
+        },
+        {
+            path: `/signin`,
+            name: 'login',
+            component: () => import('@/views/Login')
+        },
+        {
+            path: `/signup`,
+            name: 'register',
+            component: () => import('@/views/Register')
         }
 
 

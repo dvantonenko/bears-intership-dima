@@ -73,7 +73,7 @@ export default {
   data() {
     return {
       postUpdate: null,
-      postersPerPage: 4,
+      postersPerPage: 2,
       currentPage: 0,
     };
   },
@@ -116,7 +116,9 @@ export default {
     this.moreItems();
   },
   computed: mapGetters(["currentPosters", "getLength", "getLoading", "getLastElemKey"]),
-  watch: {},
+  watch: {
+    currentPosters() {},
+  },
 };
 </script>
 

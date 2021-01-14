@@ -14,6 +14,7 @@ export default {
           icon: "error",
           title: "Oops...",
           text: `${this.getErrorMessage}`,
+          timer: 2000,
         });
       } else if (this.getSuccessMessage) {
         {
@@ -22,13 +23,10 @@ export default {
             icon: "success",
             title: `${this.getSuccessMessage}`,
             showConfirmButton: false,
-            timer: 1500,
+            timer: 2000,
           });
         }
-      } else return;
-      setTimeout(() => {
-        this.$store.dispatch("clearMessages");
-      }, 1000);
+      }
     },
   },
   mounted() {

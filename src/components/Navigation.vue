@@ -3,19 +3,20 @@
     <div class="title">
       <span class="title_text font_ny">Nordic rose</span>
     </div>
-
     <div class="links">
       <div v-if="screenSize > 645 && screenSize < 1980" class="links_block">
         <a
           class="link font_ny"
           v-for="link of links"
-          :href="link === `Blog` ? `#/` : `#/${link}/`"
+          :name="link"
+          :href="link === `Blog` ? `#/` : `#/${link.replace(/\s+/g, '')}/`"
           v-bind:class="{
             active:
               link && $route.name && $route.name.toLowerCase() === link.toLowerCase(),
           }"
           v-bind:key="link"
-          >{{ link == "Addnewpost" ? "Add new post" : link }}</a
+          v-on:click="clickHandler"
+          >{{ link }}</a
         >
       </div>
 
@@ -44,10 +45,11 @@
 </template>
 
 <script>
+import { mapMutations, mapGetters } from "vuex";
 export default {
   data() {
     return {
-      links: ["Blog", "Addnewpost", "Widgets"],
+      links: ["Sign In", "Sign Up"],
       screenSize: null,
       sideMenu: false,
     };
@@ -57,10 +59,33 @@ export default {
       this.screenSize = document.documentElement.clientWidth;
       if (this.screenSize > 645) this.sideMenu = false;
     },
+    clickHandler(e) {
+      if (e.target.name == "Logout") {
+        e.preventDefault();
+        this.setAuth(false);
+        this.setUsername("");
+        this.$router.push("/SignIn");
+      }
+      if (e.target.name == "Sign In" || "Sign Up") {
+        this.clearMessages("");
+      }
+    },
+    ...mapMutations(["setAuth", "setUsername", "clearMessages"]),
   },
+
   mounted() {
     window.addEventListener("resize", this.onResize);
     this.onResize();
+  },
+  computed: mapGetters(["getAuth"]),
+  watch: {
+    getAuth() {
+      if (!!this.getAuth) {
+        this.links = ["Blog", "Add new post", "Widgets", "Logout"];
+      } else {
+        this.links = ["SignIn", "SignUp"];
+      }
+    },
   },
 };
 </script>
@@ -91,11 +116,11 @@ export default {
 .links {
   display: flex;
   float: left;
-  width: 50%;
+  width: 100%;
 }
 
 .links_block {
-  margin-left: 30%;
+  margin-right: 30px;
   margin-top: 50px;
   width: 100%;
   text-align: right;
@@ -103,7 +128,7 @@ export default {
 
 .link {
   padding-bottom: 62px;
-  margin-right: 10%;
+  margin-right: 5%;
   text-transform: uppercase;
   color: black;
   text-decoration: none;
@@ -138,9 +163,9 @@ export default {
     margin-left: 0%;
   }
 }
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 830px) {
   .link {
-    margin-right: 5px;
+    margin-right: 0;
   }
 }
 @media screen and (max-width: 660px) {

@@ -1,6 +1,5 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
 import axios from 'axios'
+import { _ } from 'core-js'
 
 function setAlert(response, commit) {
     if (response.data.message) {
@@ -13,26 +12,32 @@ function setAlert(response, commit) {
 export const Post = {
     actions: {
         async addPoster({ commit }, obj) {
-            const response = await axios.post("http://localhost:3000/poster/add", obj)
+            obj.task.owner = this.state.Auth.username
+            const response = await axios.post("http://localhost:3000/poster/add", obj,
+                { headers: { accessToken: this.state.Auth.isAuthenticated } })
             setAlert(response, commit)
         },
         async deletePoster({ commit }, obj) {
-            const response = await axios.post("http://localhost:3000/poster/delete", obj)
+            const response = await axios.post("http://localhost:3000/poster/delete", obj,
+                { headers: { accessToken: this.state.Auth.isAuthenticated } })
             setAlert(response, commit)
         },
         async getCurrentPosters({ commit }, obj) {
             const { currentPage, postersPerPage, lastElemKey } = obj
-            let response = await axios.get("http://localhost:3000/poster", { params: { currentPage, postersPerPage, lastElemKey } });
-            console.log(response.data.posters)
-            if (response.data.posters.queryResult.length ) {
+            let response = await axios.get("http://localhost:3000/poster",
+                { params: { currentPage, postersPerPage, lastElemKey } });
+
+            if (response.data.posters.queryResult.length) {
                 commit('currentPosters', response.data.posters)
                 commit('setLastKey', response.data.posters.lastElemKey)
-            } else if (!response.data.posters.lastElemKey) {
+
+            } else {
                 commit('setLastKey', response.data.posters.lastElemKey)
             }
         },
         async updatePoster({ commit }, poster) {
-            const response = await axios.post("http://localhost:3000/poster/update", poster);
+            const response = await axios.post("http://localhost:3000/poster/update", poster,
+                { headers: { accessToken: this.state.Auth.isAuthenticated } });
             setAlert(response, commit)
             commit('setAnswer', response.data.message)
 
@@ -51,15 +56,9 @@ export const Post = {
     },
     mutations: {
         currentPosters(state, obj) {
-            if (obj.queryResult) {                
+            if (obj.queryResult) {
                 state.posters = state.posters.concat(obj.queryResult)
-                function sortByDate(arr) {
-                    arr.sort((a, b) => a.id > b.id ? 1 : -1);
-                    return arr
-                  }
-                  state.posters= sortByDate(state.posters)
             } else { return }
-
         },
         setCurrentPoster(state, currentPoster) {
             state.currentPoster = currentPoster
@@ -86,10 +85,11 @@ export const Post = {
         setLastKey(state, lastElemKey) {
             if (lastElemKey.id) {
                 state.lastElemKey = lastElemKey.id
-            } else {
-                state.lastElemKey = lastElemKey
-            }
-
+            } else if (lastElemKey == 0) { state.lastElemKey = 0 }
+        },
+        clearPosters(state) {
+            state.posters = []
+            state.lastElemKey = null
         }
     },
     state: {
