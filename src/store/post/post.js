@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { _ } from 'core-js'
 
 function setAlert(response, commit) {
     if (response.data.message) {
@@ -13,20 +12,20 @@ export const Post = {
     actions: {
         async addPoster({ commit }, obj) {
             obj.task.owner = this.state.Auth.username
-            const response = await axios.post("http://localhost:3000/poster/add", obj,
+            const response = await axios.post("https://vh1mrjibjd.execute-api.us-east-2.amazonaws.com/dev/poster/add", obj,
                 { headers: { accessToken: this.state.Auth.isAuthenticated } })
             setAlert(response, commit)
         },
         async deletePoster({ commit }, obj) {
-            const response = await axios.post("http://localhost:3000/poster/delete", obj,
+            const response = await axios.post("https://vh1mrjibjd.execute-api.us-east-2.amazonaws.com/dev/poster/delete", obj,
                 { headers: { accessToken: this.state.Auth.isAuthenticated } })
+                console.log(response)
             setAlert(response, commit)
         },
         async getCurrentPosters({ commit }, obj) {
             const { currentPage, postersPerPage, lastElemKey } = obj
-            let response = await axios.get("http://localhost:3000/poster",
+            let response = await axios.get("https://vh1mrjibjd.execute-api.us-east-2.amazonaws.com/dev/poster",
                 { params: { currentPage, postersPerPage, lastElemKey } });
-
             if (response.data.posters.queryResult.length) {
                 commit('currentPosters', response.data.posters)
                 commit('setLastKey', response.data.posters.lastElemKey)
@@ -36,14 +35,14 @@ export const Post = {
             }
         },
         async updatePoster({ commit }, poster) {
-            const response = await axios.post("http://localhost:3000/poster/update", poster,
+            const response = await axios.post("https://vh1mrjibjd.execute-api.us-east-2.amazonaws.com/dev/poster/update", poster,
                 { headers: { accessToken: this.state.Auth.isAuthenticated } });
             setAlert(response, commit)
             commit('setAnswer', response.data.message)
 
         },
         async getPosterById({ commit }, id) {
-            const response = await axios.get(`http://localhost:3000/poster/update/${id}`);
+            const response = await axios.get(`https://vh1mrjibjd.execute-api.us-east-2.amazonaws.com/dev/poster/update/${id}`);
 
             commit('setCurrentPoster', response.data.Item)
         },
