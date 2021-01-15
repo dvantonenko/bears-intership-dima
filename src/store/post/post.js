@@ -19,6 +19,7 @@ export const Post = {
         async deletePoster({ commit }, obj) {
             const response = await axios.post("https://vh1mrjibjd.execute-api.us-east-2.amazonaws.com/dev/poster/delete", obj,
                 { headers: { accessToken: this.state.Auth.isAuthenticated } })
+                console.log(response)
             setAlert(response, commit)
         },
         async getCurrentPosters({ commit }, obj) {
