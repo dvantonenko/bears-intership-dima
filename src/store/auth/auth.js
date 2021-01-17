@@ -19,8 +19,7 @@ export const Auth = {
             }
             const token = response.data.accessToken
             const username = response.data.username
-            if (token.length) {
-                
+            if (token.length && username.length) {
                 localStorage.setItem("awsAccessToken", JSON.stringify(token))
                 localStorage.setItem("awsUsername", JSON.stringify(username))
                 commit('setAuth', token)

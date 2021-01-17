@@ -3,7 +3,8 @@ import axios from "axios";
 
 let headers = {}
 headers['Content-Type'] = 'application/json'
-headers['Accept']='application/json'
+headers['Accept'] = 'application/json'
+headers['Authorization'] = false
 
 let axiosParams = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL,
@@ -23,7 +24,6 @@ axiosParams.interceptors.request.use(
 
         } catch (e) {
             console.log(`unauthenticated request to ${config.url}`)
-            alert("No authorization")
         }
 
         return config
