@@ -20,13 +20,17 @@ export const Auth = {
             const token = response.data.accessToken
             const username = response.data.username
             if (token.length) {
+                
+                localStorage.setItem("awsAccessToken", JSON.stringify(token))
+                localStorage.setItem("awsUsername", JSON.stringify(username))
                 commit('setAuth', token)
                 commit('setUsername',username)
             }
             return response
         },
         async logoutHandler({commit} ){
-            const response = await axios.post("http://localhost:3000/auth/logout")
+            localStorage.removeItem("awsUsername")
+            localStorage.removeItem("awsAccessToken")
         }
     },
     mutations: {

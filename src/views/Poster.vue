@@ -99,7 +99,7 @@ export default {
 
   methods: {
     async submitHandler() {
-      if (this.getUsername && this.currentPoster.owner !== this.getUsername) {
+      if (this.currentPoster.owner !== this.getUsername) {
         this.setErrorAlert("You don't have permissions to update post");
       } else {
         const poster = {

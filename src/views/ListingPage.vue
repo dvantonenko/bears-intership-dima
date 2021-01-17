@@ -61,6 +61,7 @@ import Loader from "@/components/Loader";
 import axios from "axios";
 import Alert from "@/components/Alert";
 import { mapGetters } from "vuex";
+import { httpAxios } from "../axios";
 export default {
   components: {
     Navigation,

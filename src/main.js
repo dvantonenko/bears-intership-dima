@@ -6,8 +6,12 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import store from './store/store/store'
 import ImageUploader from 'vue-image-upload-resize'
+import modifiedAxios from './axios'
+import VueAxios from 'vue-axios'
+
 
 Vue.use(ImageUploader);
+Vue.use(VueAxios, modifiedAxios)
 
 const options = {
   confirmButtonColor: '#41b882',
