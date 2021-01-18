@@ -21,7 +21,6 @@ export const Post = {
         },
         async getCurrentPosters({ commit }, obj) {
             const { currentPage, postersPerPage, lastElemKey } = obj
-            const data = await axios.get("http://localhost:3000/poster")
             let response = await Vue.axios.get("/poster",
                 { params: { currentPage, postersPerPage, lastElemKey } });
 

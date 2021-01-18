@@ -12,7 +12,7 @@ export const Auth = {
             return response
         },
         async loginHandler({ commit }, obj) {
-            const response = await axios.post("http://localhost:3000/auth/login", obj)
+            const response = await axios.post("https://vh1mrjibjd.execute-api.us-east-2.amazonaws.com/dev/auth/login", obj)
             const errorMessage = response.data.message
             if (errorMessage) {
                 commit("setErrorAlert", errorMessage)
@@ -30,6 +30,7 @@ export const Auth = {
             return response
         },
         async logoutHandler({ commit }) {
+            await axios.post("https://vh1mrjibjd.execute-api.us-east-2.amazonaws.com/dev/auth/logout", { email: JSON.parse(localStorage.getItem('awsEmail')) })
             localStorage.removeItem("awsUsername")
             localStorage.removeItem("awsAccessToken")
             localStorage.removeItem("awsRefreshToken")

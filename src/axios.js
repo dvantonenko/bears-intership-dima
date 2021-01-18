@@ -15,11 +15,11 @@ let axiosParams = axios.create({
 
 async function checkTime(exp) {
     let dateInMin = Math.trunc(Date.now() / 1000)
-    if ((exp - dateInMin) <= 3580) {
+    if ((exp - dateInMin) <= 900) {
         console.log("time over")
         const refreshToken = JSON.parse(localStorage.getItem("awsRefreshToken"))
         const email = JSON.parse(localStorage.getItem('awsEmail'))
-        const result = await axios.post("http://localhost:3000/auth/refreshtoken", { refreshToken, email })
+        const result = await axios.post("https://vh1mrjibjd.execute-api.us-east-2.amazonaws.com/dev/auth/refreshtoken", { refreshToken, email })
         localStorage.setItem('awsAccessToken', JSON.stringify(result.data.accessToken))
         localStorage.setItem('awsRefreshToken', JSON.stringify(result.data.refreshToken))
     } else {
@@ -35,7 +35,6 @@ axiosParams.interceptors.request.use(
                 expirationDate = VueJwtDecode.decode(`${token}`).exp
                 await checkTime(expirationDate)
                 config.headers['Authorization'] = `Bearer ${token}`
-
             } else {
                 throw new Error(`unauthenticated request to ${config.url}`)
             }
