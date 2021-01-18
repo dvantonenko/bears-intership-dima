@@ -73,7 +73,6 @@
 <script>
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { http } from "../http";
 import { mapGetters, mapMutations } from "vuex";
 import Alert from "../components/Alert.vue";
 import imageCompressor from "vue-image-compressor";

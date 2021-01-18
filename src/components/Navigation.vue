@@ -64,6 +64,7 @@ export default {
         e.preventDefault();
         this.setAuth(false);
         this.setUsername("");
+        this.$store.dispatch("logoutHandler");
         this.$router.push("/SignIn");
       }
       if (e.target.name == "Sign In" || "Sign Up") {
@@ -74,6 +75,16 @@ export default {
   },
 
   mounted() {
+    const token = JSON.parse(localStorage.getItem("awsAccessToken"));
+    const username = JSON.parse(localStorage.getItem("awsUsername"));
+    if (token && username) {
+      this.setAuth(token);
+      this.setUsername(username);
+      this.links = ["Blog", "Add new post", "Widgets", "Logout"];
+    } else {
+      this.links = ["Sign In", "Sign Up"];
+    }
+
     window.addEventListener("resize", this.onResize);
     this.onResize();
   },
@@ -83,7 +94,7 @@ export default {
       if (!!this.getAuth) {
         this.links = ["Blog", "Add new post", "Widgets", "Logout"];
       } else {
-        this.links = ["SignIn", "SignUp"];
+        this.links = ["Sign In", "Sign Up"];
       }
     },
   },
