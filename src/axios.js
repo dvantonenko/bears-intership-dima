@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import VueJwtDecode from 'vue-jwt-decode'
 import axios from "axios";
 
 let headers = {}
@@ -6,26 +6,42 @@ headers['Content-Type'] = 'application/json'
 headers['Accept'] = 'application/json'
 headers['Authorization'] = false
 
+let expirationDate = null
+
 let axiosParams = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL,
     headers: headers
 })
 
+async function checkTime(exp) {
+    let dateInMin = Math.trunc(Date.now() / 1000)
+    if ((exp - dateInMin) <= 3580) {
+        console.log("time over")
+        const refreshToken = JSON.parse(localStorage.getItem("awsRefreshToken"))
+        const email = JSON.parse(localStorage.getItem('awsEmail'))
+        const result = await axios.post("http://localhost:3000/auth/refreshtoken", { refreshToken, email })
+        localStorage.setItem('awsAccessToken', JSON.stringify(result.data.accessToken))
+        localStorage.setItem('awsRefreshToken', JSON.stringify(result.data.refreshToken))
+    } else {
+        console.log('time left ', (exp - Math.trunc(Date.now() / 1000)))
+    }
+}
+
 axiosParams.interceptors.request.use(
     async config => {
         try {
             let token = JSON.parse(localStorage.getItem("awsAccessToken"))
-
             if (token) {
+                expirationDate = VueJwtDecode.decode(`${token}`).exp
+                await checkTime(expirationDate)
                 config.headers['Authorization'] = `Bearer ${token}`
+
             } else {
                 throw new Error(`unauthenticated request to ${config.url}`)
             }
-
         } catch (e) {
-            console.log(`unauthenticated request to ${config.url}`)
+            console.log(e)
         }
-
         return config
     },
     error => {

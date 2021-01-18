@@ -16,13 +16,12 @@ export const Post = {
             setAlert(response, commit)
         },
         async deletePoster({ commit }, obj) {
-            const response = await Vue.axios.post("/poster/delete", obj,
-                { headers: { accessToken: this.state.Auth.isAuthenticated } })
+            const response = await Vue.axios.post("/poster/delete", obj)
             setAlert(response, commit)
         },
         async getCurrentPosters({ commit }, obj) {
             const { currentPage, postersPerPage, lastElemKey } = obj
-            
+            const data = await axios.get("http://localhost:3000/poster")
             let response = await Vue.axios.get("/poster",
                 { params: { currentPage, postersPerPage, lastElemKey } });
 
@@ -35,8 +34,7 @@ export const Post = {
             }
         },
         async updatePoster({ commit }, poster) {
-            const response = await Vue.axios.post("/poster/update", poster,
-                { headers: { accessToken: this.state.Auth.isAuthenticated } });
+            const response = await Vue.axios.post("/poster/update", poster);
             setAlert(response, commit)
             commit('setAnswer', response.data.message)
 

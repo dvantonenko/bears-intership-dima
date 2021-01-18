@@ -22,6 +22,7 @@
     "vue-axios": "^3.2.2",
     "vue-image-compressor": "^1.0.3",
     "vue-image-upload-resize": "^2.3.0",
+    "vue-jwt-decode": "^0.1.0",
     "vue-router": "^3.4.9",
     "vue-sweetalert2": "^4.1.1",
     "vuex": "^3.6.0"
