@@ -1,9 +1,9 @@
 import axios from 'axios'
-
+import {actionLS} from '../../utils/checkToken'
 export const Auth = {
     actions: {
         async registerHandler({ commit }, obj) {
-            const response = await axios.post("https://vh1mrjibjd.execute-api.us-east-2.amazonaws.com/dev/auth/register", obj)
+            const response = await axios.post(`${process.env.VUE_APP_BASE_URL}/auth/register`, obj)
             const errorMessage = response.data.message
 
             if (errorMessage) {
@@ -12,30 +12,24 @@ export const Auth = {
             return response
         },
         async loginHandler({ commit }, obj) {
-            const response = await axios.post("https://vh1mrjibjd.execute-api.us-east-2.amazonaws.com/dev/auth/login", obj)
+            const response = await axios.post(`${process.env.VUE_APP_BASE_URL}/auth/login`, obj)
             const errorMessage = response.data.message
             if (errorMessage) {
                 commit("setErrorAlert", errorMessage)
             }
             const { email, accessToken, username, refreshToken } = response.data
-            if (accessToken.length && username.length && refreshToken.length) {
-                localStorage.setItem("awsAccessToken", JSON.stringify(accessToken))
-                localStorage.setItem("awsUsername", JSON.stringify(username))
-                localStorage.setItem("awsRefreshToken", JSON.stringify(refreshToken))
-                localStorage.setItem("awsEmail", JSON.stringify(email))
+            if (accessToken.length && username.length && refreshToken.length && email.length) {
 
+                actionLS("save",accessToken ,refreshToken, username, email)
+                
                 commit('setAuth', accessToken)
                 commit('setUsername', username)
             }
             return response
         },
         async logoutHandler({ commit }) {
-            await axios.post("https://vh1mrjibjd.execute-api.us-east-2.amazonaws.com/dev/auth/logout", { email: JSON.parse(localStorage.getItem('awsEmail')) })
-            localStorage.removeItem("awsUsername")
-            localStorage.removeItem("awsAccessToken")
-            localStorage.removeItem("awsRefreshToken")
-            localStorage.removeItem("awsEmail")
-
+            await axios.post(`${process.env.VUE_APP_BASE_URL}/auth/logout`, { email: JSON.parse(localStorage.getItem('awsEmail')) })
+            actionLS("remove")
         }
     },
     mutations: {
