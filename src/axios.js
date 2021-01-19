@@ -1,7 +1,6 @@
 import VueJwtDecode from 'vue-jwt-decode'
 import axios from "axios";
-import {checkTimeRemaining} from './utils/checkToken'
-
+import { checkTimeRemaining } from './utils/checkToken'
 
 let headers = {}
 headers['Content-Type'] = 'application/json'

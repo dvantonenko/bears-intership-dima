@@ -1,4 +1,3 @@
-import axios from 'axios'
 import Vue from 'vue'
 function setAlert(response, commit) {
     if (response.data.message) {

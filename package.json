@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test": "vue-cli-service test:unit"
+    "test": "jest",
+    "test:unit": "vue-cli-service test:unit --watch"
   },
   "dependencies": {
     "@aws-amplify/ui-vue": "^0.2.32",
