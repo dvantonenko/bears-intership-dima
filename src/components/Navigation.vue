@@ -47,6 +47,7 @@
 <script>
 import { mapMutations, mapGetters } from "vuex";
 export default {
+  name: "Navigation",
   data() {
     return {
       links: ["Sign In", "Sign Up"],

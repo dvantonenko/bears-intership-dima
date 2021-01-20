@@ -5,6 +5,14 @@
     <div></div>
   </div>
 </template>
+<script>
+export default {
+  name: "Loader",
+  props: {
+    msg: String,
+  },
+};
+</script>
 <style scoped>
 .lds-facebook {
   margin-top: 100px;
