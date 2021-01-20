@@ -110,7 +110,6 @@ export default {
         this.clearPosters();
         await this.$store.dispatch("deletePoster", {
           id: this.id,
-          currentPoster: this.currentPoster,
         });
 
         setTimeout(() => {
