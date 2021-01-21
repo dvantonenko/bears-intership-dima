@@ -28,13 +28,15 @@ class Lodash {
     }
     async updatePoster(poster) {
         try {
-            const response = await axios.post("/poster/update", poster);
+            const response = await axios.post(`${process.env.VUE_APP_BASE_URL}/poster/update`, poster);
             return response
         } catch (e) {
             return e
         }
-
-
+    }
+    async getPosterById(id) {
+        const response = await axios.get(`${process.env.VUE_APP_BASE_URL}/poster/update/${id}`);
+        return response
     }
 }
 

@@ -60,9 +60,9 @@ describe("CheckTests add poster", () => {
 
 describe("CheckTests delete poster", () => {
     beforeEach(() => {
-     id = { id : 1610876112375}
-     response = { message: "Post successfully deleted" }
-     axios.post.mockReturnValue(response)
+        id = { id: 1610876112375 }
+        response = { message: "Post successfully deleted" }
+        axios.post.mockReturnValue(response)
     })
 
     test("should return response message from backend", () => {
@@ -80,24 +80,24 @@ describe("CheckTests delete poster", () => {
 
 })
 
-describe("CheckTests update poster",()=>{
-    beforeEach(()=>{
-         poster = {
+describe("CheckTests update poster", () => {
+    beforeEach(() => {
+        poster = {
             title: "test title",
             subtitle: "test subtitle",
-            description:"test discription",
-            id : 1610876112375,
-          };
-          response = { message: "Post updated" }
-          axios.post.mockReturnValue(response)
+            description: "test discription",
+            id: 1610876112375,
+        };
+        response = { message: "Post updated" }
+        axios.post.mockReturnValue(response)
     })
 
-    test("should return message", () =>{
-        return _.updatePoster(poster).then(data=>{
+    test("should return message", async () => {
+        return _.updatePoster(poster).then(data => {
             expect(data).toEqual(response)
             expect(data).toBeInstanceOf(Object)
         })
-        
+
     })
 
     test("should return value async error with promise", async () => {
@@ -107,5 +107,40 @@ describe("CheckTests update poster",()=>{
     })
 })
 
+describe("CheckTest getById", () => {
+    beforeEach(() => {
+        id = 1610202280306
+        response = {
+            data: {
+                Item: {
+                    title: "title", subtitle: "subtitle", discription: "discription"
+                }
+            }
+        }
+        axios.get.mockReturnValue(response)
+    })
+    test("should return value", async () => {
+        return _.getPosterById(id).then(data => {
+            expect(data).toEqual(response)
+        })
+    })
+    test("should return error", async () => {
+        return _.getPosterById().catch(err => {
+            expect(err).toBeInstanceOf(Error)
+        })
+    })
+    test("should return error", async () => {
+        return _.getPosterById(null).then(data => {
+            expect(data).toBeInstanceOf(Object)
+        })
+    })
 
-
+    test("should return value async", async () => {
+        const data = await _.getPosterById()
+        expect(data).not.toBe(null)
+        expect(data).not.toContain(false)
+        expect(data).not.toContain(null)
+        expect(data).not.toContain("")
+        expect(data).not.toContain(0)
+    })
+})
