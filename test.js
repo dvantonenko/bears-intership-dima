@@ -1,4 +1,5 @@
 const CheckTests = require('./CheckTests')
+// import CheckTests from "./CheckTests"
 const axios = require('axios')
 
 jest.mock('axios')
@@ -30,9 +31,9 @@ describe("CheckTests add poster", () => {
         axios.post.mockReturnValue(response)
     })
 
-    test("should return response message from backend", () => {
+    test("should return response message from backend",() => {
 
-        return _.addPoster().then(data => {
+        return  _.addPoster().then(data => {
             expect(data).toEqual(response)
 
         })

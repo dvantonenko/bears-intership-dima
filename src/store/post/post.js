@@ -1,4 +1,5 @@
 import Vue from 'vue'
+
 function setAlert(response, commit) {
     if (response.data.message) {
         commit('setSuccessAlert', response.data.message)
@@ -10,9 +11,8 @@ function setAlert(response, commit) {
 export const Post = {
     actions: {
         async addPoster({ commit }, obj) {
-            obj.task.owner = this.state.Auth.username
             const response = await Vue.axios.post("/poster/add", obj)
-            
+            obj.task.owner = this.state.Auth.username
             setAlert(response, commit)
         },
         async deletePoster({ commit }, id) {

@@ -1,5 +1,6 @@
 const axios = require('axios')
-class Lodash {
+
+class CheckFunctions {
     countPage(getLength, postersPerPage, pageNumbers) {
         pageNumbers = []
         for (let i = 1; i <= Math.ceil(getLength / postersPerPage); i++) {
@@ -11,7 +12,7 @@ class Lodash {
     async addPoster(obj) {
         try {
             const response = await axios.post(`${process.env.VUE_APP_BASE_URL}/poster/add`, obj)
-            return { message: "Post added successfully" }
+            return response
         } catch (e) {
             return e
         }
@@ -35,9 +36,14 @@ class Lodash {
         }
     }
     async getPosterById(id) {
-        const response = await axios.get(`${process.env.VUE_APP_BASE_URL}/poster/update/${id}`);
-        return response
+        try {
+            const response = await axios.get(`${process.env.VUE_APP_BASE_URL}/poster/update/${id}`);
+            return response
+        } catch (e) {
+            return e
+        }
+
     }
 }
 
-module.exports = Lodash
+module.exports = CheckFunctions
