@@ -1,10 +1,10 @@
-const Lodash = require('./Lodash')
+const CheckTests = require('./CheckTests')
 const axios = require('axios')
 
 jest.mock('axios')
-const _ = new Lodash()
+const _ = new CheckTests()
 
-describe("Lodash count page", () => {
+describe("CheckTests count page", () => {
     test('function should be defined', () => {
         expect(_.countPage).toBeDefined()
         expect(_.countPage).not.toBeUndefined()
@@ -23,7 +23,7 @@ describe("Lodash count page", () => {
 
 })
 
-describe("Lodash add poster", () => {
+describe("CheckTests add poster", () => {
 
     beforeEach(() => {
         response = { message: "Post added successfully" }
@@ -58,7 +58,7 @@ describe("Lodash add poster", () => {
 
 })
 
-describe("Lodash delete poster", () => {
+describe("CheckTests delete poster", () => {
     beforeEach(() => {
      id = { id : 1610876112375}
      response = { message: "Post successfully deleted" }
@@ -74,6 +74,34 @@ describe("Lodash delete poster", () => {
 
     test("should return value async error with promise", async () => {
         return _.deletePoster(id).catch(err => {
+            expect(err).toBeInstanceOf(Error)
+        })
+    })
+
+})
+
+describe("CheckTests update poster",()=>{
+    beforeEach(()=>{
+         poster = {
+            title: "test title",
+            subtitle: "test subtitle",
+            description:"test discription",
+            id : 1610876112375,
+          };
+          response = { message: "Post updated" }
+          axios.post.mockReturnValue(response)
+    })
+
+    test("should return message", () =>{
+        return _.updatePoster(poster).then(data=>{
+            expect(data).toEqual(response)
+            expect(data).toBeInstanceOf(Object)
+        })
+        
+    })
+
+    test("should return value async error with promise", async () => {
+        return _.updatePoster().catch(err => {
             expect(err).toBeInstanceOf(Error)
         })
     })

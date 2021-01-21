@@ -13,13 +13,28 @@ class Lodash {
             const response = await axios.post(`${process.env.VUE_APP_BASE_URL}/poster/add`, obj)
             return { message: "Post added successfully" }
         } catch (e) {
-            console.log(e)
+            return e
         }
     }
-    
+
     async deletePoster(id) {
-        const response = await axios.post(`${process.env.VUE_APP_BASE_URL}/poster/delete`, id)
-        return response
+        try {
+            const response = await axios.post(`${process.env.VUE_APP_BASE_URL}/poster/delete`, id)
+            return response
+        } catch (e) {
+            return e
+        }
+
+    }
+    async updatePoster(poster) {
+        try {
+            const response = await axios.post("/poster/update", poster);
+            return response
+        } catch (e) {
+            return e
+        }
+
+
     }
 }
 
