@@ -38,8 +38,10 @@ class CheckFunctions {
     async getPosterById(id) {
         try {
             const response = await axios.get(`${process.env.VUE_APP_BASE_URL}/poster/update/${id}`);
+            console.log('response',response)
             return response
         } catch (e) {
+            console.log('error',e)
             return e
         }
 

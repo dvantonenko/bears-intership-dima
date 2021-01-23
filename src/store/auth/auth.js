@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {actionLS} from '../../utils/checkToken'
+import { actionLS } from '../../utils/checkToken'
 export const Auth = {
     actions: {
         async registerHandler({ commit }, obj) {
@@ -20,16 +20,19 @@ export const Auth = {
             const { email, accessToken, username, refreshToken } = response.data
             if (accessToken.length && username.length && refreshToken.length && email.length) {
 
-                actionLS("save",accessToken ,refreshToken, username, email)
-                
+                actionLS("save", accessToken, refreshToken, username, email)
+
                 commit('setAuth', accessToken)
                 commit('setUsername', username)
             }
             return response
         },
         async logoutHandler({ commit }) {
-            await axios.post(`${process.env.VUE_APP_BASE_URL}/auth/logout`, { email: JSON.parse(localStorage.getItem('awsEmail')) })
-            actionLS("remove")
+            let username = { email: JSON.parse(localStorage.getItem('awsEmail')) }
+            if (username) {
+                await axios.post(`${process.env.VUE_APP_BASE_URL}/auth/logout`, username)
+                actionLS("remove")
+            }
         }
     },
     mutations: {

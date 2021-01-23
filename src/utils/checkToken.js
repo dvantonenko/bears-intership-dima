@@ -16,7 +16,9 @@ async function checkTimeRemaining(exp) {
 function getToken() {
     const refreshToken = JSON.parse(localStorage.getItem("awsRefreshToken"))
     const email = JSON.parse(localStorage.getItem('awsEmail'))
-    return { refreshToken, email }
+    if (refreshToken && email) {
+        return { refreshToken, email }
+    }
 }
 
 async function refreshTokenRequest(refreshToken, email) {
@@ -47,4 +49,4 @@ function actionLS(str, accessToken, refreshToken, username, email) {
 
 }
 
-export { checkTimeRemaining , actionLS }
+export { checkTimeRemaining, actionLS }

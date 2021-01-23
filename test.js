@@ -1,5 +1,4 @@
 const CheckTests = require('./CheckTests')
-// import CheckTests from "./CheckTests"
 const axios = require('axios')
 
 jest.mock('axios')
@@ -12,9 +11,9 @@ describe("CheckTests count page", () => {
     })
 
     test("Check if correct type", () => {
-        expect(_.countPage(11, 3)).not.toContain(false)
-        expect(_.countPage(11, 3)).not.toContain(null)
-
+        expect(_.countPage(11, 3)).not.toBe(false)
+        expect(_.countPage(11, 3)).not.toBe(null)
+        expect(_.countPage(11, 3)).not.toBe("")
     })
 
     test("Check if corrent answer", () => {
@@ -48,6 +47,7 @@ describe("CheckTests add poster", () => {
     test("should return object value", async () => {
         return _.addPoster().then(data => {
             expect(data).not.toBeInstanceOf(Array)
+            expect(data).not.toBeInstanceOf(String)
         })
     })
 
@@ -72,9 +72,20 @@ describe("CheckTests delete poster", () => {
             expect(data).toEqual(response)
         })
     })
-
+    test("should return object value ", () => {
+        return _.deletePoster(id).then(data => {
+            expect(data).toBeInstanceOf(Object)
+            expect(data).not.toBeInstanceOf(String)
+            expect(data).not.toBeInstanceOf(Array)
+        })
+    })
     test("should return value async error with promise", async () => {
-        return _.deletePoster(id).catch(err => {
+        return _.deletePoster().catch(err => {
+            expect(err).toBeInstanceOf(Error)
+        })
+    })
+    test("should return value async error with null", async () => {
+        return _.deletePoster(null).catch(err => {
             expect(err).toBeInstanceOf(Error)
         })
     })
@@ -93,7 +104,7 @@ describe("CheckTests update poster", () => {
         axios.post.mockReturnValue(response)
     })
 
-    test("should return message", async () => {
+    test("should return response message from backend", async () => {
         return _.updatePoster(poster).then(data => {
             expect(data).toEqual(response)
             expect(data).toBeInstanceOf(Object)
@@ -106,6 +117,19 @@ describe("CheckTests update poster", () => {
             expect(err).toBeInstanceOf(Error)
         })
     })
+    test("should return value async error with promise if null ", async () => {
+        return _.updatePoster(null).catch(err => {
+            expect(err).toBeInstanceOf(Error)
+        })
+        
+    })
+    test("should return value async error with promise if empty string ", async () => {
+        return _.updatePoster('').catch(err => {
+            expect(err).toBeInstanceOf(Error)
+        })
+        
+    })
+ 
 })
 
 describe("CheckTest getById", () => {
@@ -130,9 +154,9 @@ describe("CheckTest getById", () => {
             expect(err).toBeInstanceOf(Error)
         })
     })
-    test("should return error", async () => {
-        return _.getPosterById(null).then(data => {
-            expect(data).toBeInstanceOf(Object)
+    test("should return error with null", async () => {
+        return _.getPosterById(null).catch(err => {
+            expect(err).toBeInstanceOf(Error)
         })
     })
 
