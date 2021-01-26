@@ -26,23 +26,10 @@
       <h2 class="font_ny">No posts yet</h2>
       <router-link tag="button" :to="'/Addnewpost'" class="btn_create">
         Create
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="40"
-          height="40"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="black"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="feather feather-chevron-right icon_create"
-        >
-          <polyline points="9 18 15 12 9 6"></polyline>
-        </svg>
+        <img src="../assets/icons/create.svg" alt="" class="icon_create" />
       </router-link>
     </div>
-    <h3 v-if="getLastElemKey == 0">Постов больше нет</h3>
+    <h3 v-if="getLastElemKey === 0">Постов больше нет</h3>
 
     <div v-if="getLoading" class="loader">
       <Loader />
@@ -55,19 +42,14 @@
 import Navigation from "@/components/Navigation";
 import CardsList from "@/components/CardsList";
 import Footer from "@/components/Footer";
-import Post from "@/views/Poster";
-import Pagination from "@/components/Pagination";
 import Loader from "@/components/Loader";
-import axios from "axios";
 import Alert from "@/components/Alert";
 import { mapGetters } from "vuex";
-import { httpAxios } from "../axios";
 export default {
   components: {
     Navigation,
     CardsList,
     Footer,
-    Pagination,
     Loader,
     Alert,
   },
@@ -86,33 +68,25 @@ export default {
       if (this.getLastElemKey !== 0) {
         this.$store.dispatch("setLoading", true);
         const res = await this.$store.dispatch("getCurrentPosters", {
-          currentPage: this.currentPage == 0 ? 1 : this.currentPage,
+          currentPage: this.currentPage === 0 ? 1 : this.currentPage,
           postersPerPage: this.postersPerPage,
           lastElemKey: this.getLastElemKey ? this.getLastElemKey : undefined,
         });
-        this.$store.dispatch("setLoading", false);
-      } else {
-        return;
+        await this.$store.dispatch("setLoading", false);
       }
     },
-    moreItems(e) {
-      this.$nextTick(function () {
+    moreItems() {
+      this.$nextTick(async function () {
         let list = this.$refs.listofcards;
-        if (list) {
-          if (list.getBoundingClientRect().bottom <= 490) {
-            if (!this.getLoading) {
-              this.currentPage + 1;
-              this.refresh();
-            } else {
-              return;
-            }
-          }
+        if (list && list.getBoundingClientRect().bottom <= 490 && !this.getLoading) {
+          this.currentPage + 1;
+          await this.refresh();
         }
       });
     },
   },
   async mounted() {
-    this.refresh();
+    await this.refresh();
     window.addEventListener("scroll", this.moreItems);
     this.moreItems();
   },
@@ -228,5 +202,10 @@ export default {
 .loader {
   height: 300px;
   margin: 0 auto;
+}
+.icon_create {
+  position: absolute;
+  top: 3px;
+  right: 20px;
 }
 </style>

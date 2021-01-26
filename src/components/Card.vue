@@ -2,7 +2,6 @@
   <div class="card">
     <router-link :to="`/article/` + image.id" class="link">
       <div>
-        <!-- <img :src="image.src" class="image" /> -->
         <img
           :src="`https://s3.us-east-2.amazonaws.com/posters.images/${image.key}`"
           class="image"

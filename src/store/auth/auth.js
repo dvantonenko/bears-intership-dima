@@ -21,7 +21,6 @@ export const Auth = {
             if (accessToken.length && username.length && refreshToken.length && email.length) {
 
                 actionLS("save", accessToken, refreshToken, username, email)
-
                 commit('setAuth', accessToken)
                 commit('setUsername', username)
             }

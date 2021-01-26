@@ -5,7 +5,6 @@
 </template>
 <script scoped>
 import Card from "./Card";
-import Footer from "./Footer";
 export default {
   props: ["images"],
   components: {

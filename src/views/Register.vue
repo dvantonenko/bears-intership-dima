@@ -18,25 +18,25 @@
           type="text"
           placeholder="First name"
           class="input_field_auth"
-          v-model="username"
+          v-model.trim="username"
         />
         <input
           type="text"
           placeholder="Last name"
           class="input_field_auth"
-          v-model="surename"
+          v-model.trim="surname"
         />
         <input
           type="email"
           placeholder="Email"
           class="input_field_auth"
-          v-model="email"
+          v-model.trim="email"
         />
         <input
           type="password"
           placeholder="Password"
           class="input_field_auth"
-          v-model="password"
+          v-model.trim="password"
         />
       </div>
 
@@ -62,24 +62,23 @@ import Alert from "../components/Alert";
 export default {
   components: { Alert },
   methods: {
-    async submitHandler() {
-      try {
-        const response = await this.$store.dispatch("registerHandler", {
-          username: this.email,
-          password: this.password,
-          surename: this.surename,
-          email: this.email,
-        });
-        if (response.data.message) {
-          return;
-        } else {
-          this.clearMessages("");
-          this.username = this.password = this.surename = this.email = "";
-          this.setSuccessAlert("User was created successfully");
-        }
-      } catch (e) {
-        console.log(e);
+    async submitRegistration(response) {
+      if (!response.data.message) {
+        this.clearMessages("");
+        this.username = this.password = this.surname = this.email = "";
+        this.setSuccessAlert("User was created successfully");
+      } else {
+        throw new Error(response.data.message);
       }
+    },
+    async submitHandler() {
+      const response = await this.$store.dispatch("registerHandler", {
+        username: this.email,
+        password: this.password,
+        surname: this.surname,
+        email: this.email,
+      });
+      this.submitRegistration(response);
     },
 
     ...mapMutations(["setSuccessAlert", "setErrorAlert", "clearMessages"]),
@@ -87,7 +86,7 @@ export default {
   data() {
     return {
       username: "",
-      surename: "",
+      surname: "",
       email: "",
       password: "",
     };

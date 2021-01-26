@@ -17,14 +17,14 @@
           type="text"
           placeholder="email"
           class="input_field_auth font_lato_r"
-          v-model="email"
+          v-model.trim="email"
         />
 
         <input
           type="Password"
           placeholder="password"
           class="input_field_auth font_lato_r"
-          v-model="password"
+          v-model.trim="password"
         />
       </div>
 
@@ -46,22 +46,21 @@
 import { mapMutations, mapGetters } from "vuex";
 export default {
   methods: {
-    async submitHandler() {
-      try {
-        const response = await this.$store.dispatch("loginHandler", {
-          email: this.email,
-          password: this.password,
-        });
-        if (response.data.message) {
-          return;
-        } else {
-          this.clearMessages("");
-          this.setSuccessAlert("You are loged in success");
-          this.$router.push("/");
-        }
-      } catch (e) {
-        console.log(e.message);
+    checkResponse(response) {
+      if (!response.data.message) {
+        this.clearMessages("");
+        this.setSuccessAlert("You are loged in success");
+        this.$router.push("/");
+      } else {
+        throw new Error(response.data.message);
       }
+    },
+    async submitHandler() {
+      const response = await this.$store.dispatch("loginHandler", {
+        email: this.email,
+        password: this.password,
+      });
+      this.checkResponse(response);
     },
     ...mapMutations(["setAuth", "setErrorAlert", "setSuccessAlert", "clearMessages"]),
   },

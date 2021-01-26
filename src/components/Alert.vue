@@ -8,24 +8,28 @@ export default {
     return {};
   },
   methods: {
+    successAlert() {
+      return this.$swal({
+        icon: "error",
+        title: "Oops...",
+        text: `${this.getErrorMessage}`,
+        timer: 2000,
+      });
+    },
+    errorAlert() {
+      return this.$swal({
+        position: "top-end",
+        icon: "success",
+        title: `${this.getSuccessMessage}`,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    },
     showAlert() {
       if (this.getErrorMessage) {
-        this.$swal({
-          icon: "error",
-          title: "Oops...",
-          text: `${this.getErrorMessage}`,
-          timer: 2000,
-        });
+        this.successAlert();
       } else if (this.getSuccessMessage) {
-        {
-          this.$swal({
-            position: "top-end",
-            icon: "success",
-            title: `${this.getSuccessMessage}`,
-            showConfirmButton: false,
-            timer: 2000,
-          });
-        }
+        this.errorAlert();
       }
     },
   },
