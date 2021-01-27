@@ -17,7 +17,10 @@
       <hr />
     </div>
     <p class="articles font_ny font_style_bold center">All articles</p>
-
+    <select v-model="filter">
+      <option value="old_at_first">Old at first</option>
+      <option value="new_at_first">New at first</option>
+    </select>
     <div v-if="currentPosters.length" ref="listofcards" id="listofcards">
       <CardsList v-bind:images="currentPosters" />
     </div>
@@ -58,6 +61,7 @@ export default {
       postUpdate: null,
       postersPerPage: 2,
       currentPage: 0,
+      filter: "old_at_first",
     };
   },
   methods: {
@@ -67,10 +71,11 @@ export default {
     async refresh() {
       if (this.getLastElemKey !== 0) {
         this.$store.dispatch("setLoading", true);
-        const res = await this.$store.dispatch("getCurrentPosters", {
+        await this.$store.dispatch("getCurrentPosters", {
           currentPage: this.currentPage === 0 ? 1 : this.currentPage,
           postersPerPage: this.postersPerPage,
           lastElemKey: this.getLastElemKey ? this.getLastElemKey : undefined,
+          filter: this.filter,
         });
         await this.$store.dispatch("setLoading", false);
       }
@@ -90,9 +95,16 @@ export default {
     window.addEventListener("scroll", this.moreItems);
     this.moreItems();
   },
-  computed: mapGetters(["currentPosters", "getLength", "getLoading", "getLastElemKey"]),
+  computed: {
+    ...mapGetters(["currentPosters", "getLength", "getLoading", "getLastElemKey"]),
+  },
+
   watch: {
     currentPosters() {},
+    async filter() {
+      await this.$store.dispatch("clearPosters");
+      await this.refresh();
+    },
   },
 };
 </script>
@@ -207,5 +219,17 @@ export default {
   position: absolute;
   top: 3px;
   right: 20px;
+}
+select {
+  margin: 10px;
+  width: 150px;
+  padding: 5px 35px 5px 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  height: 34px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url("../assets/icons/chevron-down-outline.svg") 96% / 15% no-repeat;
 }
 </style>
