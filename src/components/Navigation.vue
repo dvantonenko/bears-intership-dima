@@ -1,5 +1,5 @@
 <template>
-  <nav class="nav">
+  <nav class="nav" ref="nav">
     <div class="title">
       <span class="title_text font_ny">Nordic rose</span>
     </div>
@@ -12,40 +12,41 @@
           :href="link === `Blog` ? `#/` : `#/${link.replace(/\s+/g, '')}/`"
           v-bind:class="{
             active:
-              link && $route.name && $route.name.toLowerCase() === link.toLowerCase(),
+              link &&
+              $route.name &&
+              $route.name.toString().toLowerCase() ===
+                link.toString().toLowerCase().replace(/\s+/g, ''),
           }"
           v-bind:key="link"
           v-on:click="clickHandler"
-          >{{ link }}</a
         >
+          {{ link }}
+        </a>
       </div>
 
       <img
-        v-else-if="screenSize < 645 && !sideMenu"
-        src="../assets/icons/Menu_icon_2_icon-icons.com_71856 (1).svg"
-        class="menu_button"
-        v-on:click="sideMenu = !sideMenu"
-      />
-
-      <img
-        v-else-if="screenSize < 645 && sideMenu"
-        src="../assets/icons/cancel.svg"
+        v-else-if="screenSize < 645"
+        :src="sideMenu ? cancelImage : burger"
         class="menu_button"
         v-on:click="sideMenu = !sideMenu"
       />
     </div>
-    <div v-if="sideMenu" class="menu_toggle">
-      <p v-for="link of links" v-bind:key="link">
-        <strong
-          ><a :href="link === `Blog` ? `#/` : `#/${link}/`">{{ link }}</a></strong
-        >
-      </p>
+    <div v-if="sideMenu" class="menu_toggle" ref="menuToggle">
+      <router-link
+        v-for="link of links"
+        v-bind:key="link"
+        :to="link === `Blog` ? `/` : `/${link.replace(/\s+/g, '')}/`"
+        class="menu_link font_ny_s"
+        ><p v-on:click="sideMenu = !sideMenu">{{ link }}</p>
+      </router-link>
     </div>
   </nav>
 </template>
 
 <script>
 import { mapMutations, mapGetters } from "vuex";
+import cancelImage from "../assets/icons/cancel.svg";
+import burger from "../assets/icons/Menu_icon_2_icon-icons.com_71856 (1).svg";
 export default {
   name: "Navigation",
   data() {
@@ -53,9 +54,21 @@ export default {
       links: ["Sign In", "Sign Up"],
       screenSize: null,
       sideMenu: false,
+      scrolledTop: 0,
+      cancelImage,
+      burger,
     };
   },
   methods: {
+    scrollTop() {
+      let ref = this.$refs.menuToggle;
+      this.scrolledTop = window.pageYOffset;
+      if (ref && this.scrolledTop >= 65) {
+        ref.classList.add("close");
+      } else if (ref && this.scrolledTop < 65) {
+        ref.classList.remove("close");
+      }
+    },
     onResize() {
       this.screenSize = document.documentElement.clientWidth;
       if (this.screenSize > 645) this.sideMenu = false;
@@ -87,7 +100,7 @@ export default {
     }
 
     window.addEventListener("resize", this.onResize);
-    this.onResize();
+    window.addEventListener("scroll", this.scrollTop);
   },
   computed: mapGetters(["getAuth"]),
   watch: {
@@ -108,6 +121,7 @@ export default {
   height: 133px;
   background: #ffffff;
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.16);
+  transition: 0.5s;
 }
 .title {
   display: flex;
@@ -156,18 +170,32 @@ export default {
   margin-top: 10px;
 }
 .menu_toggle {
-  position: absolute;
-  top: 65px;
-  right: 0px;
-  height: 200px;
+  position: fixed;
+  top: 66px;
+  bottom: 0px;
   min-width: 375px;
-  background: rgb(192, 192, 192, 0.5);
+  padding-top: 120px;
+  background: rgb(255, 255, 255);
   text-align: center;
   width: 100%;
-  z-index: 1;
+  z-index: 10;
+}
+.menu_toggle.close {
+  top: 0;
 }
 .active {
   border-bottom: 2px solid black;
+}
+.menu_link {
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 170%;
+  color: black;
+  text-align: center;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 @media screen and (max-width: 1070px) {
