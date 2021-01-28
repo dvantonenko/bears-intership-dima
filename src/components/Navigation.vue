@@ -59,6 +59,9 @@ export default {
       burger,
     };
   },
+  created: function () {
+    this.onResize();
+  },
   methods: {
     scrollTop() {
       let ref = this.$refs.menuToggle;
@@ -70,6 +73,7 @@ export default {
       }
     },
     onResize() {
+      console.log(this.screenSize);
       this.screenSize = document.documentElement.clientWidth;
       if (this.screenSize > 645) this.sideMenu = false;
     },
@@ -87,7 +91,6 @@ export default {
     },
     ...mapMutations(["setAuth", "setUsername", "clearMessages"]),
   },
-
   mounted() {
     const token = JSON.parse(localStorage.getItem("awsAccessToken"));
     const username = JSON.parse(localStorage.getItem("awsUsername"));
