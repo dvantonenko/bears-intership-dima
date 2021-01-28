@@ -31,15 +31,21 @@
         v-on:click="sideMenu = !sideMenu"
       />
     </div>
-    <div v-if="sideMenu" class="menu_toggle" ref="menuToggle">
-      <router-link
-        v-for="link of links"
-        v-bind:key="link"
-        :to="link === `Blog` ? `/` : `/${link.replace(/\s+/g, '')}/`"
-        class="menu_link font_ny_s"
-        ><p v-on:click="sideMenu = !sideMenu">{{ link }}</p>
-      </router-link>
-    </div>
+    <transition name="slide_fade">
+      <div v-if="sideMenu" class="menu_toggle" ref="menuToggle">
+        <router-link
+          v-for="link of links"
+          v-bind:key="link"
+          :to="link === `Blog` ? `/` : `/${link.replace(/\s+/g, '')}/`"
+          class="menu_router font_ny_s"
+          ><p>
+            <a class="menu_link" :name="link" v-on:click="clickHandler" id="menu">
+              {{ link }}
+            </a>
+          </p>
+        </router-link>
+      </div>
+    </transition>
   </nav>
 </template>
 
@@ -73,7 +79,6 @@ export default {
       }
     },
     onResize() {
-      console.log(this.screenSize);
       this.screenSize = document.documentElement.clientWidth;
       if (this.screenSize > 645) this.sideMenu = false;
     },
@@ -87,6 +92,9 @@ export default {
       }
       if (e.target.name == "Sign In" || "Sign Up") {
         this.clearMessages("");
+      }
+      if (e.target.id) {
+        this.sideMenu = !this.sideMenu;
       }
     },
     ...mapMutations(["setAuth", "setUsername", "clearMessages"]),
@@ -124,7 +132,10 @@ export default {
   height: 133px;
   background: #ffffff;
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.16);
-  transition: 0.5s;
+  transition: 1s;
+}
+.nav.hide {
+  transform: translateY(-50px);
 }
 .title {
   display: flex;
@@ -189,7 +200,7 @@ export default {
 .active {
   border-bottom: 2px solid black;
 }
-.menu_link {
+.menu_router {
   text-decoration: none;
   font-style: normal;
   font-weight: 500;
@@ -201,6 +212,21 @@ export default {
   text-transform: uppercase;
 }
 
+.menu_link:hover {
+  text-decoration: underline;
+}
+
+.slide_fade-enter-active {
+  transition: all 0.8s ease;
+}
+.slide_fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide_fade-enter,
+.slide_fade-leave-to {
+  transform: translateY(-1000px);
+  opacity: 0;
+}
 @media screen and (max-width: 1070px) {
   .links_block {
     margin-left: 0%;
