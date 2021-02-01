@@ -21,9 +21,9 @@ export const Post = {
             setAlert(response, commit)
         },
         async getCurrentPosters({ commit }, obj) {
-            const { currentPage, postersPerPage, lastElemKey } = obj
+            const { currentPage, postersPerPage, lastElemKey, filter } = obj
             let response = await Vue.axios.get("/poster",
-                { params: { currentPage, postersPerPage, lastElemKey } });
+                { params: { currentPage, postersPerPage, lastElemKey, filter } });
 
             if (response.data.posters.queryResult.length) {
                 commit('currentPosters', response.data.posters)
@@ -50,6 +50,9 @@ export const Post = {
         clearMessages({ commit }) {
             commit('clearMessages')
         },
+        clearPosters({ commit }) {
+            commit("clearPosters")
+        }
     },
     mutations: {
         currentPosters(state, obj) {
