@@ -1,21 +1,13 @@
 <template>
   <div class="card">
+    <div class="description_text font_sf">
+      {{ image.description }}
+    </div>
     <router-link :to="`/article/` + image.id" class="link">
-      <div>
-        <img
-          @mouseover="visible = !visible"
-          @mouseleave="visible = !visible"
-          :src="`https://s3.us-east-2.amazonaws.com/posters.images/${image.key}`"
-          class="image"
-        />
-        <div class="animation_block">
-          <transition name="slide-fade">
-            <div v-if="visible" class="description_text font_sf">
-              {{ image.description }}
-            </div>
-          </transition>
-        </div>
-      </div>
+      <img
+        :src="`https://s3.us-east-2.amazonaws.com/posters.images/${image.key}`"
+        class="image"
+      />
     </router-link>
   </div>
 </template>
@@ -25,7 +17,7 @@ export default {
   props: ["image"],
   data() {
     return {
-      visible: false,
+      show: false,
     };
   },
 };
@@ -33,18 +25,22 @@ export default {
 
 <style>
 .card {
-  padding: 5px;
-  height: 250px;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  height: 175px;
   float: left;
-  margin: 0 9px;
-}
-.image {
-  height: 176px;
-  width: 304px;
-  transition: all 0.2s ease-in;
+  margin: 40px 14px;
+  min-width: 304px;
+  z-index: 1;
+  transition: all 0.5s ease-in;
+  animation: show 3s 1;
+  animation-fill-mode: forwards;
+  animation-delay: 1s;
 }
 .description_text {
-  transform: translateY(-44px);
+  position: absolute;
+  opacity: 0;
   width: 100%;
   font-size: 22px;
   line-height: 50px;
@@ -54,32 +50,32 @@ export default {
   font-style: normal;
   font-weight: 500;
   background-color: rgba(0, 0, 0, 0.8);
-  z-index: auto;
   transition: 0.5s;
+  z-index: 3;
+}
+.image {
+  height: 176px;
+  width: 304px;
+  transition: all 0.2s ease-in;
+  z-index: 2;
 }
 .link {
   text-decoration: none;
 }
-.image:hover {
-  transform: scale(1.1);
+.card:hover .description_text {
+  opacity: 1;
+  transform: translateY(124px);
 }
-.image:hover + .animation_block {
+.card:hover {
   transform: scale(1.1);
-}
-.animation_block {
-  height: 50px;
-  width: 304px;
 }
 
-.slide-fade-enter-active {
-  transition: all 0.3s ease;
-}
-.slide-fade-leave-active {
-  transition: all 0.8s;
-}
-.slide-fade-enter,
-.slide-fade-leave-to {
-  transform: translateY(-100px);
-  opacity: 0;
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 </style>
