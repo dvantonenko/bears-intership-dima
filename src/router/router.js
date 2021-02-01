@@ -45,8 +45,12 @@ let router = new Router({
             path: `/signup`,
             name: 'signup',
             component: () => import('@/views/Register')
+        },
+        {
+            path: `/tasks`,
+            name: 'tasks',
+            component: () => import('@/views/Tasks')
         }
-
 
     ]
 })

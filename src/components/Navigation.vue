@@ -105,7 +105,7 @@ export default {
     if (token && username) {
       this.setAuth(token);
       this.setUsername(username);
-      this.links = ["Blog", "Add new post", "Widgets", "Logout"];
+      this.links = ["Blog", "Add new post", "Widgets", "Tasks", "Logout"];
     } else {
       this.links = ["Sign In", "Sign Up"];
     }
@@ -117,7 +117,7 @@ export default {
   watch: {
     getAuth() {
       if (!!this.getAuth) {
-        this.links = ["Blog", "Add new post", "Widgets", "Logout"];
+        this.links = ["Blog", "Add new post", "Widgets", "Tasks", "Logout"];
       } else {
         this.links = ["Sign In", "Sign Up"];
       }
