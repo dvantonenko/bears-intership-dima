@@ -2,7 +2,7 @@ import axios from "axios"
 
 async function checkTimeRemaining(exp) {
     let dateInMin = Math.trunc(Date.now() / 1000)
-    if ((exp - dateInMin) <= 3590) {
+    if ((exp - dateInMin) <= 900) {
         console.log("time over")
         const { refreshToken, email } = getToken()
         const { newAccessToken, newRefreshToken } = await refreshTokenRequest(refreshToken, email)
