@@ -25,15 +25,6 @@
           @click="deleteColumn"
           :id="column.id"
         />
-
-        <input
-          @keyup.enter="addNewTask"
-          placeholder="Enter Task"
-          class="input_add_task"
-          v-model="arrColumns.find((item) => item.id === column.id).text"
-          :id="column.id"
-          @click="addNewTask"
-        />
         <h2>
           {{ column.name }}
         </h2>
@@ -46,28 +37,30 @@
         >
           <div class="task_elem" v-for="element in column.tasks" :key="element.name">
             {{ element.name }}
-            <div v-if="showUpdateInput" class="update_modal">
-              <div class="update_block">
-                <img
-                  src="../assets/icons/cancel.svg"
-                  class="close_update"
-                  @click="closeModalUpdate"
-                />
-                <label class="label_input" for="update"><h2>Update Card</h2></label>
-                <div style="height: 70px">
-                  <input
-                    class="update_input"
-                    v-model="toUpdateText"
-                    type="text"
-                    id="update"
+            <transition name="fade">
+              <div v-if="showUpdateInput" class="update_modal">
+                <div class="update_block">
+                  <img
+                    src="../assets/icons/cancel.svg"
+                    class="close_update"
+                    @click="closeModalUpdate"
                   />
-                </div>
+                  <label class="label_input" for="update"><h2>Update Card</h2></label>
+                  <div style="height: 70px">
+                    <input
+                      class="update_input"
+                      v-model="toUpdateText"
+                      type="text"
+                      id="update"
+                    />
+                  </div>
 
-                <button class="save_button add_button_style" @click="saveUpdate">
-                  Save
-                </button>
+                  <button class="save_button add_button_style" @click="saveUpdate">
+                    Save
+                  </button>
+                </div>
               </div>
-            </div>
+            </transition>
             <img
               class="update_icon"
               src="../assets/icons/refresh-ccw.svg"
@@ -87,12 +80,39 @@
             <div v-if="!column.tasks.length" style="height: 300px"></div>
           </div>
         </draggable>
+        <div>
+          <transition name="fade">
+            <input
+              v-if="arrColumns.find((item) => item.id === column.id).newTaskWindow"
+              @keyup.enter="addNewTask"
+              placeholder="Enter Task"
+              class="input_add_task"
+              v-model="arrColumns.find((item) => item.id === column.id).text"
+              :id="column.id"
+              @click="addNewTask"
+            />
+          </transition>
+        </div>
+        <transition name="fade">
+          <img
+            :src="
+              arrColumns.find((item) => item.id === column.id).newTaskWindow
+                ? xSquare
+                : plus
+            "
+            class="add_task_icon"
+            :id="column.id"
+            @click="newTasksInput"
+          />
+        </transition>
       </div>
     </draggable>
   </div>
 </template>
 <script>
 import draggable from "vuedraggable";
+import plus from "../assets/icons/plus.svg";
+import xSquare from "../assets/icons/x-square.svg";
 export default {
   components: {
     draggable,
@@ -103,30 +123,41 @@ export default {
       newTask: "",
       newColumn: "",
       arrColumns: [
-        { name: "Backlog", tasks: [{ name: "Code SignPage" }], id: 1, text: "" },
+        {
+          name: "Backlog",
+          tasks: [{ name: "Code SignPage" }],
+          id: 1,
+          text: "",
+          newTaskWindow: false,
+        },
         {
           name: "In Process",
           tasks: [{ name: "Test DashBoard" }],
           id: 2,
           text: "",
+          newTaskWindow: false,
         },
         {
           name: "Testing",
           tasks: [{ name: "Style Registration" }],
           id: 3,
           text: "",
+          newTaskWindow: false,
         },
         {
           name: "Done",
           tasks: [{ name: "Help With Designs" }],
           id: 4,
           text: "",
+          newTaskWindow: false,
         },
       ],
       showUpdateInput: false,
       toUpdateText: "",
       toSaveText: "",
       indexUpdate: null,
+      plus,
+      xSquare,
     };
   },
   methods: {
@@ -146,6 +177,7 @@ export default {
           tasks: [],
           id: this.arrColumns.length + 1,
           text: "",
+          newTaskWindow: false,
         });
         this.newColumn = "";
       }
@@ -188,6 +220,13 @@ export default {
       this.toSaveText = "";
       this.showUpdateInput = false;
     },
+    newTasksInput(e) {
+      console.log(e);
+      this.arrColumns.find(
+        (item) => item.id === Number(e.target.id)
+      ).newTaskWindow = !this.arrColumns.find((item) => item.id === Number(e.target.id))
+        .newTaskWindow;
+    },
   },
   watch: {
     arrColumns() {
@@ -197,13 +236,13 @@ export default {
 };
 </script>
 <style scoped>
-.pointer-events {
-  color: red;
+.container {
+  overflow: scroll;
 }
 .header {
   display: flex;
-  width: 20%;
   margin: 0 auto;
+  text-align: center;
 }
 .input_add_column {
   border: 2px solid transparent;
@@ -218,13 +257,18 @@ export default {
 }
 .input_add_task {
   border: 2px solid transparent;
-  border-bottom: 2px solid grey;
-  margin: 10px;
-  padding: 10px;
-  height: 20px;
+  border-bottom: 2px solid white;
+  margin: 20px auto;
+  padding: 12px;
+  height: 42px;
   outline: none;
   background: none;
-  color: black;
+  box-sizing: border-box;
+  width: 230px;
+  font-size: 20px;
+}
+input.input_add_task::placeholder {
+  color: rgb(0, 0, 0);
 }
 .input_add_task:focus {
   border: 2px solid grey;
@@ -249,19 +293,16 @@ export default {
 }
 .columns_block {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
 }
 .column_elem {
   position: relative;
   float: left;
-  width: 20%;
   min-width: 280px;
   border: 1px solid grey;
   border-radius: 20px;
-  min-height: 300px;
   margin: 5px;
   background-color: #a9ee29e3;
+  height: fit-content;
 }
 
 .task_elem {
@@ -272,9 +313,9 @@ export default {
   margin: 0 10px;
   line-height: 40px;
 }
-.drag_n_drop_task {
-  min-height: 300px;
-}
+/* .drag_n_drop_task {
+  min-height: 200px;
+} */
 .cancel_icon {
   height: 20px;
   width: 20px;
@@ -358,5 +399,31 @@ export default {
   width: 20px;
   height: 20px;
   cursor: pointer;
+}
+.add_task_icon {
+  width: 30px;
+  height: 30px;
+  transition: all 1s ease-in;
+  cursor: pointer;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+@media screen and (max-width: 620px) {
+  .columns_block {
+    flex-wrap: wrap;
+  }
+  .column_elem {
+    margin: 5px auto;
+  }
+  .header {
+    display: inline-block;
+    margin: 0 auto;
+  }
 }
 </style>

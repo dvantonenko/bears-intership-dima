@@ -15,6 +15,7 @@ export const Post = {
             const response = await Vue.axios.post("/poster/add", obj)
             obj.task.owner = this.state.Auth.username
             setAlert(response, commit)
+            return response
         },
         async deletePoster({ commit }, id) {
             const response = await Vue.axios.post("/poster/delete", id)
@@ -37,7 +38,7 @@ export const Post = {
             const response = await Vue.axios.post("/poster/update", poster);
             setAlert(response, commit)
             commit('setAnswer', response.data.message)
-
+            return response
         },
         async getPosterById({ commit }, id) {
             const response = await Vue.axios.get(`/poster/update/${id}`);

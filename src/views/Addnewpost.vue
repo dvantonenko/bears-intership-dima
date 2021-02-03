@@ -122,8 +122,8 @@ export default {
     },
     async submitHandler() {
       this.clearPosters();
-      await this.$store.dispatch("addPoster", this.submitNewPost());
-      if (!this.getErrorMessage) {
+      const response = await this.$store.dispatch("addPoster", this.submitNewPost());
+      if (!response.data.errorMessage) {
         await this.$router.push("/");
       }
     },

@@ -58,7 +58,7 @@
 
       <img class="image_field" v-if="src" :src="src" />
 
-      <div class="btn_block">
+      <div v-if="!loading" class="btn_block">
         <button class="btn_publish" type="submit">Update</button>
       </div>
     </form>
@@ -82,12 +82,15 @@ export default {
       subtitle: "",
       src: null,
       id: null,
+      loading: false,
     };
   },
   async mounted() {
+    this.loading = true;
     const id = this.$route.params.id;
     await this.$store.dispatch("getPosterById", id);
     this.getCurrentPosterParams(id);
+    this.loading = false;
   },
   computed: mapGetters(["currentPoster", "getAnswer", "getErrorMessage", "getUsername"]),
 
@@ -100,8 +103,8 @@ export default {
         id: this.id,
       };
       this.clearPosters();
-      await this.$store.dispatch("updatePoster", poster);
-      if (!this.getErrorMessage) {
+      const response = await this.$store.dispatch("updatePoster", poster);
+      if (!response.data.errorMessage) {
         await this.$router.push("/");
       }
     },
