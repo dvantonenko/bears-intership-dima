@@ -1,10 +1,13 @@
-import Vue from 'vue'
+import VueJwtDecode from 'vue-jwt-decode'
 import axios from "axios";
+import { checkTimeRemaining } from './utils/checkToken'
 
 let headers = {}
 headers['Content-Type'] = 'application/json'
 headers['Accept'] = 'application/json'
 headers['Authorization'] = false
+
+let expirationDate = null
 
 let axiosParams = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL,
@@ -15,17 +18,16 @@ axiosParams.interceptors.request.use(
     async config => {
         try {
             let token = JSON.parse(localStorage.getItem("awsAccessToken"))
-
             if (token) {
+                expirationDate = VueJwtDecode.decode(`${token}`).exp
+                await checkTimeRemaining(expirationDate)
                 config.headers['Authorization'] = `Bearer ${token}`
             } else {
                 throw new Error(`unauthenticated request to ${config.url}`)
             }
-
         } catch (e) {
-            console.log(`unauthenticated request to ${config.url}`)
+            console.log(e)
         }
-
         return config
     },
     error => {

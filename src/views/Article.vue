@@ -62,7 +62,7 @@
             type="button"
             class="btn_action"
             style="margin-top: 25px"
-            v-on:click="deletePoster"
+            v-on:click="deletePosterHandler"
           >
             Delete
           </button>
@@ -76,8 +76,6 @@
 </template>
 
 <script>
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
 import InputForm from "@/components/InputForm";
 import Poster from "./Poster";
 import { mapGetters, mapMutations } from "vuex";
@@ -104,18 +102,17 @@ export default {
       if (this.screenSize > 645) this.sideMenu = false;
     },
     async deletePoster() {
+      this.clearPosters();
+      await this.$store.dispatch("deletePoster", {
+        id: this.id,
+      });
+      await this.$router.push("/");
+    },
+    async deletePosterHandler() {
       if (this.getUsername && this.currentPoster.owner !== this.getUsername) {
         this.setErrorAlert("You don't have permissions to delete post");
       } else {
-        this.clearPosters();
-        await this.$store.dispatch("deletePoster", {
-          id: this.id,
-          currentPoster: this.currentPoster,
-        });
-
-        setTimeout(() => {
-          this.$router.push("/");
-        }, 1000);
+        this.deletePoster();
       }
     },
     closeModal() {
