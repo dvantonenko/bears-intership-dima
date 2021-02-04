@@ -61,6 +61,7 @@
                 </div>
               </div>
             </transition>
+
             <img
               class="update_icon"
               src="../assets/icons/refresh-ccw.svg"

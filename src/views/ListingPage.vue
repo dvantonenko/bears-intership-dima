@@ -32,7 +32,7 @@
         <img src="../assets/icons/create.svg" alt="" class="icon_create" />
       </router-link>
     </div>
-    <h3 v-if="getLastElemKey === 0">Постов больше нет</h3>
+    <h3 v-if="getLastElemKey === 0">No more posts</h3>
 
     <div v-if="getLoading" class="loader">
       <Loader />
