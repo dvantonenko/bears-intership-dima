@@ -316,7 +316,7 @@ input.input_add_task::placeholder {
   cursor: pointer;
 }
 .drag_n_drop_task {
-  min-height: 200px;
+  min-height: 100px;
 }
 .cancel_icon {
   height: 20px;
