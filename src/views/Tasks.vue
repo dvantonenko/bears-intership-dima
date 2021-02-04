@@ -313,10 +313,11 @@ input.input_add_task::placeholder {
   background-color: white;
   margin: 0 10px;
   line-height: 40px;
+  cursor: pointer;
 }
-/* .drag_n_drop_task {
-  min-height: 200px;
-} */
+.drag_n_drop_task {
+  min-height: 100px;
+}
 .cancel_icon {
   height: 20px;
   width: 20px;
