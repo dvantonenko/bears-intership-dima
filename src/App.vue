@@ -7,10 +7,8 @@
 </template>
 
 <script>
-import ListingPage from "@/views/ListingPage";
 import Footer from "./components/Footer";
 import Navigation from "./components/Navigation";
-
 export default {
   name: "App",
   components: {

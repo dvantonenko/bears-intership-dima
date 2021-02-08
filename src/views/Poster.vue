@@ -58,15 +58,14 @@
 
       <img class="image_field" v-if="src" :src="src" />
 
-      <div class="btn_block">
-        <button href="/" class="btn_publish" type="submit">Update</button>
+      <div v-if="!loading" class="btn_block">
+        <button class="btn_publish" type="submit">Update</button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
-import axios from "axios";
 import { mapGetters, mapMutations } from "vuex";
 import Alert from "../components/Alert";
 
@@ -83,22 +82,20 @@ export default {
       subtitle: "",
       src: null,
       id: null,
+      loading: false,
     };
   },
   async mounted() {
+    this.loading = true;
     const id = this.$route.params.id;
     await this.$store.dispatch("getPosterById", id);
-    const { title, subtitle, description, src } = this.currentPoster;
-    this.title = title;
-    this.description = description;
-    this.subtitle = subtitle;
-    this.id = id;
-    this.src = src;
+    this.getCurrentPosterParams(id);
+    this.loading = false;
   },
-  computed: mapGetters(["currentPoster", "getAnswer", "getErrorMessage"]),
+  computed: mapGetters(["currentPoster", "getAnswer", "getErrorMessage", "getUsername"]),
 
   methods: {
-    async submitHandler() {
+    async submitUpdate() {
       const poster = {
         title: this.title,
         subtitle: this.subtitle,
@@ -106,12 +103,27 @@ export default {
         id: this.id,
       };
       this.clearPosters();
-      await this.$store.dispatch("updatePoster", poster);
-      if (!this.getErrorMessage) {
-        this.$router.push("/");
+      const response = await this.$store.dispatch("updatePoster", poster);
+      if (!response.data.errorMessage) {
+        await this.$router.push("/");
       }
     },
-    ...mapMutations(["clearAnswer", "clearPosters"]),
+    async submitHandler() {
+      if (this.getUsername && this.currentPoster.owner !== this.getUsername) {
+        this.setErrorAlert("You don't have permissions to update post");
+      } else {
+        this.submitUpdate();
+      }
+    },
+    getCurrentPosterParams(id) {
+      const { title, subtitle, description, src } = this.currentPoster;
+      this.title = title;
+      this.description = description;
+      this.subtitle = subtitle;
+      this.id = id;
+      this.src = src;
+    },
+    ...mapMutations(["clearAnswer", "clearPosters", "setErrorAlert"]),
   },
 };
 </script>

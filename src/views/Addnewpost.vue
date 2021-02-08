@@ -71,9 +71,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
-import { http } from "../http";
 import { mapGetters, mapMutations } from "vuex";
 import Alert from "../components/Alert.vue";
 import imageCompressor from "vue-image-compressor";
@@ -110,26 +107,29 @@ export default {
         this.src = createSrc.result;
       };
     },
-    async submitHandler(e) {
+    submitNewPost() {
       const task = {
         title: this.title,
         subtitle: this.subtitle,
         description: this.description,
         key: this.key,
         id: this.id,
-        indexPoster: this.getLength == 0 ? 1 : this.getLength + 1,
+        owner: this.getUsername,
         Posts: "posts",
       };
       let file = this.file;
+      return { task, file };
+    },
+    async submitHandler() {
       this.clearPosters();
-      await this.$store.dispatch("addPoster", { task, file });
-      if (!this.getErrorMessage) {
-        this.$router.push("/");
+      const response = await this.$store.dispatch("addPoster", this.submitNewPost());
+      if (!response.data.errorMessage) {
+        await this.$router.push("/");
       }
     },
     ...mapMutations(["clearPosters"]),
   },
-  computed: mapGetters(["getLength", "getErrorMessage"]),
+  computed: mapGetters(["getErrorMessage", "getUsername"]),
 };
 </script>
 <style scoped>

@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
 import axios from 'axios'
 
 function setAlert(response, commit) {
@@ -13,16 +12,19 @@ function setAlert(response, commit) {
 export const Post = {
     actions: {
         async addPoster({ commit }, obj) {
-            const response = await axios.post("http://localhost:3000/poster/add", obj)
+            const response = await Vue.axios.post("/poster/add", obj)
+            obj.task.owner = this.state.Auth.username
             setAlert(response, commit)
+            return response
         },
-        async deletePoster({ commit }, obj) {
-            const response = await axios.post("http://localhost:3000/poster/delete", obj)
+        async deletePoster({ commit }, id) {
+            const response = await Vue.axios.post("/poster/delete", id)
             setAlert(response, commit)
         },
         async getCurrentPosters({ commit }, obj) {
-            const { currentPage, postersPerPage, lastElemKey } = obj
-            let response = await axios.get("http://localhost:3000/poster", { params: { currentPage, postersPerPage, lastElemKey } });
+            const { currentPage, postersPerPage, lastElemKey, filter } = obj
+            let response = await Vue.axios.get("/poster",
+                { params: { currentPage, postersPerPage, lastElemKey, filter } });
 
             if (response.data.posters.queryResult.length) {
                 commit('currentPosters', response.data.posters)
@@ -33,13 +35,13 @@ export const Post = {
             }
         },
         async updatePoster({ commit }, poster) {
-            const response = await axios.post("http://localhost:3000/poster/update", poster);
+            const response = await Vue.axios.post("/poster/update", poster);
             setAlert(response, commit)
             commit('setAnswer', response.data.message)
-
+            return response
         },
         async getPosterById({ commit }, id) {
-            const response = await axios.get(`http://localhost:3000/poster/update/${id}`);
+            const response = await Vue.axios.get(`/poster/update/${id}`);
 
             commit('setCurrentPoster', response.data.Item)
         },
@@ -49,6 +51,9 @@ export const Post = {
         clearMessages({ commit }) {
             commit('clearMessages')
         },
+        clearPosters({ commit }) {
+            commit("clearPosters")
+        }
     },
     mutations: {
         currentPosters(state, obj) {
@@ -85,7 +90,7 @@ export const Post = {
         },
         clearPosters(state) {
             state.posters = []
-            state.lastElemKey=null
+            state.lastElemKey = null
         }
     },
     state: {

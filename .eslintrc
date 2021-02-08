@@ -6,6 +6,10 @@
     ],
     "plugins": [
         "import",
-        "vue"
-    ]
+        "vue",
+        "jest"
+    ],
+    "env": {
+        "jest/globals": true
+    }
 }
